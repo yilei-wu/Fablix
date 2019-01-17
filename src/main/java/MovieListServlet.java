@@ -55,7 +55,7 @@ public class MovieListServlet extends HttpServlet {
                 String list_of_stars = rs.getString("sname");
 
                 JsonObject movie = new JsonObject();
-                movie.addProperty("titles", title);
+                movie.addProperty("title", title);
                 movie.addProperty("year", year);
                 movie.addProperty("director", director);
                 movie.addProperty("rating", rating);
