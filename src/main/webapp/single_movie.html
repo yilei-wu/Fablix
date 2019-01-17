@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single Movie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="single_movie.js"></script>
+
+    <style>
+        .add_info {
+            height: 100%;
+            width: 35%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: #cecece;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .movie_info {
+            height: 100%;
+            width: 65%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+
+        .movie_title {
+            /*height: 100px;*/
+            font-size: 60px;
+            text-align: center;
+        }
+
+        .year {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .dir_name {
+            font-size: 20px;
+        }
+
+        .star_buffer {
+            margin-top: 20px;
+        }
+
+        .star_name {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .id {
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .rating {
+            font-size: 90px;
+            text-align: center;
+        }
+
+        .genre {
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container movie_info">
+    <div class="row justify-content-end">
+        <div class="col-4 movie_title">
+            Title
+        </div>
+        <div class="col-4 year" style="vertical-align: text-bottom">
+            2020
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 dir_name">
+            Director
+        </div>
+    </div>
+    <!--<div class="row"><div class="col"> </div></div>-->
+    <div class="row justify-content-center star_buffer">
+        <div class="col star_name">
+            Star, Star, Star, Star, Star, Star, Star
+        </div>
+    </div>
+</div>
+<div class="container add_info">
+    <div class="row justify-content-center">
+        <div class="col-4 id">
+            ID
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col rating">
+            9.0
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col genre">
+            Drama, Drama, Drama, Drama, Drama
+        </div>
+    </div>
+</div>
+</body>
+</html>
