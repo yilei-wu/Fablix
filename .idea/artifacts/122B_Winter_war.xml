@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="122B_Winter:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/122B_Winter_war</output-path>
-    <root id="archive" name="122B_Winter_war.war">
-      <element id="artifact" artifact-name="122B_Winter:war exploded" />
-    </root>
-  </artifact>
-</component>
