@@ -1,5 +1,3 @@
-
-
 function getTableRow(data, row_num) {
     var row = $('<tr></tr>');
     row.append($('<td>' + (row_num + 1) + '</td>'))
@@ -21,9 +19,9 @@ function handleMovieListResult(resultData){
 
         var table_body = $('#movie-list > tbody');
         for (var i = 0; i < resultData.length; i++){
-            // var row = $('<tr><td>' + i + '</td></tr>');
             table_body.append(getTableRow(resultData, i))
         }
+
         $('#load_sign').hide();
         $('#progress_holder').hide();
         $('#movie-list').show();

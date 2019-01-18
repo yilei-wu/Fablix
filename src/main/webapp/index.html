@@ -10,8 +10,10 @@
     <script src="movie_list.js"></script>
 
     <style>
-        .fixed_header thead tr{
-            table-layout: fixed;
+        .fixed_header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
         }
     </style>
 </head>
@@ -24,6 +26,7 @@
         </div>
     </div>
 </div>
+
 <table id="movie-list" class="table table-bordered table-striped">
     <thead class="thead-dark fixed_header">
     <tr>
