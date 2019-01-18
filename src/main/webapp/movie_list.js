@@ -1,3 +1,5 @@
+
+
 function getTableRow(data, row_num) {
     var row = $('<tr></tr>');
     row.append($('<td>' + (row_num + 1) + '</td>'))
@@ -15,28 +17,32 @@ function getTableRow(data, row_num) {
 */
 function handleMovieListResult(resultData){
     $(function () {
+        var table = $('#movie-list');
+        var loadSign = $('#load_sign');
+
         console.log(resultData);
         var table_body = $('#movie-list > tbody');
         for (var i = 0; i < resultData.length; i++){
             // var row = $('<tr><td>' + i + '</td></tr>');
             table_body.append(getTableRow(resultData, i))
-
-
         }
+        loadSign.hide();
+        table.show();
     })
 }
 
-// handleMovieListResult(null);
+$(function () {
+    var table = $('#movie-list');
 
-// var table_body = $('#movie-list');
-// console.log(table_body);
-// var row = $('<tr>10000</tr>');
-// table_body.append(row);
+    console.log(table);
+    table.hide(10);
 
-$.ajax({
-    dataType: "json",
-    method: "GET",
-    url: "api/movie_list",
-    success: handleMovieListResult
-    // error:
+    $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "api/movie_list",
+        success: handleMovieListResult
+        // error:
+    });
 });
+

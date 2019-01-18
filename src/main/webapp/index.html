@@ -8,10 +8,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="movie_list.js"></script>
+
+    <style>
+        .fixed_header thead tr{
+            table-layout: fixed;
+        }
+    </style>
 </head>
 <body>
+<h5 style="text-align: center; margin-top: 20px" id="load_sign">Loading...</h5>
 <table id="movie-list" class="table table-bordered table-striped">
-    <thead class="thead-dark">
+    <thead class="thead-dark fixed_header">
     <tr>
         <th></th>
         <th>Title</th>
