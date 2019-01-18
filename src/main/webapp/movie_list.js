@@ -17,25 +17,25 @@ function getTableRow(data, row_num) {
 */
 function handleMovieListResult(resultData){
     $(function () {
-        var table = $('#movie-list');
-        var loadSign = $('#load_sign');
-
         console.log(resultData);
+
         var table_body = $('#movie-list > tbody');
         for (var i = 0; i < resultData.length; i++){
             // var row = $('<tr><td>' + i + '</td></tr>');
             table_body.append(getTableRow(resultData, i))
         }
-        loadSign.hide();
-        table.show();
+        $('#load_sign').hide();
+        $('#progress_holder').hide();
+        $('#movie-list').show();
     })
 }
 
 $(function () {
-    var table = $('#movie-list');
-
-    console.log(table);
-    table.hide(10);
+    $('#movie-list').hide();
+    $('.progress-bar').animate({
+        width: '95%'
+    },
+        300);
 
     $.ajax({
         dataType: "json",
