@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 @WebServlet(name = "MovieListServlet", urlPatterns = "/api/movie_list")
 
@@ -55,10 +56,40 @@ public class MovieListServlet extends HttpServlet {
                 String list_of_genres = rs.getString("gname");
                 String list_of_stars = rs.getString("sname");
 
-                String query_starid = "SELECT id\n" +
-                        "FROM stars\n" +
-                        "WHERE name = ?;";
-                PreparedStatement s = dbcon.prepareStatement(query_starid);
+                JsonArray json_stars = new JsonArray();
+                String star_query = "SELECT distinct stars.name, stars.id\n" +
+                        "FROM movies, stars, stars_in_movies\n" +
+                        "WHERE movies.id = ? and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
+                PreparedStatement s = dbcon.prepareStatement(star_query);
+                s.setString(1, id);
+                ResultSet r = s.executeQuery();
+                while (r.next())
+                {
+                    JsonObject star = new JsonObject();
+                    star.addProperty("star_name", r.getString("name"));
+                    star.addProperty("star_id", r.getString("id"));
+                    json_stars.add(star);
+                }
+//                String[] star_list = list_of_stars.split(", ");
+//                //System.out.println(star_list.toString());
+//                String query_starid = "SELECT id\n" +
+//                        "FROM stars\n" +
+//                        "WHERE name = ?;";
+//                for(String each: star_list)
+//                {
+//
+//                    PreparedStatement s = dbcon.prepareStatement(query_starid);
+//                    s.setString(1,each);
+//                    ResultSet r = s.executeQuery();
+//                    JsonObject single_star = new JsonObject();
+//                    while(r.next())
+//                    {
+//                    String star_id = r.getString("id");
+//                    single_star.addProperty("star_id", star_id );
+//                    single_star.addProperty("star_name", each);
+//                    }
+//                    json_stars.add(single_star);
+//                }
 
                 JsonObject movie = new JsonObject();
                 movie.addProperty("id", id);
@@ -67,7 +98,7 @@ public class MovieListServlet extends HttpServlet {
                 movie.addProperty("director", director);
                 movie.addProperty("rating", rating);
                 movie.addProperty("genre_list", list_of_genres);
-                movie.addProperty("star_list", list_of_stars);
+                movie.add("star_list", json_stars);
 
                 movie_list.add(movie);
             }
