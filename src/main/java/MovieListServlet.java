@@ -32,7 +32,7 @@ public class MovieListServlet extends HttpServlet {
             Connection dbcon = dataSource.getConnection();
 
             String query =
-                     "SELECT id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ', ') as sname\n" +
+                     "SELECT movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ', ') as sname\n" +
                     "FROM movies, ratings, genres, genres_in_movies, stars_in_movies, stars\n" +
                     "where movies.id = ratings.movieId and movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n" +
                     "group by title\n" +
@@ -55,7 +55,10 @@ public class MovieListServlet extends HttpServlet {
                 String list_of_genres = rs.getString("gname");
                 String list_of_stars = rs.getString("sname");
 
-                //String query
+                String query_starid = "SELECT id\n" +
+                        "FROM stars\n" +
+                        "WHERE name = ?;";
+                PreparedStatement s = dbcon.prepareStatement(query_starid);
 
                 JsonObject movie = new JsonObject();
                 movie.addProperty("id", id);
