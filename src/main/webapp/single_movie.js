@@ -33,6 +33,7 @@ function handleMovieListResult(resultData){
         $('#rating').html(resultData['rating']);
         $('#movie_id').html(resultData['id']);
         $('#genre').html(resultData['genre_list']);
+        $('#stars').html(getStars(resultData));
     })
 }
 
