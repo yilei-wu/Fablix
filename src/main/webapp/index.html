@@ -11,14 +11,19 @@
 
     <style>
         .fixed_header {
-            /*position: -webkit-sticky;*/
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
+        }
+
+        #load_sign {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-<h5 style="text-align: center; margin-top: 20px" id="load_sign">Loading...</h5>
+<h5 id="load_sign">Loading...</h5>
 <div class="row justify-content-center" id="progress_holder">
     <div class="col-4">
         <div class="progress">

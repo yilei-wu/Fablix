@@ -83,7 +83,7 @@ public class SingleMovieServlet extends HttpServlet {
                 movie_list.add(movie);
             }
 
-            out.write(movie_list.toString());
+            out.write(movie_list.get(0).toString());
 
             response.setStatus(200);
 
