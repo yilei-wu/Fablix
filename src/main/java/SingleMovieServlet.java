@@ -17,7 +17,7 @@ import java.sql.Statement;
 
 @WebServlet(name = "SingleMovieServlet", urlPatterns = "/api/single_movie")
 
-public class        SingleMovieServlet extends HttpServlet {
+public class SingleMovieServlet extends HttpServlet {
 
     @Resource(name = "moviedb")
     private DataSource dataSource;
@@ -40,9 +40,9 @@ public class        SingleMovieServlet extends HttpServlet {
             PreparedStatement statement = dbcon.prepareStatement(query);
 
 
-            ResultSet rs = statement.executeQuery();
-
             statement.setString(1,id);
+
+            ResultSet rs = statement.executeQuery();
 
             JsonArray movie_list = new JsonArray();
 
