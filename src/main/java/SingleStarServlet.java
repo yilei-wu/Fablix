@@ -15,13 +15,75 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-@WebServlet(name = "SingleStarServlet")
+@WebServlet(name = "SingleStarServlet", urlPatterns = "/api/single_star")
 public class SingleStarServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Resource(name = "moviedb")
+    private DataSource dataSource;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        response.setContentType("application/json");
+        String id = request.getParameter("id");
+        PrintWriter out = response.getWriter();
 
-    }
+        try
+        {
+            Connection dbcon = dataSource.getConnection();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String query = "SELECT stars.id, stars.name, stars.birthYear, GROUP_CONCAT(distinct movies.title SEPARATOR ', ') as movie_list\n" +
+                    "FROM stars_in_movies INNER JOIN movies ON stars_in_movies.movieId = movies.id\n" +
+                    "INNER JOIN stars ON stars_in_movies.starId = stars.id\n" +
+                    "WHERE stars.id = ?\n" +
+                    "GROUP BY name;";
 
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            statement.setString(1, id);
+
+            ResultSet rs = statement.executeQuery();
+            JsonArray star = new JsonArray();
+
+            while (rs.next())
+            {
+                String name = rs.getString("name");
+                String star_id = rs.getString("id");
+                String movie_list = rs.getString("movie_list");
+
+                JsonArray json_movie = new JsonArray();
+                String movie_query = "SELECT distinct movies.title, movies.id\n" +
+                        "FROM movies, stars, stars_in_movies\n" +
+                        "WHERE stars.id = ? and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
+                PreparedStatement s =dbcon.prepareStatement(movie_query);
+                s.setString(1, id);
+                ResultSet r = s.executeQuery(movie_query);
+                while (r.next())
+                {
+                    JsonObject movie = new JsonObject();
+                    movie.addProperty("movie_id", r.getString("id"));
+                    movie.addProperty("movie_title", r.getString("title"));
+                    json_movie.add(movie);
+                }
+
+                JsonObject m = new JsonObject();
+                m.addProperty("name", name);
+                m.addProperty("id", star_id);
+                m.add("movie_list", json_movie);
+
+                star.add(m);
+            }
+
+            out.write(star.get(0).toString());
+            response.setStatus(200);
+
+            rs.close();
+            dbcon.close();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            JsonObject error = new JsonObject();
+            error.addProperty("error", e.getMessage());
+            out.write(error.toString());
+            response.setStatus(500);
+        }
+        out.close();
     }
 }
