@@ -50,9 +50,9 @@ public class SingleStarServlet extends HttpServlet {
                 JsonArray json_movie = new JsonArray();
                 String movie_query = "SELECT distinct movies.title, movies.id\n" +
                         "FROM movies, stars, stars_in_movies\n" +
-                        "WHERE stars.id = ? and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
+                        "WHERE stars.id ="+ id + " and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
                 PreparedStatement s =dbcon.prepareStatement(movie_query);
-                s.setString(1, id);
+                //s.setString(1, id);
                 ResultSet r = s.executeQuery(movie_query);
                 while (r.next())
                 {
