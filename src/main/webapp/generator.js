@@ -21,6 +21,11 @@ function getMovie(data, num) {
         + data[num]['title'] + '</a>')
 }
 
+function getStar(data, num) {
+    return $('<a href = ' + SINGLE_MOVIE_URL + '?id=' + data[num]['id'] + ' >'
+        + data[num]['title'] + '</a>')
+}
+
 function getStars(data, num = -1) {
     var stars = $('<div></div>');
     var stars_list;
