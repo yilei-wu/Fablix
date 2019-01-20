@@ -1,9 +1,3 @@
-
-
-
-
-
-
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
     var row = $('<tr></tr>');
