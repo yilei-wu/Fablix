@@ -29,7 +29,7 @@ public class SingleStarServlet extends HttpServlet {
         {
             Connection dbcon = dataSource.getConnection();
 
-            String query = "SELECT stars.id, stars.name, stars.birthYear, GROUP_CONCAT(distinct movies.title SEPARATOR ', ') as movie_list\n" +
+            String query = "SELECT stars.id, stars.birthYear, stars.name, stars.birthYear, GROUP_CONCAT(distinct movies.title SEPARATOR ', ') as movie_list\n" +
                     "FROM stars_in_movies INNER JOIN movies ON stars_in_movies.movieId = movies.id\n" +
                     "INNER JOIN stars ON stars_in_movies.starId = stars.id\n" +
                     "WHERE stars.id = ?\n" +
@@ -45,6 +45,7 @@ public class SingleStarServlet extends HttpServlet {
             {
                 String name = rs.getString("name");
                 String star_id = rs.getString("id");
+                String birth_year = rs.getString("birthYear");
                 String movie_list = rs.getString("movie_list");
 
                 JsonArray json_movie = new JsonArray();
@@ -63,8 +64,9 @@ public class SingleStarServlet extends HttpServlet {
                 }
 
                 JsonObject m = new JsonObject();
-                m.addProperty("name", name);
-                m.addProperty("id", star_id);
+                m.addProperty("star_name", name);
+                m.addProperty("star_id", star_id);
+                m.addProperty("birth_year", birth_year);
                 m.add("movie_list", json_movie);
 
                 star.add(m);
