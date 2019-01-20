@@ -24,12 +24,14 @@ function handleStarListResult(resultData){
     $(function () {
         console.log(resultData);
 
-        $('#star_name').html(resultData['star_name'])
+        $('#name').html(resultData['star_name'])
             .css({
                 'font-size': (65 - resultData['star_name'].length) + 'px'
             });
-        $('#birth_year').html(resultData['birth_year']);
-        $('#movie_list').html(getMovie(resultData));
+        if (resultData['birth_year']) {
+            $('#birth_year').html(resultData['birth_year']);
+        }
+        $('#movie_list').html(getMovies(resultData));
     })
 }
 
@@ -39,12 +41,12 @@ var printError = function(req, status, err) {
 
 $(function () {
 
-    let movie_id = getParameterByName('id');
+    let star_id = getParameterByName('id');
 
     $.ajax({
         dataType: "json",
         method: "GET",
-        url: "api/single_star?id=" + movie_id,
+        url: "api/single_star?id=" + star_id,
         success: handleStarListResult,
         error: printError
     });

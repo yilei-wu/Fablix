@@ -16,15 +16,44 @@ function getStar(stars, num = -1) {
         + name + '</a>')
 }
 
-function getMovie(data, num) {
-    return $('<a href = ' + SINGLE_MOVIE_URL + '?id=' + data[num]['id'] + ' >'
-        + data[num]['title'] + '</a>')
+function getMovie(movies, num = -1) {
+    let id;
+    let title;
+    if (num !== -1) {
+        id = movies[num]['movie_id'];
+        title = movies[num]['movie_title'];
+    } else {
+        id = movies['movie_id'];
+        title = movies['movie_title'];
+    }
+
+    return $('<a href = ' + SINGLE_MOVIE_URL + '?id=' + id + '>'
+        + title + '</a>')
 }
 
-function getStar(data, num) {
-    return $('<a href = ' + SINGLE_MOVIE_URL + '?id=' + data[num]['id'] + ' >'
-        + data[num]['title'] + '</a>')
+function getBackButton(url) {
+    return $('<a href = ' + url + '>Back to Homepage</a>')
 }
+
+function getMovies(data, num = -1) {
+    var movies = $('<div></div>');
+    var movie_list;
+    if (num !== -1) {
+        movie_list = data[num]['movie_list'];
+    } else {
+        movie_list = data['movie_list'];
+    }
+    for (var i = 0; i < movie_list.length; i++) {
+        if (i !== 0) {movies.append(', ')}
+        movies.append(getMovie(movie_list, i));
+    }
+    return movies;
+}
+
+// function getStar(data, num) {
+//     return $('<a href = ' + SINGLE_MOVIE_URL + '?id=' + data[num]['id'] + ' >'
+//         + data[num]['title'] + '</a>')
+// }
 
 function getStars(data, num = -1) {
     var stars = $('<div></div>');
