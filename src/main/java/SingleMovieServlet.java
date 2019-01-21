@@ -33,8 +33,8 @@ public class SingleMovieServlet extends HttpServlet {
 
             String query =
                     "SELECT movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname\n" +
-                            "FROM movies, ratings, genres, genres_in_movies, stars_in_movies, stars\n" +
-                            "where movies.id = ? and movies.id = ratings.movieId and movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n" +
+                            "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars_in_movies, stars\n" +
+                            "where movies.id = ? and movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n" +
                             "group by title;";
 
             PreparedStatement statement = dbcon.prepareStatement(query);
@@ -53,6 +53,7 @@ public class SingleMovieServlet extends HttpServlet {
                 int year = rs.getInt("year");
                 String director = rs.getString("director");
                 float rating = rs.getFloat("rating");
+                if(Float.compare(rating, 0f) == 0){rating = -1;}
                 String list_of_genres = rs.getString("gname");
                 String list_of_stars = rs.getString("sname");
 
@@ -61,7 +62,7 @@ public class SingleMovieServlet extends HttpServlet {
                         "FROM movies, stars, stars_in_movies\n" +
                         "WHERE movies.id = ? and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
                 PreparedStatement s = dbcon.prepareStatement(star_query);
-                s.setString(1, movie_id);
+                s.setString(1, id);
                 ResultSet r = s.executeQuery();
                 while (r.next())
                 {

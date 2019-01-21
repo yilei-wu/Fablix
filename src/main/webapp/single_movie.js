@@ -30,7 +30,7 @@ function handleMovieListResult(resultData){
             });
         $('#year').html(resultData['year']);
         $('#director').html('<sup style="font-size: 15px">Directed by </sup>' + resultData['director']);
-        $('#rating').html(resultData['rating']);
+        $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
         $('#movie_id').html(resultData['id']);
         $('#genre').html(resultData['genre_list']);
         $('#stars').html(getStars(resultData));
