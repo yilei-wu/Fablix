@@ -26,8 +26,8 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (is_user(username, password)) {
-            String sessionId = ((HttpServletRequest) request).getSession().getId();
-            Long lastAccessTime = ((HttpServletRequest) request).getSession().getLastAccessedTime();
+            String sessionId = (request).getSession().getId();
+            Long lastAccessTime = (request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
 
             JsonObject responseJsonObject = new JsonObject();
@@ -37,7 +37,9 @@ public class LoginServlet extends HttpServlet {
             responseJsonObject.addProperty("lastaccesstime", lastAccessTime);
 
             out.write(responseJsonObject.toString());
-        } else {
+        }
+        else
+            {
             // Login fails
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "fail");
@@ -56,21 +58,25 @@ public class LoginServlet extends HttpServlet {
     boolean is_user(String username, String password)//return ture if the username/password pair is valid
     {
         try {
-            System.out.println(username + " " + password);
-            String query = "SELECT password FROM customers WHERE email = ?";
             Connection dbcon = datasource.getConnection();
+            //System.out.println(username + " " + password);
+            String query = "SELECT password FROM customers WHERE email = ?";
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1,username);
             ResultSet r = statement.executeQuery();
+            while (r.next()){
             String rr = r.getString("password");
             dbcon.close();
-
-            return rr.equals(password);
+            //System.out.println(rr.equals(password));
+            return rr.equals(password);}
         }
+
         catch (Exception e){
             System.out.println(e.getMessage());
             return false;
         }
+
+        return false;
 
 
     }
