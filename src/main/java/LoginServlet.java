@@ -16,9 +16,9 @@ import java.util.Map;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
+    @Resource(name = "moviedb")
     private static final long serialVersionUID = 1L;
     private DataSource datasource;
-    @Resource(name = "moviedb")
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
@@ -26,8 +26,6 @@ public class LoginServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         if (is_user(username, password)) {
-            // Login succeeds
-            // Set this user into current session
             String sessionId = ((HttpServletRequest) request).getSession().getId();
             Long lastAccessTime = ((HttpServletRequest) request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
@@ -35,17 +33,20 @@ public class LoginServlet extends HttpServlet {
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "success");
             responseJsonObject.addProperty("message", "success");
+            responseJsonObject.addProperty("session_id", sessionId);
+            responseJsonObject.addProperty("lastaccesstime", lastAccessTime);
 
             out.write(responseJsonObject.toString());
         } else {
             // Login fails
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "fail");
-            if (!username.equals("anteater")) {
-                responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
-            } else {
-                responseJsonObject.addProperty("message", "incorrect password");
-            }
+//            if (!username.equals("anteater")) {
+//                responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+//            } else {
+//                responseJsonObject.addProperty("message", "incorrect password");
+//            }
+            responseJsonObject.addProperty("message", "user doesn't exist or incorrect password");
             out.write(responseJsonObject.toString());
         }
     }
