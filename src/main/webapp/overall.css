@@ -1,3 +1,75 @@
+.fablix {
+    font-size: 120px;
+    font-family: 'Pacifico', cursive;
+}
+
 .comic {
-    font-family: 'Comic Sans MS', serif
+    font-family: 'Trebuchet MS', serif
+}
+
+.add_info {
+    height: 100%;
+    width: 35%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #cecece;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.movie_info {
+    height: 100%;
+    width: 65%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.movie_title {
+    /*height: 100px;*/
+    font-size: 45px;
+    font-family: 'Lato', sans-serif;
+    color: aliceblue;
+    text-align: center;
+}
+
+hr {
+    border-color: aliceblue;
+}
+
+.year {
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+}
+
+.dir_name {
+    font-size: 30px;
+}
+
+.star_buffer {
+    margin-top: 20px;
+}
+
+.star_name {
+    font-size: 20px;
+    text-align: center;
+}
+
+.id {
+    font-size: 10px;
+    text-align: center;
+}
+
+.rating {
+    font-size: 90px;
+    text-align: center;
+}
+
+.genre {
+    font-size: 25px;
+    text-align: center;
 }
