@@ -16,8 +16,8 @@ import java.util.Map;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
-    @Resource(name = "moviedb")
     private static final long serialVersionUID = 1L;
+    @Resource(name = "moviedb")
     private DataSource datasource;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -49,23 +49,29 @@ public class LoginServlet extends HttpServlet {
             responseJsonObject.addProperty("message", "user doesn't exist or incorrect password");
             out.write(responseJsonObject.toString());
         }
+
+        out.close();
     }
 
     boolean is_user(String username, String password)//return ture if the username/password pair is valid
     {
         try {
+            System.out.println(username + " " + password);
             String query = "SELECT password FROM customers WHERE email = ?";
             Connection dbcon = datasource.getConnection();
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1,username);
             ResultSet r = statement.executeQuery();
             String rr = r.getString("password");
-            if(rr == password){return true;}
-            else{return false;}
+            dbcon.close();
+
+            return rr.equals(password);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
             return false;
         }
+
+
     }
 }
