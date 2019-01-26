@@ -28,7 +28,7 @@ function handleLoginResult(resultDataString) {
  */
 function submitLoginForm(formSubmitEvent) {
     console.log("submit login form  " + formSubmitEvent);
-    console.log($("#login_form").serialize());
+    // console.log($("#login_form").serialize());
     /**
      * When users click the submit button, the browser will not direct
      * users to the url defined in HTML form. Instead, it will call this
