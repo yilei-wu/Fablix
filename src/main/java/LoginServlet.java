@@ -21,8 +21,8 @@ public class LoginServlet extends HttpServlet {
     private DataSource datasource;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String username = ((HttpServletRequest)request).getParameter("username");
+        String password = ((HttpServletRequest)request).getParameter("password");
         PrintWriter out = response.getWriter();
 
         if (is_user(username, password)) {
