@@ -9,7 +9,7 @@
 
 .add_info {
     height: 100%;
-    width: 35%;
+    width: 25%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -21,7 +21,7 @@
 
 .movie_info {
     height: 100%;
-    width: 65%;
+    width: 75%;
     position: fixed;
     top: 0;
     left: 0;

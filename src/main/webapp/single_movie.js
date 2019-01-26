@@ -3,6 +3,8 @@
  * @param target String
  * @returns {*}
  */
+// import * as ProgressBar from "./progressbar";
+
 function getParameterByName(target) {
     // Get request URL
     let url = window.location.href;
@@ -30,7 +32,7 @@ function handleMovieListResult(resultData){
             });
         $('#year').html(resultData['year']);
         $('#director').html('<sup style="font-size: 15px">Directed by </sup>' + resultData['director']);
-        $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
+        // $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
         $('#movie_id').html(resultData['id']);
         $('#genre').html(resultData['genre_list']);
         $('#stars').html(getStars(resultData));
@@ -50,6 +52,25 @@ $(function () {
     // var title = $('#movie_title');
     // console.log(title);
     // title.html('hello');
+
+    var bar = new ProgressBar.Circle('#rating', {
+        strokeWidth: 6,
+        easing: 'easeInOut',
+        duration: 1400,
+        color: '#3540ff',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {
+            // display: 'flex',
+            // 'align-items': 'center',
+            // margin: 'auto'
+        },
+        text: {
+            value: '9.0'
+        }
+    });
+
+    bar.animate(0.9);  // Number from 0.0 to 1.0
 
     let movie_id = getParameterByName('id');
 
