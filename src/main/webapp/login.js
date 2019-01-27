@@ -44,7 +44,24 @@ function submitLoginForm(formSubmitEvent) {
     ).fail($("#login_error_message").text('Failed connect to api.'));
 }
 
+// function loginFormAnim(){
+//     console.log('animate');
+//
+// }
+
 $(function () {
     // Bind the submit action of the form to a handler function
     $("#login_form").submit(submitLoginForm);
+
+    $('#fablix_title').animate({
+        opacity: 1
+    },
+        1300,
+        null,
+        function () {
+            $('#login_area').animate({
+                    opacity: 1
+                },
+                600)
+        })
 });

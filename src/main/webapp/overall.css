@@ -3,6 +3,42 @@
     font-family: 'Pacifico', cursive;
 }
 
+.fablix_header {
+    font-size: 40px;
+    font-family: 'Pacifico', cursive;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.header-bar {
+    width: 100%;
+    height: 70px;
+    background-image: linear-gradient(#000000, rgba(0, 0, 0, 0));
+    position: fixed;
+}
+
+#bg_video {
+    position: fixed;
+    top: 0;
+}
+
+#user_info {
+    float: right;
+}
+
+#search_area {
+    position: fixed;
+    width: 80%;
+    top: 35%;
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+}
+
 .comic {
     font-family: 'Trebuchet MS', serif
 }

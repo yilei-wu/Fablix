@@ -69,3 +69,7 @@ function getStars(data, num = -1) {
     }
     return stars;
 }
+
+function getUserInfo() {
+    return $('<p id="user_info">Welcome, ...</p>')
+}
