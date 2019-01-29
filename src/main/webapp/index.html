@@ -3,98 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
     <link rel="stylesheet" href="overall.css">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Lato|Pacifico" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
     <script src="generator.js"></script>
     <script src="index.js"></script>
 
     <script>
-        $(function(){
+        $(function () {
             $("#header").load("header.html");
             $("#footer").load("footer.html");
         });
     </script>
 </head>
 <body class="bg-black">
+
 <video autoplay muted loop id="bg_video">
     <source src="bg_video.mp4" type="video/mp4">
 </video>
-<div id="header"></div>
 
-<div id="search_area">
-    <div class="container">
-        <!--Keyword Search-->
-        <div class="row">
-            <div class="col-sm-8 offset-sm-2">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+<div style="position:fixed;">
+
+    <div id="header"></div>
+
+    <div id="search_area">
+        <!--Tabs-->
+        <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#keyword_search" role="tab"
+                   aria-controls="pills-home" aria-selected="true">Search by Keyword</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#genre_search" role="tab"
+                   aria-controls="pills-profile" aria-selected="false">Search by Genre or Title</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#accurate_search" role="tab"
+                   aria-controls="pills-contact" aria-selected="false">Accurate Search</a>
+            </li>
+        </ul>
+
+        <!--Contents-->
+        <div class="tab-content" id="pills-tabContent">
+
+            <!--Keyword Search Tab-->
+            <div class="container tab-pane fade show active" id="keyword_search" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <!--Keyword Search-->
+                <div class="row" style="margin-top: 30px">
+                    <div class="col-sm-8 offset-sm-2">
+                        <form id="keyword_form">
+                        <div class="input-group form-group">
+                            <input type="text" class="form-control" placeholder="Search"
+                                   aria-label="Recipient's username"
+                                   aria-describedby="button-addon2" name="keyword">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Search</button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!--Title Search-->
-        <div class="row" style="margin-top: 30px">
-            <div class="col-sm-4 offset-sm-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="title-addon1">Title</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="title" aria-label="Username" aria-describedby="title-addon1">
-                </div>
+            <!--Genre and Title Search Tab-->
+            <div class="container tab-pane fade show" id="genre_search" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <!--TODO-->
+                Not finished.
             </div>
-        </div>
 
-        <!--Year Search-->
-        <div class="row" style="margin-top: 30px">
-            <div class="col-sm-4 offset-sm-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="year-addon1">Year</span>
+            <!--Accurate Search Tab-->
+            <div class="container tab-pane fade" id="accurate_search" role="tabpanel"
+                 aria-labelledby="pills-contact-tab">
+                <!--Title Search-->
+                <form id="accurate_form">
+                    <div class="row justify-content-center" style="margin-top: 30px">
+                        <div class="col-sm-4">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="title-addon1">Title</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="title" aria-label="Username"
+                                       aria-describedby="title-addon1" name="title">
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="year" aria-label="Username" aria-describedby="year-addon1">
-                </div>
-            </div>
-        </div>
 
-        <!--Director Search-->
-        <div class="row" style="margin-top: 30px">
-            <div class="col-sm-4 offset-sm-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="director-addon1">Director</span>
+                    <!--Year Search-->
+                    <div class="row justify-content-center" style="margin-top: 30px">
+                        <div class="col-sm-4">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="year-addon1">Year</span>
+                                </div>
+                                <input type="number" min="1900" max="2099" step="1" class="form-control" placeholder="year" aria-label="Username"
+                                       aria-describedby="year-addon1" name="year">
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="director" aria-label="Username" aria-describedby="director-addon1">
-                </div>
-            </div>
-        </div>
 
-        <!--Starname Search-->
-        <div class="row" style="margin-top: 30px">
-            <div class="col-sm-4 offset-sm-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="star-addon1">Star name</span>
+                    <!--Director Search-->
+                    <div class="row justify-content-center" style="margin-top: 30px">
+                        <div class="col-sm-4">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="director-addon1">Director</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="director" aria-label="Username"
+                                       aria-describedby="director-addon1" name="director">
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="star name" aria-label="Username" aria-describedby="star-addon1">
-                </div>
+
+                    <!--Starname Search-->
+                    <div class="row justify-content-center" style="margin-top: 30px">
+                        <div class="col-sm-4">
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="star-addon1">Star name</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="star name" aria-label="Username"
+                                       aria-describedby="star-addon1" name="star">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center" style="margin-top: 30px">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
+
+    <div id="footer"></div>
+
 </div>
 
-<a href="login.html">login</a>
-<a href="movie_list.html">movie list</a>
-
-
-<div id="footer"></div>
 </body>
 </html>

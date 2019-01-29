@@ -33,7 +33,7 @@
 #search_area {
     position: fixed;
     width: 80%;
-    top: 35%;
+    top: 25%;
     left: 50%;
     -ms-transform: translate(-50%);
     transform: translate(-50%);

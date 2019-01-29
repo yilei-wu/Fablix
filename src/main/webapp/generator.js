@@ -1,5 +1,6 @@
 let SINGLE_STAR_URL = 'single_star.html';
 let SINGLE_MOVIE_URL = 'single_movie.html';
+let MOVIE_LIST_URL = 'movie_list.html';
 
 function getStar(stars, num = -1) {
     let id;
