@@ -32,7 +32,7 @@ public class SearchServlet extends HttpServlet {
             Connection dbcon = dataSource.getConnection();
             String title = ((HttpServletRequest)request).getParameter("title");
             String year = ((HttpServletRequest)request).getParameter("year");
-            String director = ((HttpServletRequest)request).getParameter("directory");
+            String director = ((HttpServletRequest)request).getParameter("director");
             String star = ((HttpServletRequest)request).getParameter("star");
             String page = ((HttpServletRequest)request).getParameter("page");
             String records = ((HttpServletRequest)request).getParameter("records");

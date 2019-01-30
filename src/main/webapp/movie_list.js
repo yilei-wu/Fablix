@@ -36,10 +36,42 @@ $(function () {
     },
         300);
 
+
+    $('#movie-list').pagination({
+        dataSource: [1, 2, 3, 4, 5, 6, 7],
+        // locator: 'items',
+        // totalNumberLocator: function(response) {
+        //     // you can return totalNumber by analyzing response content
+        //     return Math.floor(Math.random() * (1000 - 100)) + 100;
+        // },
+        pageSize: 3,
+        // ajax: {
+        //     beforeSend: function() {
+        //         dataContainer.html('Loading data from flickr.com ...');
+        //     }
+        // },
+        // callback: function(data, pagination) {
+        //     // template method of yourself
+        //     var html = template(data);
+        //     dataContainer.html(html);
+        // }
+    })
+
+
+
+    let title = getParameterByName('title');
+    let year = getParameterByName('year');
+    let director = getParameterByName('director');
+    let star = getParameterByName('star');
+    let page = getParameterByName('page');
+    let sort = getParameterByName('sort');
+    let records = getParameterByName('records');
+
     $.ajax({
         dataType: "json",
         method: "GET",
-        url: "api/movie_list",
+        url: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+        '&star=' + star + '&page=' + page + '&sort=' + sort + '&records=' + records,
         success: handleMovieListResult
         // error:
     });
