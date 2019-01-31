@@ -14,8 +14,18 @@
     <script src="generator.js"></script>
     <script src="single_movie.js"></script>
     <script src="progressbar.js"></script>
+
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
 </head>
-<body>
+<body class="bg-black white">
+
+<div id="header"></div>
+
 <div class="container movie_info bg-black gray">
     <div class="row justify-content-center">
         <div class="col">
@@ -43,7 +53,7 @@
         </div>
     </div>
 </div>
-<div class="container add_info">
+<div class="container add_info grey">
     <div class="row justify-content-center">
         <div class="col-4 id">
             <p id="movie_id">ID</p>
@@ -63,5 +73,8 @@
         </div>
     </div>
 </div>
+
+<div id="footer"></div>
+
 </body>
 </html>

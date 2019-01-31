@@ -17,6 +17,7 @@
 .header-bar {
     width: 100%;
     height: 70px;
+    z-index: 2;
     background-image: linear-gradient(#000000, rgba(0, 0, 0, 0));
     position: fixed;
 }
@@ -39,6 +40,18 @@
     transform: translate(-50%);
 }
 
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+}
+
 .comic {
     font-family: 'Trebuchet MS', serif
 }
@@ -50,7 +63,8 @@
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #cecece;
+    margin-top: 70px;
+    /*background-color: #000000;*/
     overflow-x: hidden;
     padding-top: 20px;
 }
@@ -59,6 +73,7 @@
     height: 100%;
     width: 75%;
     position: fixed;
+    margin-top: 70px;
     top: 0;
     left: 0;
     padding-top: 20px;

@@ -96,5 +96,5 @@ function getStars(data, num = -1) {
 }
 
 function getUserInfo() {
-    return $('<p id="user_info">Welcome, ...</p>')
+    return $('<div class="white">Welcome, </div>')
 }

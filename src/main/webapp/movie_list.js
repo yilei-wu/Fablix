@@ -37,43 +37,63 @@ $(function () {
         300);
 
 
+    let title = getParameterByName('title');
+    let year = getParameterByName('year');
+    let director = getParameterByName('director');
+    let star = getParameterByName('star');
+    // let page = getParameterByName('page');
+    let sort = getParameterByName('sort');
+    // let records = getParameterByName('records');
+
+
     $('#movie-list').pagination({
-        dataSource: [1, 2, 3, 4, 5, 6, 7],
+        dataSource: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+                '&star=' + star + '&sort=' + sort,
         // locator: 'items',
         // totalNumberLocator: function(response) {
         //     // you can return totalNumber by analyzing response content
         //     return Math.floor(Math.random() * (1000 - 100)) + 100;
         // },
-        pageSize: 3,
+        // formatResult: function(data) {
+        //     var result = [];
+        //     for (var i = 0, len = data.length; i < len; i++) {
+        //         result.push(data[i] + ' - good guys');
+        //     }
+        //     return result;
+        // },
+        pageSize: 20,
+        className: 'paginationjs-theme-blue',
         // ajax: {
         //     beforeSend: function() {
         //         dataContainer.html('Loading data from flickr.com ...');
         //     }
         // },
-        // callback: function(data, pagination) {
-        //     // template method of yourself
-        //     var html = template(data);
-        //     dataContainer.html(html);
-        // }
-    })
+        alias: {
+            pageNumber: 'page',
+            pageSize: 'records'
+        },
+        callback: function(data, pagination) {
+            // template method of yourself
+            console.log(data);
+            $('#data_container').html(data);
 
-
-
-    let title = getParameterByName('title');
-    let year = getParameterByName('year');
-    let director = getParameterByName('director');
-    let star = getParameterByName('star');
-    let page = getParameterByName('page');
-    let sort = getParameterByName('sort');
-    let records = getParameterByName('records');
-
-    $.ajax({
-        dataType: "json",
-        method: "GET",
-        url: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
-        '&star=' + star + '&page=' + page + '&sort=' + sort + '&records=' + records,
-        success: handleMovieListResult
-        // error:
+            $('#load_sign').hide();
+            $('#progress_holder').hide();
+            $('#movie-list').show();
+        }
     });
+
+
+
+
+
+    // $.ajax({
+    //     dataType: "json",
+    //     method: "GET",
+    //     url: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+    //     '&star=' + star + '&page=' + page + '&sort=' + sort + '&records=' + records,
+    //     success: handleMovieListResult
+    //     // error:
+    // });
 });
 
