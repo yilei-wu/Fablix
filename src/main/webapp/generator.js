@@ -1,6 +1,7 @@
 let SINGLE_STAR_URL = 'single_star.html';
 let SINGLE_MOVIE_URL = 'single_movie.html';
 let MOVIE_LIST_URL = 'movie_list.html';
+let INDEX_URL = 'index.html';
 
 /**
  * Retrieve parameter from request URL, matching by parameter name
@@ -95,6 +96,11 @@ function getStars(data, num = -1) {
     return stars;
 }
 
-function getUserInfo() {
-    return $('<div class="white">Welcome, </div>')
+function addMovieToCart(id) {
+    if (sessionStorage.getItem(id)){
+        sessionStorage.setItem(id, parseInt(sessionStorage.getItem(id)) + 1)
+    } else {
+        sessionStorage.setItem(id, '1')
+    }
+
 }

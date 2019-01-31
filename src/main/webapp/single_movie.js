@@ -1,3 +1,7 @@
+function showAddCartToast() {
+    $('#add_cart_toast').toast('show');
+}
+
 function handleMovieListResult(resultData){
 
     $(function () {
@@ -14,12 +18,15 @@ function handleMovieListResult(resultData){
         $('#genre').html(resultData['genre_list']);
         $('#stars').html(getStars(resultData));
 
+        $('#add_to_cart').attr
+        ('onclick', 'addMovieToCart("' + resultData['id'] +  '");showAddCartToast()');
+
         var bar = new ProgressBar.Circle('#rating', {
             strokeWidth: 6,
             easing: 'easeInOut',
             duration: 1400,
-            color: '#3540ff',
-            trailColor: '#eee',
+            color: '#157ffb',
+            trailColor: 'white',
             trailWidth: 1,
             svgStyle: {
                 // display: 'flex',
