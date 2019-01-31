@@ -17,26 +17,25 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "SearchServlet", urlPatterns = "/api/search_movie")
 public class SearchServlet extends HttpServlet {
-    @Resource (name = "mmoviedb")
-    DataSource dataSource;
+    @Resource (name = "moviedb")
+    private DataSource dataSource;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-
+        System.out.println(request.getRequestURI());
+        String title = ((HttpServletRequest)request).getParameter("title");
+        String year = ((HttpServletRequest)request).getParameter("year");
+        String director = ((HttpServletRequest)request).getParameter("director");
+        String star = ((HttpServletRequest)request).getParameter("star");
+        String page = ((HttpServletRequest)request).getParameter("page");
+        String records = ((HttpServletRequest)request).getParameter("records");
+        String sort = ((HttpServletRequest)request).getParameter("sort");
         try{
+
             Connection dbcon = dataSource.getConnection();
-            String title = ((HttpServletRequest)request).getParameter("title");
-            String year = ((HttpServletRequest)request).getParameter("year");
-            String director = ((HttpServletRequest)request).getParameter("director");
-            String star = ((HttpServletRequest)request).getParameter("star");
-            String page = ((HttpServletRequest)request).getParameter("page");
-            String records = ((HttpServletRequest)request).getParameter("records");
-            String sort = ((HttpServletRequest)request).getParameter("sort");
+            System.out.println(title + "|" + year + "|" + director + "|" + star + "|" + page + "|" + records + "|" + sort);
 
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
@@ -114,7 +113,7 @@ public class SearchServlet extends HttpServlet {
 
     private int get_total_page(int total_records, int record)
     {
-        return (int)total_records/record;
+        return (int)total_records/record + 1;
     }
     private String get_offset_clause(String page, String records)
     {
