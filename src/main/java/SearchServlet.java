@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 @WebServlet(name = "SearchServlet", urlPatterns = "/api/search_movie")
 public class SearchServlet extends HttpServlet {
@@ -52,11 +53,26 @@ public class SearchServlet extends HttpServlet {
             String query = select_query + from_query + where_join + title_condition + year_condition
                     + directory_condition + star_condition + group_clause + order_clause + offset_clause;
 
-            System.out.println(query);
+            String queryt = "SELECT COUNT(distinct movies.id) as a " + from_query + where_join + title_condition + year_condition
+                    + directory_condition + star_condition;
+
+            System.out.println(queryt);
 
             PreparedStatement statement = dbcon.prepareStatement(query);
+            PreparedStatement statement1 = dbcon.prepareStatement(queryt);
+            ResultSet w = statement1.executeQuery();
             ResultSet resultSet = statement.executeQuery();
             JsonArray movie_list = new JsonArray();
+
+            ArrayList<String> x = new ArrayList<>();
+            while (w.next())
+            {
+
+                String total = w.getString("a");
+                System.out.println(total);
+                x.add(total);
+            }
+
             while(resultSet.next())
             {
                 String sid = resultSet.getString("id");
@@ -96,7 +112,7 @@ public class SearchServlet extends HttpServlet {
             }
             JsonObject final_result = new JsonObject();
             final_result.add("movielist", movie_list);
-            final_result.addProperty("total_page" , get_total_page(movie_list.size(), Integer.parseInt(records)));
+            final_result.addProperty("total_page" , get_total_page(Integer.parseInt(x.get(0)), Integer.parseInt(records)));
             out.write(final_result.toString());
             response.setStatus(200);
 
@@ -113,7 +129,7 @@ public class SearchServlet extends HttpServlet {
 
     private int get_total_page(int total_records, int record)
     {
-        return (int)total_records/record + 1;
+        return total_records/record + 1;
     }
     private String get_offset_clause(String page, String records)
     {
