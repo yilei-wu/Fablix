@@ -37,15 +37,15 @@ public class SearchServlet extends HttpServlet {
             Connection dbcon = dataSource.getConnection();
             System.out.println(title + "|" + year + "|" + director + "|" + star + "|" + page + "|" + records + "|" + sort);
 
-            String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
-            String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
-            String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String title_condition = title == null ? "" : "and movies.title = " + title;
-            String year_condition = year == null ? "" : "and movies.year = " + year;
-            String directory_condition = director == null ? "" : "and movies.directory = " + director;
-            String star_condition = star == null ? "" : "and stars.name = " + star;
+            String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname\n";
+            String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies\n";
+            String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n";
+            String title_condition = title == "" ? "" : "and movies.title = " + title + " ";
+            String year_condition = year == "" ? "" : "and movies.year = " + year + " ";
+            String directory_condition = director == "" ? "" : "and movies.directory = " + director + " ";
+            String star_condition = star == "" ? "" : "and stars.name = " + star + " ";
 
-            String group_clause = "GROUP BY title";
+            String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
 
@@ -122,26 +122,26 @@ public class SearchServlet extends HttpServlet {
 
         int offset = (p-1)*r;
 
-        return String.format("OFFSET %d ROWS FETCH NEXT &d ROWS ONLY", offset, r);
+        return String.format("limit %d,%d", offset, r);
     }
 
     private String get_sort_clause(String sort)
     {
         if(sort.equals("ta"))
         {
-            return "ORDERED BY movies.title";
+            return "ORDER BY movies.title ";
         }
         else if(sort.equals("td"))
         {
-            return "ORDERED BY movies.title desc";
+            return "ORDER BY movies.title DESC ";
         }
         else if(sort.equals("ra"))
         {
-            return "ORDERED BY movies.rating";
+            return "ORDER BY movies.rating ";
         }
         else if(sort.equals("rd"))
         {
-            return "ORDERED BY movies.rating desc";
+            return "ORDER BY movies.rating DESC ";
         }
         else
         {
