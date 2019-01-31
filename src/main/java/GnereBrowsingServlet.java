@@ -21,9 +21,6 @@ public class GnereBrowsingServlet extends HttpServlet {
     @Resource(name = "moviedb")
     private DataSource dataSource;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
@@ -43,6 +40,7 @@ public class GnereBrowsingServlet extends HttpServlet {
             String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
             String genre_condition = "AND genres.name = " + genre;
             String sort_clause = get_sort_clause(sort);
+            String offset_clause = get_offst_clause(page, records);
         }
         catch (Exception e)
         {
