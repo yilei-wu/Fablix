@@ -7,7 +7,8 @@ function getTableRow(data, row_num) {
         .append($('<td>' + data[row_num]['director'] + '</td>'))
         .append($('<td>' + data[row_num]['genre_list'] + '</td>'))
         .append($('<td></td>').append(stars))
-        .append($('<td>' + data[row_num]['rating'] + '</td>'));
+        .append($('<td>' + data[row_num]['rating'] + '</td>'))
+        .append($('<td><button class="btn btn-primary">Add to Cart</button> </td>'));
     return row;
 }
 
@@ -19,6 +20,7 @@ function handleMovieListResult(resultData){
         console.log(resultData);
 
         var table_body = $('#movie-list > tbody');
+        table_body.empty();
         for (var i = 0; i < resultData.length; i++){
             table_body.append(getTableRow(resultData, i))
         }
@@ -46,14 +48,20 @@ $(function () {
     // let records = getParameterByName('records');
 
 
-    $('#movie-list').pagination({
+    $('#page_container').pagination({
         dataSource: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
                 '&star=' + star + '&sort=' + sort,
-        // locator: 'items',
-        // totalNumberLocator: function(response) {
-        //     // you can return totalNumber by analyzing response content
-        //     return Math.floor(Math.random() * (1000 - 100)) + 100;
+        // locator: function () {
+        //     return 'movielist'
         // },
+        locator: 'movielist',
+        totalNumberLocator: function (response) {
+            // console.log(response['total_page']);
+            return response['total_number'];
+            // return 2000
+        },
+        showGoInput: true,
+        showGoButton: true,
         // formatResult: function(data) {
         //     var result = [];
         //     for (var i = 0, len = data.length; i < len; i++) {
@@ -68,18 +76,20 @@ $(function () {
         //         dataContainer.html('Loading data from flickr.com ...');
         //     }
         // },
+        callback: function(data, pagination) {
+            // template method of yourself
+            handleMovieListResult(data)
+            // console.log(data);
+            // $('#data_container').html(data);
+            //
+            // $('#load_sign').hide();
+            // $('#progress_holder').hide();
+            // $('#movie-list').show();
+        },
+
         alias: {
             pageNumber: 'page',
             pageSize: 'records'
-        },
-        callback: function(data, pagination) {
-            // template method of yourself
-            console.log(data);
-            $('#data_container').html(data);
-
-            $('#load_sign').hide();
-            $('#progress_holder').hide();
-            $('#movie-list').show();
         }
     });
 

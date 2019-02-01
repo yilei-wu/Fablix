@@ -18,6 +18,8 @@ function handleLoginResult(resultDataString) {
         // error messages on <div> with id "login_error_message"
         console.log("show error message");
         console.log(resultDataJson["message"]);
+        $('#submit_button').removeClass('disabled')
+            .text('Submit');
         $("#login_error_message").text(resultDataJson["message"]);
     }
 }
@@ -36,12 +38,16 @@ function submitLoginForm(formSubmitEvent) {
      */
     formSubmitEvent.preventDefault();
 
+    $("#login_error_message").text('');
+    $('#submit_button').addClass('disabled')
+        .text('Loading...');
+
     $.post(
         "api/login",
         // Serialize the login form to the data sent by POST request
         $("#login_form").serialize(),
         (resultDataString) => handleLoginResult(resultDataString)
-    ).fail($("#login_error_message").text('Failed connect to api.'));
+    );
 }
 
 // function loginFormAnim(){
@@ -54,8 +60,8 @@ $(function () {
     $("#login_form").submit(submitLoginForm);
 
     $('#fablix_title').animate({
-        opacity: 1
-    },
+            opacity: 1
+        },
         1300,
         null,
         function () {
