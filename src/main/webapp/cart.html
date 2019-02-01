@@ -33,28 +33,37 @@
 <div id="header"></div>
 
 <div class="container" style="padding-top: 70px" id="movie_holder"></div>
-<div class="container">
+<div class="container" style="padding-top: 50px">
     <div class="row">
-        <div class="col">
-            <button>Hello</button>
+        <div class="col-sm-4 offset-sm-4">
+            <button class="btn btn-outline-primary btn-lg btn-block comic" onclick="$('#payment_confirmation').show(300)">Checkout</button>
         </div>
     </div>
 </div>
 
-<div class="full_screen">
-    <div class="payment_box" style="margin-top: 100px;">
+<div class="full_screen" id="payment_confirmation" style="display: none;">
+    <div class="payment_box border border-primary">
         <h3 align="center" style="margin: 20px" class="comic">Please Enter Your Payment Information</h3>
         <div id="payment_error_message" class="red comic" align="center"></div>
         <form style="width: 50%; margin: auto" method="post" id="payment_form" action="#">
             <div class="form-group comic">
-                <label for="emailInput">Email address</label>
-                <input type="email" class="form-control" id="emailInput" placeholder="Please Enter Your Email" name="username">
+                <label for="card_number">Card Number</label>
+                <input type="number" class="form-control" id="card_number" placeholder="Your card number" name="username">
             </div>
             <div class="form-group comic">
-                <label for="passwordInput">Password</label>
-                <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" placeholder="Your first name" name="password">
+            </div>
+            <div class="form-group comic">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" placeholder="Your last name" name="password">
+            </div>
+            <div class="form-group comic">
+                <label for="exp_date">Expiration Date</label>
+                <input type="date" class="form-control" id="exp_date" placeholder="Your card's expiration date" name="password">
             </div>
             <button type="submit" class="btn btn-outline-primary btn-lg btn-block comic" style="margin-top: 30px">Submit</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm btn-block comic" style="margin-top: 20px" onclick="$('#payment_confirmation').hide(300)">Cancel</button>
         </form>
     </div>
 </div>

@@ -1,3 +1,5 @@
+var page_num;
+
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
     var row = $('<tr></tr>');
@@ -8,14 +10,22 @@ function getTableRow(data, row_num) {
         .append($('<td>' + data[row_num]['genre_list'] + '</td>'))
         .append($('<td></td>').append(stars))
         .append($('<td>' + data[row_num]['rating'] + '</td>'))
-        .append($('<td><button class="btn btn-primary">Add to Cart</button> </td>'));
+        .append($('<td><button class="btn btn-primary"><i class="fas fa-cart-plus"></i></button> </td>'));
     return row;
 }
 
+function changePage() {
+    if (page_num === null) {
+        page_num = 1;
+    }
+    $('#page_container').pagination(page_num);
+}
+
 /**
-    @param resultData jsonObject
-*/
-function handleMovieListResult(resultData){
+ @param resultData jsonObject
+ * @param pagination
+ */
+function handleMovieListResult(resultData, pagination){
     $(function () {
         console.log(resultData);
 
@@ -25,10 +35,19 @@ function handleMovieListResult(resultData){
             table_body.append(getTableRow(resultData, i))
         }
 
+
+        sessionStorage.setItem('page', pagination.pageNumber);
+
         $('#load_sign').hide();
         $('#progress_holder').hide();
         $('#movie-list').show();
     })
+}
+
+function setPage(){
+    $(function () {
+        sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
+    });
 }
 
 $(function () {
@@ -38,14 +57,34 @@ $(function () {
     },
         300);
 
+    var title, year, director, star, sort;
+    // var page_num;
 
-    let title = getParameterByName('title');
-    let year = getParameterByName('year');
-    let director = getParameterByName('director');
-    let star = getParameterByName('star');
-    // let page = getParameterByName('page');
-    let sort = getParameterByName('sort');
-    // let records = getParameterByName('records');
+    let from = getParameterByName('from');
+    if (from === 'search') {
+        title = getParameterByName('title');
+        year = getParameterByName('year');
+        director = getParameterByName('director');
+        star = getParameterByName('star');
+        sort = getParameterByName('sort');
+
+        sessionStorage.setItem('title', title);
+        sessionStorage.setItem('year', year);
+        sessionStorage.setItem('director', director);
+        sessionStorage.setItem('star', star);
+        sessionStorage.setItem('sort', sort);
+    } else if (from === 'back') {
+        title = sessionStorage.getItem('title');
+        year = sessionStorage.getItem('year');
+        director = sessionStorage.getItem('director');
+        star = sessionStorage.getItem('star');
+        sort = sessionStorage.getItem('sort');
+
+        page_num = sessionStorage.getItem('page');
+    }
+    console.log(page_num);
+
+
 
 
     $('#page_container').pagination({
@@ -62,15 +101,14 @@ $(function () {
         },
         showGoInput: true,
         showGoButton: true,
-        // formatResult: function(data) {
-        //     var result = [];
-        //     for (var i = 0, len = data.length; i < len; i++) {
-        //         result.push(data[i] + ' - good guys');
-        //     }
-        //     return result;
-        // },
-        pageSize: 20,
+        pageSize: 22,
+        pageNumber: 3,
         className: 'paginationjs-theme-blue',
+        afterRender: function (){
+            // console.log(this);
+            // sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
+            // changePage()
+        },
         // ajax: {
         //     beforeSend: function() {
         //         dataContainer.html('Loading data from flickr.com ...');
@@ -78,15 +116,8 @@ $(function () {
         // },
         callback: function(data, pagination) {
             // template method of yourself
-            handleMovieListResult(data)
-            // console.log(data);
-            // $('#data_container').html(data);
-            //
-            // $('#load_sign').hide();
-            // $('#progress_holder').hide();
-            // $('#movie-list').show();
+            handleMovieListResult(data, pagination)
         },
-
         alias: {
             pageNumber: 'page',
             pageSize: 'records'
