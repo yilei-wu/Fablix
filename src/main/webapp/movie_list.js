@@ -35,7 +35,7 @@ function handleMovieListResult(resultData, pagination){
             table_body.append(getTableRow(resultData, i))
         }
 
-
+        changePage();
         sessionStorage.setItem('page', pagination.pageNumber);
 
         $('#load_sign').hide();

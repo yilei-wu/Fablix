@@ -18,7 +18,7 @@ let movie_template = $('<div class="row justify-content-center mt-5">\n' +
     '    </div>');
 
 function updateTitle(id, title){
-    $('#' + id).find('#title').text(title);
+    $('#m_' + id).find('#title').text(title);
 }
 
 function removeMovie(id){
@@ -38,27 +38,30 @@ $(function () {
         // console.log(sessionStorage.key(i) + '   ' + sessionStorage.getItem(sessionStorage.key(i)))
         var current = movie_template.clone();
         var key = sessionStorage.key(i);
-        current.attr('id', sessionStorage.key(i));
+        if (key.startsWith('m_')) {
+            // key = key.substring(2);
+            current.attr('id', sessionStorage.key(i));
 
-        $.ajax({
-            dataType: "json",
-            method: "GET",
-            url: "api/single_movie?id=" + key,
-            success: function (resultData) {
-                updateTitle(resultData['id'], resultData['title'])
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-        console.log(current);
-        // console.log(current.filter('#quantity'));
-        current.find('#quantity')
-            .attr('value', sessionStorage.getItem(key))
-            .attr('onchange', 'changeQuantity("' + key + '")');
-        current.find('#remove_button')
-            .attr('onclick', 'sessionStorage.removeItem("' + key + '");removeMovie("' + key + '")');
+            $.ajax({
+                dataType: "json",
+                method: "GET",
+                url: "api/single_movie?id=" + key.substring(2),
+                success: function (resultData) {
+                    updateTitle(resultData['id'], resultData['title'])
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+            console.log(current);
+            // console.log(current.filter('#quantity'));
+            current.find('#quantity')
+                .attr('value', sessionStorage.getItem(key))
+                .attr('onchange', 'changeQuantity("' + key + '")');
+            current.find('#remove_button')
+                .attr('onclick', 'sessionStorage.removeItem("' + key + '");removeMovie("' + key + '")');
 
-        holder.append(current);
+            holder.append(current);
+        }
     }
 });

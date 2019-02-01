@@ -19,7 +19,7 @@ function handleMovieListResult(resultData){
         $('#stars').html(getStars(resultData));
 
         $('#add_to_cart').attr
-        ('onclick', 'addMovieToCart("' + resultData['id'] +  '");showAddCartToast()');
+        ('onclick', 'addMovieToCart("m_' + resultData['id'] +  '");showAddCartToast()');
 
         var bar = new ProgressBar.Circle('#rating', {
             strokeWidth: 6,
