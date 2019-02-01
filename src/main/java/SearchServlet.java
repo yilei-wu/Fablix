@@ -112,7 +112,7 @@ public class SearchServlet extends HttpServlet {
             }
             JsonObject final_result = new JsonObject();
             final_result.add("movielist", movie_list);
-            final_result.addProperty("total_number" , get_total_page(Integer.parseInt(x.get(0)), Integer.parseInt(records)));
+            final_result.addProperty("total_number" , Integer.parseInt(x.get(0)));
             out.write(final_result.toString());
             response.setStatus(200);
 

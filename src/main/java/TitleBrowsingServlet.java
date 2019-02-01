@@ -16,8 +16,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-@WebServlet(name = "GnereBrowsingServlet", urlPatterns = "/api/genre_browse")
-public class GnereBrowsingServlet extends HttpServlet {
+@WebServlet(name = "TitleBrowsingServlet", urlPatterns = "/api/title_browse")
+public class TitleBrowsingServlet extends HttpServlet {
     @Resource(name = "moviedb")
     private DataSource dataSource;
 
@@ -29,7 +29,7 @@ public class GnereBrowsingServlet extends HttpServlet {
         try
         {
             Connection dbcon = dataSource.getConnection();
-            String genre = request.getParameter("genre");
+            String fc = request.getParameter("title");
             String sort = request.getParameter("sort");
             String page = request.getParameter("page");
             String records = request.getParameter("records");
@@ -38,13 +38,13 @@ public class GnereBrowsingServlet extends HttpServlet {
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String genre_condition = " AND genres.name = '" + genre + "'";
+            String title_condition = " AND movies.title like '" + fc + "%'";
             String group_clause = " GROUP BY title";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
 
-            String query = select_query + from_query + where_join + genre_condition + group_clause + order_clause + offset_clause;
-            String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + genre_condition;
+            String query = select_query + from_query + where_join + title_condition + group_clause + order_clause + offset_clause;
+            String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
             ResultSet resultSet = statement.executeQuery();
