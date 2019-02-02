@@ -107,6 +107,9 @@ public class GnereBrowsingServlet extends HttpServlet {
             out.write(final_result.toString());
             response.setStatus(200);
 
+            dbcon.close();
+            statement.close();
+            resultSet.close();
         }
         catch (Exception e)
         {

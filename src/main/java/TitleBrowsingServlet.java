@@ -107,6 +107,10 @@ public class TitleBrowsingServlet extends HttpServlet {
             out.write(final_result.toString());
             response.setStatus(200);
 
+            dbcon.close();
+            resultSet.close();
+            statement.close();
+
         }
         catch (Exception e)
         {

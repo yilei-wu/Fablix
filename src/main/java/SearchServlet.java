@@ -23,9 +23,10 @@ public class SearchServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("SS:" + request.getRequestURI());
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        System.out.println(request.getRequestURI());
+        //System.out.println(request.getRequestURI());
         String title = ((HttpServletRequest)request).getParameter("title");
         String year = ((HttpServletRequest)request).getParameter("year");
         String director = ((HttpServletRequest)request).getParameter("director");
@@ -36,15 +37,15 @@ public class SearchServlet extends HttpServlet {
         try{
 
             Connection dbcon = dataSource.getConnection();
-            System.out.println(title + "|" + year + "|" + director + "|" + star + "|" + page + "|" + records + "|" + sort);
+            //System.out.println(title + "|" + year + "|" + director + "|" + star + "|" + page + "|" + records + "|" + sort);
 
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname\n";
             String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies\n";
             String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n";
-            String title_condition = title == "" ? "" : "and movies.title = '" + title + "' ";
-            String year_condition = year == "" ? "" : "and movies.year = " + year + " ";
-            String directory_condition = director == "" ? "" : "and movies.director = '" + director + "' ";
-            String star_condition = star == "" ? "" : "and stars.name = '" + star + "' ";
+            String title_condition = title.equals("") ? "" : "and movies.title = '" + title + "' ";
+            String year_condition = year.equals("") ? "" : "and movies.year = " + year + " ";
+            String directory_condition = director.equals("") ? "" : "and movies.director = '" + director + "' ";
+            String star_condition = star.equals("") ? "" : "and stars.name = '" + star + "' ";
 
             String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
@@ -112,18 +113,23 @@ public class SearchServlet extends HttpServlet {
             }
             JsonObject final_result = new JsonObject();
             final_result.add("movielist", movie_list);
-            final_result.addProperty("total_number" , Integer.parseInt(x.get(0)));
+            final_result.addProperty("total_number" ,Integer.parseInt(x.get(0)));
+//            Integer.parseInt(x.get(0))
             out.write(final_result.toString());
             response.setStatus(200);
-
+            dbcon.close();
+            statement.close();
+            resultSet.close();
         }
         catch(Exception e){
             response.setStatus(500);
             JsonObject obj = new JsonObject();
             obj.addProperty("error_message", e.getMessage());
             out.write(obj.toString());
+            throw new ServletException(e);
 
         }
+
         out.close();
     }
 
