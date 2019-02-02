@@ -42,10 +42,10 @@ public class SearchServlet extends HttpServlet {
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname\n";
             String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies\n";
             String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n";
-            String title_condition = title.equals("") ? "" : "and movies.title = '" + title + "' ";
-            String year_condition = year.equals("") ? "" : "and movies.year = " + year + " ";
-            String directory_condition = director.equals("") ? "" : "and movies.director = '" + director + "' ";
-            String star_condition = star.equals("") ? "" : "and stars.name = '" + star + "' ";
+            String title_condition = title == "" ? "" : "and movies.title = '" + title + "' ";
+            String year_condition = year == "" ? "" : "and movies.year = " + year + " ";
+            String directory_condition = director == "" ? "" : "and movies.director = '" + director + "' ";
+            String star_condition = star == "" ? "" : "and stars.name = '" + star + "' ";
 
             String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
