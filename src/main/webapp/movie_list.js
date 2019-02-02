@@ -1,4 +1,4 @@
-var page_num;
+var page_num = 1;
 
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
@@ -21,6 +21,10 @@ function changePage() {
     $('#page_container').pagination(page_num);
 }
 
+window.onbeforeunload = function () {
+    sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
+};
+
 /**
  @param resultData jsonObject
  * @param pagination
@@ -35,8 +39,11 @@ function handleMovieListResult(resultData, pagination){
             table_body.append(getTableRow(resultData, i))
         }
 
-        changePage();
-        sessionStorage.setItem('page', pagination.pageNumber);
+        // if (pagination.pageNumber !== page_num) {
+        //     changePage();
+        // }
+
+        // sessionStorage.setItem('page', pagination.pageNumber);
 
         $('#load_sign').hide();
         $('#progress_holder').hide();
@@ -51,6 +58,11 @@ function setPage(){
 }
 
 $(function () {
+
+    // $( window ).unload(function() {
+    //     return "Handler for .unload() called.";
+    // });
+
     $('#movie-list').hide();
     $('.progress-bar').animate({
         width: '95%'
@@ -102,7 +114,7 @@ $(function () {
         showGoInput: true,
         showGoButton: true,
         pageSize: 22,
-        pageNumber: 3,
+        pageNumber: page_num,
         className: 'paginationjs-theme-blue',
         afterRender: function (){
             // console.log(this);
