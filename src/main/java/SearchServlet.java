@@ -126,7 +126,7 @@ public class SearchServlet extends HttpServlet {
             JsonObject obj = new JsonObject();
             obj.addProperty("error_message", e.getMessage());
             out.write(obj.toString());
-            throw new ServletException(e);
+            //throw new ServletException(e);
 
         }
 

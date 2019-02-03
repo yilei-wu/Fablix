@@ -14,7 +14,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 
 
@@ -32,6 +35,7 @@ public class PurchaseServlet extends HttpServlet {
         String exp_date = request.getParameter("expdate");
         String first_name = request.getParameter("firstname");
         String last_name = request.getParameter("last_name");
+        String customer_id = request.getParameter("customer_id");
         Enumeration<String> keySet = request.getParameterNames();
         ArrayList<String> movieSet = new ArrayList<>();
 
@@ -46,18 +50,56 @@ public class PurchaseServlet extends HttpServlet {
         }
         try
         {
-            String query = "select * from creditcards\n" +
+            Connection dbcon = dataSource.getConnection();
+            String query = "select * as a from creditcards\n" +
                     "where id = ? and firstName = ? and lastName = ? and expiration = ?;";
-            PreparedStatement statement =
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            statement.setString(1, card_number);
+            statement.setString(2, exp_date);
+            statement.setString(3, first_name);
+            statement.setString(4, last_name);
+            ResultSet resultSet = statement.executeQuery();
+            JsonObject jsonObject = new JsonObject();
+            JsonObject result = new JsonObject();
+            while (resultSet.next())
+            {
+                jsonObject.addProperty("yes", resultSet.getString("a"));
+            }
+            if(jsonObject.get("yes").isJsonNull())
+            {
+                result.addProperty("type", "failure");
+            }
+            else
+            {
+                result.addProperty("type", "success");
+                for(String each: movieSet)
+                {
+                    for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
+                    {
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date date = new Date();
+                        String insert_query = "INSERT INTO sales(customerld, movield, saleDate) VALUES(?, ?, ? )";
+                        PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
+                        statement.setString(1, customer_id);
+                        statement.setString(2, each);
+                        statement.setString(3, dateFormat.format(date));
+                        statement.executeQuery();
+                    }
+                }
+            }
+            out.write(result.toString());
+            dbcon.close();
+            statement.close();
+            resultSet.close();
+            response.setStatus(200);
         }
         catch (Exception e)
         {
             JsonObject r = new JsonObject();
-            r.addProperty("error_message", );
+            r.addProperty("error_message", e.getMessage());
+            out.write(r.toString());
+            response.setStatus(500);
         }
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        out.close();
     }
 }
