@@ -10,7 +10,7 @@ function getTableRow(data, row_num) {
         .append($('<td>' + data[row_num]['genre_list'] + '</td>'))
         .append($('<td></td>').append(stars))
         .append($('<td>' + data[row_num]['rating'] + '</td>'))
-        .append($('<td><button class="btn btn-primary"><i class="fas fa-cart-plus"></i></button> </td>'));
+        .append($('<td><button class="btn btn-primary" onclick=""><i class="fas fa-cart-plus"></i></button></td>'));
     return row;
 }
 
@@ -39,9 +39,10 @@ function handleMovieListResult(resultData, pagination){
             table_body.append(getTableRow(resultData, i))
         }
 
-        // if (pagination.pageNumber !== page_num) {
-        //     changePage();
-        // }
+        if (pagination.pageNumber !== page_num && sessionStorage.getItem('return') === 'true') {
+            changePage();
+            sessionStorage.setItem('return', 'false');
+        }
 
         // sessionStorage.setItem('page', pagination.pageNumber);
 
@@ -85,14 +86,25 @@ $(function () {
         sessionStorage.setItem('director', director);
         sessionStorage.setItem('star', star);
         sessionStorage.setItem('sort', sort);
+        sessionStorage.setItem('return', 'false');
     } else if (from === 'back') {
         title = sessionStorage.getItem('title');
         year = sessionStorage.getItem('year');
         director = sessionStorage.getItem('director');
         star = sessionStorage.getItem('star');
         sort = sessionStorage.getItem('sort');
+        sessionStorage.setItem('return', 'true');
 
         page_num = sessionStorage.getItem('page');
+    } else if (from === 'resort') {
+        title = sessionStorage.getItem('title');
+        year = sessionStorage.getItem('year');
+        director = sessionStorage.getItem('director');
+        star = sessionStorage.getItem('star');
+        sort = getParameterByName('sort');
+        sessionStorage.setItem('sort', sort);
+        sessionStorage.setItem('return', 'false');
+        page_num = 1;
     }
     console.log(page_num);
 
