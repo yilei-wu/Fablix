@@ -45,7 +45,7 @@ public class SearchServlet extends HttpServlet {
             String title_condition = title == "" ? "" : "and movies.title = '" + title + "' ";
             String year_condition = year == "" ? "" : "and movies.year = " + year + " ";
             String directory_condition = director == "" ? "" : "and movies.director = '" + director + "' ";
-            String star_condition = star == "" ? "" : "and stars.name = '" + star + "' ";
+            String star_condition = star ==  "" ? "" : "and stars.name = '" + star + "' ";
 
             String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
@@ -159,11 +159,11 @@ public class SearchServlet extends HttpServlet {
         }
         else if(sort.equals("ra"))
         {
-            return "ORDER BY movies.rating ";
+            return "ORDER BY ratings.rating ";
         }
         else if(sort.equals("rd"))
         {
-            return "ORDER BY movies.rating DESC ";
+            return "ORDER BY ratings.rating DESC ";
         }
         else
         {
