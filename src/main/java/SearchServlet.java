@@ -159,11 +159,11 @@ public class SearchServlet extends HttpServlet {
         }
         else if(sort.equals("ra"))
         {
-            return "ORDER BY ratings.rating ";
+            return "ORDER BY rating ";
         }
         else if(sort.equals("rd"))
         {
-            return "ORDER BY ratings.rating DESC ";
+            return "ORDER BY rating DESC ";
         }
         else
         {
