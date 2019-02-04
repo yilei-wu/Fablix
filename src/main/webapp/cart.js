@@ -17,6 +17,12 @@ let movie_template = $('<div class="row justify-content-center mt-5">\n' +
     '        </div>\n' +
     '    </div>');
 
+let result_template = $('<div class="row" style="margin-top: 20px">\n' +
+    '                <div class="col-sm-2 offset-sm-2" id="payment_id">id</div>\n' +
+    '                <div class="col-sm-4 offset-sm-1" id="payment_title">title</div>\n' +
+    '                <div class="col-sm-1" id="payment_quantity">quantity</div>\n' +
+    '            </div>');
+
 function updateTitle(id, title){
     $('#m_' + id).find('#title').text(title);
 }
@@ -32,13 +38,38 @@ function changeQuantity(id){
     sessionStorage.setItem(id, new_value);
 }
 
+function clearCart() {
+    for (var i = 0; i < sessionStorage.length; i++) {
+        var key = sessionStorage.key(i);
+        if (key.startsWith('m_')) {
+            sessionStorage.removeItem(key)
+        }
+    }
+}
+
 function handlePaymentResult(result) {
-    console.log(result)
+    console.log(result);
+    if (result[type] === 'succeed') {
+        console.log('succeed');
+        clearCart();
+        for (var i = 0; i < result['movies'].length; i++) {
+            let current_info = result['movies'][i];
+            var current_result = result_template.clone();
+            current_result.find('#payment_id').text(current_info['id']);
+            current_result.find('#payment_title').text(current_info['title']);
+            current_result.find('#payment_quantity').text(current_info['quantity']);
+            $('#result_holder').append(current_result);
+        }
+    } else if (result[type] === 'failure') {
+        $('#payment_error_message').text('Payment information is not correct');
+    }
 }
 
 function submitPayment(form){
     console.log("submit payment form  " + form);
     console.log($("#payment_form").serialize());
+
+    $('#payment_error_message').text('');
 
     var movies = '';
 
