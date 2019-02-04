@@ -128,9 +128,9 @@ public class KeywordSearchServlet extends HttpServlet
         } else if (sort.equals("td")) {
             return " ORDER BY movies.title DESC ";
         } else if (sort.equals("ra")) {
-            return " ORDER BY movies.rating ";
+            return " ORDER BY rating ";
         } else if (sort.equals("rd")) {
-            return " ORDER BY movies.rating DESC ";
+            return " ORDER BY rating DESC ";
         } else {
             return "";
         }
