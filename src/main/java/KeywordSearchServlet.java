@@ -43,6 +43,8 @@ public class KeywordSearchServlet extends HttpServlet
 
             String query = select_query + from_query + where_join + title_condition + group_clause + order_clause + offset_clause;
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
+            System.out.println(queryt);
+            System.out.println(query);
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
             ResultSet resultSet = statement.executeQuery();
@@ -101,7 +103,7 @@ public class KeywordSearchServlet extends HttpServlet
             }
             JsonObject final_result = new JsonObject();
             final_result.add("movielist", movie_list);
-            final_result.addProperty("total_number" , get_total_page(Integer.parseInt(x.get(0)), Integer.parseInt(records)));
+            final_result.addProperty("total_number" , Integer.parseInt(x.get(0)));
             out.write(final_result.toString());
             response.setStatus(200);
 
