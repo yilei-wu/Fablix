@@ -18,7 +18,8 @@ function getTableRow(data, row_num) {
 
 function updateInfo() {
     var source;
-    let from = getParameterByName('from');
+    // let from = getParameterByName('from');
+    let from = sessionStorage.getItem('method');
     if (from === 'a_search') {
         source = 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
             '&star=' + star + '&sort=' + sort;
