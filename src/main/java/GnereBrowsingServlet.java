@@ -129,7 +129,7 @@ public class GnereBrowsingServlet extends HttpServlet {
         } else if (sort.equals("ra")) {
             return " ORDER BY rating ";
         } else if (sort.equals("rd")) {
-            return " ORDER BY rating DESC ";
+            return " ORDER BY   rating DESC ";
         } else {
             return "";
         }
