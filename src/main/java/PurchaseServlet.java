@@ -44,7 +44,7 @@ public class PurchaseServlet extends HttpServlet {
         while(keySet.hasMoreElements())
         {
             String next = keySet.nextElement();
-            if(next != "cardnumber" && next != "expdate" && next != "firstname" && next != "lastname")
+            if(!next.equals("cardnumber") && !next.equals("expdate") && !next.equals("firstname") && !next.equals("last_name"))
             {
                 movieSet.add(next);
             }
@@ -59,9 +59,7 @@ public class PurchaseServlet extends HttpServlet {
             statement.setString(4, exp_date);
             statement.setString(2, first_name);
             statement.setString(3, last_name);
-            System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
-            System.out.println(resultSet.toString());
             JsonObject jsonObject = new JsonObject();
             JsonObject result = new JsonObject();
             while (resultSet.next())
@@ -75,25 +73,26 @@ public class PurchaseServlet extends HttpServlet {
             }
             else if(jsonObject.size() != 0)
             {
-                System.out.println("asdasdas" + movieSet.toString());
                 result.addProperty("type", "success");
-//                for(String each: movieSet)
-//                {
-//                    System.out.println("hello");
-//                    for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
-//                    {
-//                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//                        Date date = new Date();
-//                        String insert_query = "INSERT INTO sales(customerld, movield, saleDate) VALUES(?, ?, ? )";
-//
-//                        PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
-//                        statement.setString(1, customer_id);
-//                        statement.setString(2, each);
-//                        statement.setString(3, dateFormat.format(date));
-//                        statement1.executeQuery();
-//                        System.out.println("hello");
-//                    }
-//                }
+                //for(String each: movieSet){System.out.println(each);}
+                for(String each: movieSet)
+                {
+                    for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
+                    {
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Date date = new Date();
+                        String insert_query = "INSERT INTO sales(id, customerId, movieId, saleDate) VALUES(?, ?, ?, ? )";
+
+                        PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
+                        statement1.setString(1, String.valueOf(getSalesId()));
+                        statement1.setString(2, customer_id);
+                        statement1.setString(3, each);
+                        statement1.setString(4, dateFormat.format(date));
+                        System.out.println(statement1);
+                        statement1.executeQuery();
+                        System.out.println("hello");
+                    }
+                }
             }
 
             System.out.println(result.toString());
@@ -112,5 +111,30 @@ public class PurchaseServlet extends HttpServlet {
             response.setStatus(500);
         }
         out.close();
+    }
+
+    int getSalesId()
+    {
+        try
+        {
+            Connection con = dataSource.getConnection();
+            String query = "SELECT max(id) as m FROM sales";
+            PreparedStatement statement = con.prepareStatement(query);
+            ResultSet r = statement.executeQuery();
+            while (r.next())
+            {
+                String nn = r.getString("m");
+                con.close();
+                statement.close();
+                r.close();
+                return Integer.parseInt(nn)+1;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("error in finding sales number");
+            return 0;
+        }
+        return 0;
     }
 }
