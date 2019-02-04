@@ -52,7 +52,7 @@ public class PurchaseServlet extends HttpServlet {
         try
         {
             Connection dbcon = dataSource.getConnection();
-            String query = "select * as a from creditcards\n" +
+            String query = "select * from creditcards\n" +
                     "where id = ? and firstName = ? and lastName = ? and expiration = ?;";
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1, card_number);
@@ -61,34 +61,41 @@ public class PurchaseServlet extends HttpServlet {
             statement.setString(3, last_name);
             System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
+            System.out.println(resultSet.toString());
             JsonObject jsonObject = new JsonObject();
             JsonObject result = new JsonObject();
             while (resultSet.next())
             {
-                jsonObject.addProperty("yes", resultSet.getString("a"));
+                jsonObject.addProperty("yes", resultSet.getString("id"));
             }
-            if(jsonObject.get("yes").isJsonNull())
+
+            if(jsonObject.size() == 0)
             {
                 result.addProperty("type", "failure");
             }
-            else
+            else if(jsonObject.size() != 0)
             {
+                System.out.println("asdasdas" + movieSet.toString());
                 result.addProperty("type", "success");
-                for(String each: movieSet)
-                {
-                    for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
-                    {
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        Date date = new Date();
-                        String insert_query = "INSERT INTO sales(customerld, movield, saleDate) VALUES(?, ?, ? )";
-                        PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
-                        statement.setString(1, customer_id);
-                        statement.setString(2, each);
-                        statement.setString(3, dateFormat.format(date));
-                        statement1.executeQuery();
-                    }
-                }
+//                for(String each: movieSet)
+//                {
+//                    System.out.println("hello");
+//                    for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
+//                    {
+//                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                        Date date = new Date();
+//                        String insert_query = "INSERT INTO sales(customerld, movield, saleDate) VALUES(?, ?, ? )";
+//
+//                        PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
+//                        statement.setString(1, customer_id);
+//                        statement.setString(2, each);
+//                        statement.setString(3, dateFormat.format(date));
+//                        statement1.executeQuery();
+//                        System.out.println("hello");
+//                    }
+//                }
             }
+
             System.out.println(result.toString());
             out.write(result.toString());
 
