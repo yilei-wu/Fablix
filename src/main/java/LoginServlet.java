@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             String sessionId = (request).getSession().getId();
             Long lastAccessTime = (request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
-
+            request.getSession().setAttribute("userid", getUserId(username));
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "success");
             responseJsonObject.addProperty("message", "success");
@@ -77,7 +77,31 @@ public class LoginServlet extends HttpServlet {
         }
 
         return false;
+    }
 
-
+    String getUserId(String username)
+    {
+        try
+        {
+            Connection con = datasource.getConnection();
+            String query = "Select id from customers where email = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                String id = resultSet.getString("id");
+                con.close();
+                statement.close();
+                resultSet.close();
+                return id;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            return "";
+        }
+        return "";
     }
 }

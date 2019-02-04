@@ -36,7 +36,7 @@ public class PurchaseServlet extends HttpServlet {
         String exp_date = ((HttpServletRequest)request).getParameter("expdate");
         String first_name = ((HttpServletRequest)request).getParameter("firstname");
         String last_name = ((HttpServletRequest)request).getParameter("last_name");
-        String customer_id = ((HttpServletRequest)request).getParameter("customer_id");
+        String customer_id = String.valueOf(((HttpServletRequest)request).getSession().getAttribute("userid"));
         Enumeration<String> keySet = ((HttpServletRequest)request).getParameterNames();
         ArrayList<String> movieSet = new ArrayList<>();
 
