@@ -74,7 +74,8 @@ public class PurchaseServlet extends HttpServlet {
             else if(jsonObject.size() != 0)
             {
                 result.addProperty("type", "success");
-                //for(String each: movieSet){System.out.println(each);}
+                JsonArray movies = new JsonArray();
+                result.add("movies", movies);
                 for(String each: movieSet)
                 {
                     for(int i = 0; i < Integer.parseInt(request.getParameter(each)); i++)
@@ -82,9 +83,14 @@ public class PurchaseServlet extends HttpServlet {
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         Date date = new Date();
                         String insert_query = "INSERT INTO sales(id, customerId, movieId, saleDate) VALUES(?, ?, ?, ? )";
-
+                        int saleId = getSalesId();
+                        String title = getTitle(each);
+                        JsonObject each_sale = new JsonObject();
+                        each_sale.addProperty("id", saleId);
+                        each_sale.addProperty("title", title);
+                        movies.add(each_sale);
                         PreparedStatement statement1 = dbcon.prepareStatement(insert_query);
-                        statement1.setString(1, String.valueOf(getSalesId()));
+                        statement1.setString(1, String.valueOf(saleId));
                         statement1.setString(2, customer_id);
                         statement1.setString(3, each);
                         statement1.setString(4, dateFormat.format(date));
@@ -137,5 +143,31 @@ public class PurchaseServlet extends HttpServlet {
             return 0;
         }
         return 0;
+    }
+
+    String getTitle(String id)
+    {
+        try
+        {
+            Connection con = dataSource.getConnection();
+            String query = "Select movies.title as t from movies where movies.id = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next())
+            {
+                String title  = resultSet.getString("t");
+                con.close();
+                statement.close();
+                resultSet.close();
+                return title;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("error in finding movie title");
+        }
+        return "";
     }
 }
