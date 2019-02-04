@@ -29,6 +29,8 @@ function updateInfo() {
         source = 'api/genre_browse?genre=' + genre + '&sort=' + sort
     } else if (from === 't_search') {
         source = 'api/title_browse?title=' + first_title + '&sort=' + sort
+    } else {
+        console.error('not found ' + from)
     }
 
     size = sessionStorage.getItem('size');
@@ -158,7 +160,7 @@ function setPage(){
 }
 
 $(function () {
-
+    sessionStorage.setItem('size', '20');
     // $( window ).unload(function() {
     //     return "Handler for .unload() called.";
     // });

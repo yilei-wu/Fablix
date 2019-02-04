@@ -62,14 +62,14 @@
                 <label for="exp_date">Expiration Date</label>
                 <input type="date" class="form-control" id="exp_date" placeholder="Your card's expiration date" name="expdate">
             </div>
-            <button type="submit" class="btn btn-outline-primary btn-lg btn-block comic" style="margin-top: 30px">Submit</button>
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block comic" style="margin-top: 30px" id="submit_payment">Submit</button>
             <button type="button" class="btn btn-outline-secondary btn-sm btn-block comic" style="margin-top: 20px" onclick="$('#payment_confirmation').hide(300)">Cancel</button>
         </form>
     </div>
 </div>
 
 <!--Result-->
-<div class="full_screen" id="result_window">
+<div class="full_screen" id="result_window" style="display: none;">
     <div class="result_box border border-primary overflow-auto">
         <h3 align="center" style="margin: 20px" class="comic">Thank you!</h3>
         <div class="container" style="font-size: 25px" id="result_holder">

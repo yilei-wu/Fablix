@@ -49,9 +49,10 @@ function clearCart() {
 
 function handlePaymentResult(result) {
     console.log(result);
-    if (result[type] === 'succeed') {
+    if (result['type'] === 'success') {
         console.log('succeed');
         clearCart();
+        $('#result_window').show();
         for (var i = 0; i < result['movies'].length; i++) {
             let current_info = result['movies'][i];
             var current_result = result_template.clone();
@@ -60,8 +61,10 @@ function handlePaymentResult(result) {
             current_result.find('#payment_quantity').text(current_info['quantity']);
             $('#result_holder').append(current_result);
         }
-    } else if (result[type] === 'failure') {
+    } else if (result['type'] === 'failure') {
         $('#payment_error_message').text('Payment information is not correct');
+        $('#submit_payment').removeClass('disabled')
+            .text('Submit');
     }
 }
 
@@ -70,6 +73,8 @@ function submitPayment(form){
     console.log($("#payment_form").serialize());
 
     $('#payment_error_message').text('');
+    $('#submit_payment').addClass('disabled')
+        .text('Loading...');
 
     var movies = '';
 
@@ -118,7 +123,7 @@ $(function () {
             // console.log(current.filter('#quantity'));
             current.find('#quantity')
                 .attr('value', sessionStorage.getItem(key))
-                .attr('onchange', 'changeQuantity("' + key + '")');
+                .attr('onchange', 'changeQuantity("' + key + '");');
             current.find('#remove_button')
                 .attr('onclick', 'sessionStorage.removeItem("' + key + '");removeMovie("' + key + '")');
 
