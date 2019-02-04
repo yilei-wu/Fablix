@@ -1,5 +1,5 @@
 var page_num = 1;
-var title, year, director, star, sort, keyword, genre, first_title;
+var title, year, director, star, sort, keyword, genre, first_title, size = 20;
 
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
@@ -31,6 +31,7 @@ function updateInfo() {
         source = 'api/title_browse?title=' + first_title + '&sort=' + sort
     }
 
+    size = sessionStorage.getItem('size');
 
     $('#page_container').pagination({
         dataSource: source,
@@ -45,7 +46,7 @@ function updateInfo() {
         },
         showGoInput: true,
         showGoButton: true,
-        pageSize: 22,
+        pageSize: size,
         // pageNumber: page_num,
         className: 'paginationjs-theme-blue',
         afterRender: function (){
@@ -67,6 +68,12 @@ function updateInfo() {
             pageSize: 'records'
         }
     });
+}
+
+function updateItemsPerPage() {
+    let new_ipp = $('#ipp').val();
+    sessionStorage.setItem('size', new_ipp | 0);
+    updateInfo()
 }
 
 function resort(key) {
