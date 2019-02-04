@@ -18,9 +18,9 @@ let movie_template = $('<div class="row justify-content-center mt-5">\n' +
     '    </div>');
 
 let result_template = $('<div class="row" style="margin-top: 20px">\n' +
-    '                <div class="col-sm-2 offset-sm-2" id="payment_id">id</div>\n' +
-    '                <div class="col-sm-4 offset-sm-1" id="payment_title">title</div>\n' +
-    '                <div class="col-sm-1" id="payment_quantity">quantity</div>\n' +
+    '                <div class="col-sm-2 offset-sm-3" id="payment_id">id</div>\n' +
+    '                <div class="col-sm-4 offset-sm-2" id="payment_title">title</div>\n' +
+    // '                <div class="col-sm-1" id="payment_quantity">quantity</div>\n' +
     '            </div>');
 
 function updateTitle(id, title){
@@ -39,7 +39,7 @@ function changeQuantity(id){
 }
 
 function clearCart() {
-    for (var i = 0; i < sessionStorage.length; i++) {
+    for (var i = sessionStorage.length - 1; i >= 0; i--) {
         var key = sessionStorage.key(i);
         if (key.startsWith('m_')) {
             sessionStorage.removeItem(key)
@@ -58,7 +58,7 @@ function handlePaymentResult(result) {
             var current_result = result_template.clone();
             current_result.find('#payment_id').text(current_info['id']);
             current_result.find('#payment_title').text(current_info['title']);
-            current_result.find('#payment_quantity').text(current_info['quantity']);
+            // current_result.find('#payment_quantity').text(current_info['quantity']);
             $('#result_holder').append(current_result);
         }
     } else if (result['type'] === 'failure') {
