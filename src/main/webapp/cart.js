@@ -106,6 +106,8 @@ $(function () {
         var key = sessionStorage.key(i);
         if (key.startsWith('m_')) {
             // key = key.substring(2);
+            $('#checkout_button').removeClass('disabled')
+                .attr('onclick', "$('#payment_confirmation').show(300)");
             current.attr('id', sessionStorage.key(i));
 
             $.ajax({

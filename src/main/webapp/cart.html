@@ -36,11 +36,12 @@
 <div class="container" style="padding-top: 50px">
     <div class="row">
         <div class="col-sm-4 offset-sm-4">
-            <button class="btn btn-outline-primary btn-lg btn-block comic" onclick="$('#payment_confirmation').show(300)">Checkout</button>
+            <button class="btn btn-outline-primary btn-lg btn-block comic disabled" id="checkout_button">Checkout</button>
         </div>
     </div>
 </div>
 
+<!--Payment-->
 <div class="full_screen" id="payment_confirmation" style="display: none;">
     <div class="payment_box border border-primary">
         <h3 align="center" style="margin: 20px" class="comic">Please Enter Your Payment Information</h3>
