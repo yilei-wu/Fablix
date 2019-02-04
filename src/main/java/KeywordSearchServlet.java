@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-@WebServlet(name = "KeywordSearchServlet", urlPatterns = "api/keyword_search/")
+@WebServlet(name = "KeywordSearchServlet", urlPatterns = "/api/keyword_search")
 public class KeywordSearchServlet extends HttpServlet
 {
     @Resource(name = "moviedb")

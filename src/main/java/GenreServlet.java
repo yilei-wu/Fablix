@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet(name = "GenreServlet", urlPatterns = "api/all_genres")
+@WebServlet(name = "GenreServlet", urlPatterns = "/api/all_genres")
 public class GenreServlet extends HttpServlet {
 
     @Resource(name = "moviedb")

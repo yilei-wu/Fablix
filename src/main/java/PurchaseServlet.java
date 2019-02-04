@@ -21,22 +21,22 @@ import java.util.Date;
 import java.util.Enumeration;
 
 
-@WebServlet(name = "PurchaseServlet", urlPatterns = "api/purchase/")
+@WebServlet(name = "PurchaseServlet", urlPatterns = "/api/purchase")
 public class PurchaseServlet extends HttpServlet {
     @Resource(name = "moviedb")
     private DataSource dataSource;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
-        String card_number = request.getParameter("cardnumber");
-        String exp_date = request.getParameter("expdate");
-        String first_name = request.getParameter("firstname");
-        String last_name = request.getParameter("last_name");
-        String customer_id = request.getParameter("customer_id");
-        Enumeration<String> keySet = request.getParameterNames();
+        String card_number = ((HttpServletRequest)request).getParameter("cardnumber");
+        String exp_date = ((HttpServletRequest)request).getParameter("expdate");
+        String first_name = ((HttpServletRequest)request).getParameter("firstname");
+        String last_name = ((HttpServletRequest)request).getParameter("last_name");
+        String customer_id = ((HttpServletRequest)request).getParameter("customer_id");
+        Enumeration<String> keySet = ((HttpServletRequest)request).getParameterNames();
         ArrayList<String> movieSet = new ArrayList<>();
 
 
