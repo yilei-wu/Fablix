@@ -32,7 +32,37 @@ function changeQuantity(id){
     sessionStorage.setItem(id, new_value);
 }
 
+function handlePaymentResult(result) {
+    console.log(result)
+}
+
+function submitPayment(form){
+    console.log("submit payment form  " + form);
+    console.log($("#payment_form").serialize());
+
+    var movies = '';
+
+    for (var i = 0; i < sessionStorage.length; i++) {
+        var key = sessionStorage.key(i);
+        if (key.startsWith('m_')) {
+            key = key.substring(2);
+            movies += '&' + key + '=' + sessionStorage.getItem('m_' + key);
+        }
+    }
+
+    let info = $("#payment_form").serialize() + movies;
+    console.log(info);
+
+    form.preventDefault();
+
+    $.post(
+        "api/purchase?" + info,
+        (resultDataString) => handlePaymentResult(resultDataString)
+    );
+}
+
 $(function () {
+    $('#payment_form').submit(submitPayment);
     let holder = $('#movie_holder');
     for (var i = 0; i < sessionStorage.length; i++) {
         // console.log(sessionStorage.key(i) + '   ' + sessionStorage.getItem(sessionStorage.key(i)))
@@ -64,4 +94,6 @@ $(function () {
             holder.append(current);
         }
     }
+
+
 });
