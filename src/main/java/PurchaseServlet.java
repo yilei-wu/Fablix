@@ -28,6 +28,7 @@ public class PurchaseServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
+        //process all the parameters here
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
@@ -55,9 +56,10 @@ public class PurchaseServlet extends HttpServlet {
                     "where id = ? and firstName = ? and lastName = ? and expiration = ?;";
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1, card_number);
-            statement.setString(2, exp_date);
-            statement.setString(3, first_name);
-            statement.setString(4, last_name);
+            statement.setString(4, exp_date);
+            statement.setString(2, first_name);
+            statement.setString(3, last_name);
+            System.out.println(statement);
             ResultSet resultSet = statement.executeQuery();
             JsonObject jsonObject = new JsonObject();
             JsonObject result = new JsonObject();
@@ -83,11 +85,13 @@ public class PurchaseServlet extends HttpServlet {
                         statement.setString(1, customer_id);
                         statement.setString(2, each);
                         statement.setString(3, dateFormat.format(date));
-                        statement.executeQuery();
+                        statement1.executeQuery();
                     }
                 }
             }
+            System.out.println(result.toString());
             out.write(result.toString());
+
             dbcon.close();
             statement.close();
             resultSet.close();
