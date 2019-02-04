@@ -104,3 +104,7 @@ function addMovieToCart(id) {
     }
 
 }
+
+var printError = function(req, status, err) {
+    console.log('Error: ', status, err);
+};

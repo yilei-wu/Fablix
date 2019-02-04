@@ -40,6 +40,10 @@
     transform: translate(-50%);
 }
 
+/*#g_container {*/
+    /*overflow-x: auto;*/
+/*}*/
+
 footer {
     position: fixed;
     left: 0;

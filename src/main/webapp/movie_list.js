@@ -1,5 +1,5 @@
 var page_num = 1;
-var title, year, director, star, sort;
+var title, year, director, star, sort, keyword, genre, first_title;
 
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
@@ -17,12 +17,22 @@ function getTableRow(data, row_num) {
 }
 
 function updateInfo() {
-
+    var source;
+    let from = getParameterByName('from');
+    if (from === 'a_search') {
+        source = 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+            '&star=' + star + '&sort=' + sort;
+    } else if (from === 'k_search') {
+        source = 'api/keyword_search?keyword=' + keyword + '&sort=' + sort
+    } else if (from === 'g_search') {
+        source = 'api/genre_browse?genre=' + genre + '&sort=' + sort
+    } else if (from === 't_search') {
+        source = 'api/title_browse?title=' + first_title + '&sort=' + sort
+    }
 
 
     $('#page_container').pagination({
-        dataSource: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
-            '&star=' + star + '&sort=' + sort,
+        dataSource: source,
         // locator: function () {
         //     return 'movielist'
         // },
@@ -154,7 +164,7 @@ $(function () {
 
     // var page_num;
     let from = getParameterByName('from');
-    if (from === 'search') {
+    if (from === 'a_search') {
         title = getParameterByName('title');
         year = getParameterByName('year');
         director = getParameterByName('director');
@@ -167,25 +177,59 @@ $(function () {
         sessionStorage.setItem('star', star);
         sessionStorage.setItem('sort', sort);
         sessionStorage.setItem('return', 'false');
+        sessionStorage.setItem('method', 'a_search');
+    } else if (from === 'k_search') {
+        sort = getParameterByName('sort');
+        keyword = getParameterByName('keyword');
+
+        sessionStorage.setItem('sort', sort);
+        sessionStorage.setItem('keyword', keyword);
+        sessionStorage.setItem('return', 'false');
+        sessionStorage.setItem('method', 'k_search');
+    } else if (from === 'g_search') {
+        sort = getParameterByName('sort');
+        genre = getParameterByName('genre');
+
+        sessionStorage.setItem('sort', sort);
+        sessionStorage.setItem('genre', genre);
+        sessionStorage.setItem('return', 'false');
+        sessionStorage.setItem('method', 'g_search');
+    } else if (from === 't_search') {
+        sort = getParameterByName('sort');
+        first_title = getParameterByName('title');
+
+        sessionStorage.setItem('sort', sort);
+        sessionStorage.setItem('f_title', first_title);
+        sessionStorage.setItem('return', 'false');
+        sessionStorage.setItem('method', 't_search');
     } else if (from === 'back') {
-        title = sessionStorage.getItem('title');
-        year = sessionStorage.getItem('year');
-        director = sessionStorage.getItem('director');
-        star = sessionStorage.getItem('star');
+        if (sessionStorage.getItem('method') === 'k_search') {
+            keyword = sessionStorage.getItem('keyword');
+        } else if (sessionStorage.getItem('method') === 'a_search') {
+            title = sessionStorage.getItem('title');
+            year = sessionStorage.getItem('year');
+            director = sessionStorage.getItem('director');
+            star = sessionStorage.getItem('star');
+        } else if (sessionStorage.getItem('method') === 'g_search') {
+            genre = sessionStorage.getItem('genre');
+        } else if (sessionStorage.getItem('method') === 't_search') {
+            first_title = sessionStorage.getItem('f_title');
+        }
         sort = sessionStorage.getItem('sort');
         sessionStorage.setItem('return', 'true');
 
         page_num = sessionStorage.getItem('page');
-    } else if (from === 'resort') {
-        title = sessionStorage.getItem('title');
-        year = sessionStorage.getItem('year');
-        director = sessionStorage.getItem('director');
-        star = sessionStorage.getItem('star');
-        sort = getParameterByName('sort');
-        sessionStorage.setItem('sort', sort);
-        sessionStorage.setItem('return', 'false');
-        page_num = 1;
     }
+    // else if (from === 'resort') {
+    //     title = sessionStorage.getItem('title');
+    //     year = sessionStorage.getItem('year');
+    //     director = sessionStorage.getItem('director');
+    //     star = sessionStorage.getItem('star');
+    //     sort = getParameterByName('sort');
+    //     sessionStorage.setItem('sort', sort);
+    //     sessionStorage.setItem('return', 'false');
+    //     page_num = 1;
+    // }
     console.log(page_num);
 
     updateInfo();
