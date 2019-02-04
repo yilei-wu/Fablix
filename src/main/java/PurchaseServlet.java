@@ -89,7 +89,7 @@ public class PurchaseServlet extends HttpServlet {
                         statement1.setString(3, each);
                         statement1.setString(4, dateFormat.format(date));
                         System.out.println(statement1);
-                        statement1.executeQuery();
+                        statement1.executeUpdate();
                         System.out.println("hello");
                     }
                 }
@@ -105,6 +105,7 @@ public class PurchaseServlet extends HttpServlet {
         }
         catch (Exception e)
         {
+            System.err.println(e);
             JsonObject r = new JsonObject();
             r.addProperty("error_message", e.getMessage());
             out.write(r.toString());
