@@ -1,0 +1,13 @@
+//author:Yilei Wu
+
+//Pattern user for Advanced Search:
+//(?)stand for the keyword
+//title: '%?%' : match any title which have the substring of the keyword
+//directory: same as title
+//star same as title
+
+//Pattern used for browse(title and genre)
+// no patter, accurate search is applied here
+
+//Pattern used for movie search
+//'%keyword%' matches any movie which title contains the keyword we search
