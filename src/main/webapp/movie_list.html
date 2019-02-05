@@ -88,15 +88,18 @@
     <thead class="thead-dark fixed_header">
     <tr>
         <th></th>
-        <th>
-            <button onclick="resort('t')">Title</button>
+        <th style="white-space: nowrap;">
+            <div onclick="resort('t')" class="sortable" style="display: inline;">Title </div>
+            <div id="title_sort_sign" style="display: inline;"></div>
+
         </th>
         <th>Year</th>
         <th>Director</th>
         <th>Genres</th>
         <th>Stars</th>
-        <th>
-            <button onclick="resort('r')">Rating</button>
+        <th style="white-space: nowrap;">
+            <div onclick="resort('r')" class="sortable" style="display: inline">Rating </div>
+            <div id="rate_sort_sign" style="display: inline"></div>
         </th>
         <th></th>
     </tr>

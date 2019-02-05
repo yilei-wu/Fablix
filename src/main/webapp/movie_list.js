@@ -1,5 +1,8 @@
 var page_num = 1;
 var title, year, director, star, sort, keyword, genre, first_title, size = 20;
+let sort_no = $('<i class="fas fa-sort"></i>');
+let sort_up = $('<i class="fas fa-sort-up"></i>');
+let sort_down = $('<i class="fas fa-sort-down"></i>');
 
 function getTableRow(data, row_num) {
     var stars = getStars(data, row_num);
@@ -44,8 +47,9 @@ function updateInfo() {
     } else if (from === 't_search') {
         source = 'api/title_browse?title=' + first_title + '&sort=' + sort
     } else {
-        console.error('not found ' + from)
+        console.error('not found from' + from)
     }
+    updateSortIcon();
 
     size = sessionStorage.getItem('size');
 
@@ -76,6 +80,29 @@ function updateItemsPerPage() {
     let new_ipp = $('#ipp').val();
     sessionStorage.setItem('size', new_ipp | 0);
     updateInfo()
+}
+
+function updateSortIcon() {
+    let currentSort = sessionStorage.getItem('sort');
+    let title_sort_holder = $('#title_sort_sign');
+    let rate_sort_holder = $('#rate_sort_sign');
+
+    if (currentSort === 'ta') {
+        title_sort_holder.html(sort_up);
+        rate_sort_holder.html(sort_no);
+    } else if (currentSort === 'td') {
+        title_sort_holder.html(sort_down);
+        rate_sort_holder.html(sort_no);
+    } else if (currentSort === 'ra') {
+        title_sort_holder.html(sort_no);
+        rate_sort_holder.html(sort_up);
+    } else if (currentSort === 'rd') {
+        title_sort_holder.html(sort_no);
+        rate_sort_holder.html(sort_down);
+    } else {
+        console.error('no sort')
+    }
+
 }
 
 function resort(key) {
