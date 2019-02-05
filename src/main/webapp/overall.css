@@ -1,0 +1,184 @@
+.fablix {
+    font-size: 120px;
+    font-family: 'Pacifico', cursive;
+}
+
+.fablix_header {
+    font-size: 40px;
+    font-family: 'Pacifico', cursive;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.header-bar {
+    width: 100%;
+    height: 70px;
+    z-index: 3;
+    background-image: linear-gradient(#000000, rgba(0, 0, 0, 0));
+    position: fixed;
+}
+
+#bg_video {
+    position: fixed;
+    top: 0;
+}
+
+#user_info {
+    float: right;
+}
+
+#search_area {
+    position: fixed;
+    width: 80%;
+    top: 25%;
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+}
+
+/*#g_container {*/
+    /*overflow-x: auto;*/
+/*}*/
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+}
+
+.comic {
+    font-family: 'Trebuchet MS', serif
+}
+
+.full_screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.payment_box {
+    width: 70%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin: 0;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    /*border: 5px solid #3ca5ea;*/
+    z-index: 11;
+    background-color: black;
+}
+
+.result_box {
+    width: 70%;
+    height: 60%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    margin: 0;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    background-color: black;
+}
+
+.sortable {
+    color: #3ca5ea;
+    cursor: pointer;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.add_info {
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    margin-top: 70px;
+    /*background-color: #000000;*/
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.movie_info {
+    height: 100%;
+    width: 75%;
+    position: fixed;
+    margin-top: 70px;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.movie_title {
+    /*height: 100px;*/
+    font-size: 45px;
+    font-family: 'Lato', sans-serif;
+    color: aliceblue;
+    text-align: center;
+}
+
+hr {
+    border-color: aliceblue;
+}
+
+.year {
+    font-size: 30px;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+}
+
+.dir_name {
+    font-size: 30px;
+}
+
+.star_buffer {
+    margin-top: 20px;
+}
+
+.star_name {
+    font-size: 20px;
+    text-align: center;
+}
+
+.id {
+    font-size: 10px;
+    text-align: center;
+}
+
+.rating {
+    font-size: 90px;
+    text-align: center;
+}
+
+.genre {
+    font-size: 25px;
+    text-align: center;
+}

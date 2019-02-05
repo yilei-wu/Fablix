@@ -26,7 +26,6 @@ public class SingleMovieServlet extends HttpServlet {
         response.setContentType("application/json");
         String id = request.getParameter("id");
         PrintWriter out = response.getWriter();
-
         try
         {
             Connection dbcon = dataSource.getConnection();

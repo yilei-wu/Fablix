@@ -1,22 +1,5 @@
-/**
- * Retrieve parameter from request URL, matching by parameter name
- * @param target String
- * @returns {*}
- */
-function getParameterByName(target) {
-    // Get request URL
-    let url = window.location.href;
-    // Encode target parameter name to url encoding
-    target = target.replace(/[\[\]]/g, "\\$&");
-
-    // Ues regular expression to find matched parameter value
-    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-
-    // Return the decoded parameter value
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+function showAddCartToast() {
+    $('#add_cart_toast').toast('show');
 }
 
 function handleMovieListResult(resultData){
@@ -30,27 +13,43 @@ function handleMovieListResult(resultData){
             });
         $('#year').html(resultData['year']);
         $('#director').html('<sup style="font-size: 15px">Directed by </sup>' + resultData['director']);
-        $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
+        // $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
+        let rate = resultData['rating'] === -1? 'No Rating' : resultData['rating'];
         $('#movie_id').html(resultData['id']);
         $('#genre').html(resultData['genre_list']);
         $('#stars').html(getStars(resultData));
+
+        $('#add_to_cart').attr
+        ('onclick', 'addMovieToCart("m_' + resultData['id'] +  '");showAddCartToast()');
+
+        var bar = new ProgressBar.Circle('#rating', {
+            strokeWidth: 6,
+            easing: 'easeInOut',
+            duration: 1400,
+            color: '#157ffb',
+            trailColor: 'white',
+            trailWidth: 1,
+            svgStyle: {
+                // display: 'flex',
+                // 'align-items': 'center',
+                // margin: 'auto'
+            },
+            text: {
+                value: rate
+            }
+        });
+
+        if (rate === 'No Rating') {
+            $('#rating').html('<div style="font-size: 30px; margin-top: 30px" class="comic">' + rate + '</div>')
+        } else {
+            bar.animate(resultData['rating'] / 10);  // Number from 0.0 to 1.0
+        }
     })
 }
 
-var printError = function(req, status, err) {
-    console.log('Error: ', status, err);
-};
+
 
 $(function () {
-    // $('#movie-list').hide();
-    // $('.progress-bar').animate({
-    //         width: '95%'
-    //     },
-    //     300);
-    // var title = $('#movie_title');
-    // console.log(title);
-    // title.html('hello');
-
     let movie_id = getParameterByName('id');
 
     $.ajax({

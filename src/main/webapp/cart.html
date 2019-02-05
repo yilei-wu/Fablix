@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+    <link rel="stylesheet" href="overall.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Lato|Pacifico" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="generator.js"></script>
+    <script src="cart.js"></script>
+
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+</head>
+<body class="bg-black white">
+
+<div id="header"></div>
+
+<div class="container" style="padding-top: 70px" id="movie_holder"></div>
+<div class="container" style="padding-top: 50px">
+    <div class="row">
+        <div class="col-sm-4 offset-sm-4">
+            <div id="no_movie_sign" class="comic" style="text-align: center; font-size: 20px; margin: 10px; display: none">No movies in your cart.</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 offset-sm-4">
+            <button class="btn btn-outline-primary btn-lg btn-block comic disabled" id="checkout_button">Checkout</button>
+        </div>
+    </div>
+</div>
+
+<!--Payment-->
+<div class="full_screen" id="payment_confirmation" style="display: none;">
+    <div class="payment_box border border-primary">
+        <h3 align="center" style="margin: 20px" class="comic">Please Enter Your Payment Information</h3>
+        <div id="payment_error_message" class="red comic" align="center"></div>
+        <form style="width: 50%; margin: auto" method="post" id="payment_form" action="#">
+            <div class="form-group comic">
+                <label for="card_number">Card Number</label>
+                <input type="number" class="form-control" id="card_number" placeholder="Your card number" name="cardnumber">
+            </div>
+            <div class="form-group comic">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" placeholder="Your first name" name="firstname">
+            </div>
+            <div class="form-group comic">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" placeholder="Your last name" name="last_name">
+            </div>
+            <div class="form-group comic">
+                <label for="exp_date">Expiration Date</label>
+                <input type="date" class="form-control" id="exp_date" placeholder="Your card's expiration date" name="expdate">
+            </div>
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block comic" style="margin-top: 30px" id="submit_payment">Submit</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm btn-block comic" style="margin-top: 20px" onclick="$('#payment_confirmation').hide(300)">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<!--Result-->
+<div class="full_screen" id="result_window" style="display: none;">
+    <div class="result_box border border-primary overflow-auto">
+        <h3 align="center" style="margin: 20px" class="comic">Thank you!</h3>
+        <div class="container" style="font-size: 25px" id="result_holder">
+            <!--<div class="row" style="margin-top: 20px">-->
+                <!--<div class="col-sm-2 offset-sm-2" id="payment_id">id</div>-->
+                <!--<div class="col-sm-4 offset-sm-1" id="payment_title">title</div>-->
+                <!--<div class="col-sm-1" id="payment_quantity">quantity</div>-->
+            <!--</div>-->
+
+            <div class="row" style="margin-top: 40px; margin-bottom: 30px">
+                <div class="col-sm-4 offset-sm-4">
+                    <a href="index.html" class="btn btn-outline-primary btn-lg btn-block comic">Continue Browsing</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 100px"></div>
+<div id="footer"></div>
+
+</body>
+</html>

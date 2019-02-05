@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie List</title>
+
+    <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="http://pagination.js.org/dist/2.1.4/pagination.js"></script>
+    <script src="generator.js"></script>
+    <script src="movie_list.js"></script>
+
+    <style>
+        .fixed_header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 70px;
+        }
+
+        #load_sign {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="pagination.css">
+
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            $("#footer").load("footer.html");
+        });
+    </script>
+</head>
+
+<body class="bg-black white">
+
+<div id="header"></div>
+<div style="height: 70px; width: 100%; position: fixed; top: 0; z-index: 2" class="bg-black"></div>
+<div style="padding-top: 70px"></div>
+
+<!--Loading-->
+<div class="full_screen" id="loading">
+    <!--<div class="loading_box border border-primary overflow-auto">-->
+        <h5 id="load_sign" style="margin-top: 140px">Loading...</h5>
+        <div class="row justify-content-center" id="progress_holder">
+            <div class="col-4">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0;" aria-valuenow="25" aria-valuemin="0"
+                         aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    <!--</div>-->
+</div>
+
+
+<!--Search-->
+<div class="row" style="margin-top: 30px">
+    <div class="col-sm-8 offset-sm-2">
+        <form id="keyword_form">
+            <div class="input-group form-group">
+                <input type="text" class="form-control" placeholder="Search"
+                       aria-label="Recipient's username"
+                       aria-describedby="button-addon2" name="keyword">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2">Search</button>
+                </div>
+                <input type="hidden" class="form-control" name="from" value="k_search">
+                <input type="hidden" class="form-control" name="sort" value="ta">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Table-->
+<table id="movie-list" class="table table-dark table-bordered table-striped" style="display: none">
+    <thead class="thead-dark fixed_header">
+    <tr>
+        <th></th>
+        <th style="white-space: nowrap;">
+            <div onclick="resort('t')" class="sortable" style="display: inline;">Title </div>
+            <div id="title_sort_sign" style="display: inline;"></div>
+
+        </th>
+        <th>Year</th>
+        <th>Director</th>
+        <th>Genres</th>
+        <th>Stars</th>
+        <th style="white-space: nowrap;">
+            <div onclick="resort('r')" class="sortable" style="display: inline">Rating </div>
+            <div id="rate_sort_sign" style="display: inline"></div>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="data_container"></tbody>
+</table>
+<div class="container md-5">
+    <div class="row justify-content-center">
+        <div class="col-sm-6 offset-sm-3">
+            <div id="page_container" class="justify-content-center"></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" style="margin-top: 20px">
+        <div class="col-sm-6 offset-sm-1">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="items per page"
+                       aria-label="Recipient's username" id="ipp"
+                       aria-describedby="button-addon3" min="1" max="100" step="1">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" id="button-addon3"
+                            onclick="updateItemsPerPage()">update
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 80px"></div>
+<div id="footer"></div>
+
+</body>
+</html>

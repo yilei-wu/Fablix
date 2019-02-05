@@ -1,5 +1,31 @@
 let SINGLE_STAR_URL = 'single_star.html';
 let SINGLE_MOVIE_URL = 'single_movie.html';
+let MOVIE_LIST_URL = 'movie_list.html';
+let INDEX_URL = 'index.html';
+
+/**
+ * Retrieve parameter from request URL, matching by parameter name
+ * @param target String
+ * @returns {*}
+ */
+// import * as ProgressBar from "./progressbar";
+
+function getParameterByName(target) {
+    // Get request URL
+    let url = window.location.href;
+    // Encode target parameter name to url encoding
+    target = target.replace(/[\[\]]/g, "\\$&");
+
+    // Ues regular expression to find matched parameter value
+    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+
+    // Return the decoded parameter value
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 
 function getStar(stars, num = -1) {
     let id;
@@ -69,3 +95,16 @@ function getStars(data, num = -1) {
     }
     return stars;
 }
+
+function addMovieToCart(id) {
+    if (sessionStorage.getItem(id)){
+        sessionStorage.setItem(id, parseInt(sessionStorage.getItem(id)) + 1)
+    } else {
+        sessionStorage.setItem(id, '1')
+    }
+
+}
+
+var printError = function(req, status, err) {
+    console.log('Error: ', status, err);
+};
