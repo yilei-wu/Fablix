@@ -79,6 +79,9 @@ function updateInfo() {
 
 function updateItemsPerPage() {
     let new_ipp = $('#ipp').val();
+    if (new_ipp <= 0) {
+        new_ipp = 1;
+    }
     sessionStorage.setItem('size', new_ipp | 0);
     updateInfo()
 }
