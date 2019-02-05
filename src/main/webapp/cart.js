@@ -2,12 +2,14 @@ let movie_template = $('<div class="row justify-content-center mt-5">\n' +
     '        <div class="col-sm-4 movie_title" id="title">\n' +
     '            Loading...\n' +
     '        </div>\n' +
-    '        <div class="col-sm-3 mt-4">\n' +
+    '        <div class="col-sm-2 mt-4">\n' +
     '            <div class="input-group">\n' +
-    '                <div class="input-group-prepend">\n' +
-    '                    <span class="input-group-text" id="basic-addon1">Quantity</span>\n' +
-    '                </div>\n' +
-    '                <input type="number" min="1" step="1" class="form-control" aria-describedby="basic-addon1" id="quantity">\n' +
+    '                \n' +
+    '                <input type="text" min="1" step="1" class="form-control" aria-describedby="basic-addon1" id="quantity" disabled>\n' +
+    '                <div class="input-group-append" id="button-addon4">\n' +
+    '                   <button class="btn btn-outline-primary" type="button" id="minus">-</button>\n' +
+    '                   <button class="btn btn-primary" type="button" id="plus">+</button>\n' +
+    '                </div>' +
     '            </div>\n' +
     '        </div>\n' +
     '        <div class="col-sm-2 mt-4">\n' +
@@ -23,6 +25,8 @@ let result_template = $('<div class="row" style="margin-top: 20px">\n' +
     // '                <div class="col-sm-1" id="payment_quantity">quantity</div>\n' +
     '            </div>');
 
+var movie_cnt = 0;
+
 function updateTitle(id, title){
     $('#m_' + id).find('#title').text(title);
 }
@@ -30,13 +34,45 @@ function updateTitle(id, title){
 function removeMovie(id){
     let holder = $('#movie_holder');
     holder.find('#' + id).remove();
+    movie_cnt --;
+    updateCheckoutButton();
 }
 
-function changeQuantity(id){
+function plusOne(id) {
     let holder = $('#movie_holder');
     let new_value = holder.find('#' + id).find('#quantity').val();
+    new_value = parseInt(new_value) + 1;
+    holder.find('#' + id).find('#quantity').val(new_value);
     sessionStorage.setItem(id, new_value);
 }
+
+function minusOne(id) {
+    let holder = $('#movie_holder');
+    let new_value = holder.find('#' + id).find('#quantity').val();
+    new_value = parseInt(new_value) - 1;
+    if (new_value < 1) {new_value = 1}
+    holder.find('#' + id).find('#quantity').val(new_value);
+    sessionStorage.setItem(id, new_value);
+}
+
+function updateCheckoutButton() {
+    let sign = $('#no_movie_sign');
+    if (movie_cnt > 0) {
+        $('#checkout_button').removeClass('disabled')
+            .attr('onclick', "$('#payment_confirmation').show(300)");
+        sign.hide();
+    } else {
+        $('#checkout_button').addClass('disabled')
+            .attr('onclick', '');
+        sign.show();
+    }
+}
+
+// function changeQuantity(id){
+//     let holder = $('#movie_holder');
+//     let new_value = holder.find('#' + id).find('#quantity').val();
+//     sessionStorage.setItem(id, new_value);
+// }
 
 function clearCart() {
     for (var i = sessionStorage.length - 1; i >= 0; i--) {
@@ -105,10 +141,9 @@ $(function () {
         var current = movie_template.clone();
         var key = sessionStorage.key(i);
         if (key.startsWith('m_')) {
-            // key = key.substring(2);
-            $('#checkout_button').removeClass('disabled')
-                .attr('onclick', "$('#payment_confirmation').show(300)");
+
             current.attr('id', sessionStorage.key(i));
+            movie_cnt ++;
 
             $.ajax({
                 dataType: "json",
@@ -124,14 +159,16 @@ $(function () {
             console.log(current);
             // console.log(current.filter('#quantity'));
             current.find('#quantity')
-                .attr('value', sessionStorage.getItem(key))
-                .attr('onchange', 'changeQuantity("' + key + '");');
+                .attr('value', sessionStorage.getItem(key));
+                // .attr('onchange', 'changeQuantity("' + key + '");');
             current.find('#remove_button')
                 .attr('onclick', 'sessionStorage.removeItem("' + key + '");removeMovie("' + key + '")');
 
+            current.find('#minus').attr('onclick', 'minusOne("' + key + '")');
+            current.find('#plus').attr('onclick', 'plusOne("' + key + '")');
             holder.append(current);
         }
     }
-
+    updateCheckoutButton();
 
 });
