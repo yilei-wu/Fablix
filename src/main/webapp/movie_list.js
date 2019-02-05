@@ -154,6 +154,143 @@ window.onbeforeunload = function () {
     sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
 };
 
+function showLoading() {
+    $('#loading').show();
+    $('.progress-bar').css({
+        width: '0'
+    }).animate({
+            width: '95%'
+        },
+        300);
+}
+
+function hideLoading() {
+    $('#loading').hide();
+    $('#movie-list').show();
+}
+
+function updateInfo() {
+    var source;
+    let from = sessionStorage.getItem('method');
+    if (from === 'a_search') {
+        source = 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+            '&star=' + star + '&sort=' + sort;
+    } else if (from === 'k_search') {
+        source = 'api/keyword_search?keyword=' + keyword + '&sort=' + sort
+    } else if (from === 'g_search') {
+        source = 'api/genre_browse?genre=' + genre + '&sort=' + sort
+    } else if (from === 't_search') {
+        source = 'api/title_browse?title=' + first_title + '&sort=' + sort
+    } else {
+        console.error('not found from' + from)
+    }
+    updateSortIcon();
+
+    size = sessionStorage.getItem('size');
+
+    $('#page_container').pagination({
+        dataSource: source,
+        locator: 'movielist',
+        totalNumberLocator: function (response) {
+            return response['total_number'];
+        },
+        ajax: {
+            beforeSend: showLoading
+        },
+        showGoInput: true,
+        showGoButton: true,
+        pageSize: size,
+        className: 'paginationjs-theme-blue',
+        callback: function(data, pagination) {
+            handleMovieListResult(data, pagination)
+        },
+        alias: {
+            pageNumber: 'page',
+            pageSize: 'records'
+        }
+    });
+}
+
+function updateItemsPerPage() {
+    let new_ipp = $('#ipp').val();
+    if (new_ipp <= 0) {
+        new_ipp = 1;
+    }
+    sessionStorage.setItem('size', new_ipp | 0);
+    updateInfo()
+}
+
+function updateSortIcon() {
+    let currentSort = sessionStorage.getItem('sort');
+    let title_sort_holder = $('#title_sort_sign');
+    let rate_sort_holder = $('#rate_sort_sign');
+
+    if (currentSort === 'ta') {
+        title_sort_holder.html(sort_up);
+        rate_sort_holder.html(sort_no);
+    } else if (currentSort === 'td') {
+        title_sort_holder.html(sort_down);
+        rate_sort_holder.html(sort_no);
+    } else if (currentSort === 'ra') {
+        title_sort_holder.html(sort_no);
+        rate_sort_holder.html(sort_up);
+    } else if (currentSort === 'rd') {
+        title_sort_holder.html(sort_no);
+        rate_sort_holder.html(sort_down);
+    } else {
+        console.error('no sort')
+    }
+
+}
+
+function resort(key) {
+    let currentSort = sessionStorage.getItem('sort');
+    if (key === 't') {
+        if (currentSort === 'ta') {
+            sessionStorage.setItem('sort', 'td');
+            sort = 'td';
+        } else {
+            sessionStorage.setItem('sort', 'ta');
+            sort = 'ta';
+        }
+    } else if (key === 'r') {
+        if (currentSort === 'ra') {
+            sessionStorage.setItem('sort', 'rd');
+            sort = 'rd';
+        } else {
+            sessionStorage.setItem('sort', 'ra');
+            sort = 'ra';
+        }
+    }
+
+    updateInfo();
+    // if (currentSort === 'ta') {
+    //     sessionStorage.setItem('sort', 'td');
+    // } else if (currentSort === 'td') {
+    //     sessionStorage.setItem('sort', 'ta');
+    // } else if (currentSort === 'ra') {
+    //     sessionStorage.setItem('sort', 'rd');
+    // } else if (currentSort === 'rd') {
+    //     sessionStorage.setItem('sort', 'ra');
+    // }
+
+    // $('#page_container').pagination({
+    //     dataSource: 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
+    //         '&star=' + star + '&sort=' + sort,
+    // })
+}
+
+function changePage() {
+    if (page_num === null) {
+        page_num = 1;
+    }
+    $('#page_container').pagination(page_num);
+}
+
+window.onbeforeunload = function () {
+    sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
+};
+
 /**
  @param resultData jsonObject
  * @param pagination
