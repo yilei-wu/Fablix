@@ -16,9 +16,23 @@ function getTableRow(data, row_num) {
     return row;
 }
 
+function showLoading() {
+    $('#loading').show();
+    $('.progress-bar').css({
+        width: '0'
+    }).animate({
+            width: '95%'
+        },
+        300);
+}
+
+function hideLoading() {
+    $('#loading').hide();
+    $('#movie-list').show();
+}
+
 function updateInfo() {
     var source;
-    // let from = getParameterByName('from');
     let from = sessionStorage.getItem('method');
     if (from === 'a_search') {
         source = 'api/search_movie?title=' + title + '&year=' + year + '&director=' + director +
@@ -37,32 +51,18 @@ function updateInfo() {
 
     $('#page_container').pagination({
         dataSource: source,
-        // locator: function () {
-        //     return 'movielist'
-        // },
         locator: 'movielist',
         totalNumberLocator: function (response) {
-            // console.log(response['total_page']);
             return response['total_number'];
-            // return 2000
+        },
+        ajax: {
+            beforeSend: showLoading
         },
         showGoInput: true,
         showGoButton: true,
         pageSize: size,
-        // pageNumber: page_num,
         className: 'paginationjs-theme-blue',
-        afterRender: function (){
-            // console.log(this);
-            // sessionStorage.setItem('page', $('#page_container').pagination('getSelectedPageNum'));
-            // changePage()
-        },
-        // ajax: {
-        //     beforeSend: function() {
-        //         dataContainer.html('Loading data from flickr.com ...');
-        //     }
-        // },
         callback: function(data, pagination) {
-            // template method of yourself
             handleMovieListResult(data, pagination)
         },
         alias: {
@@ -145,11 +145,13 @@ function handleMovieListResult(resultData, pagination){
             sessionStorage.setItem('return', 'false');
         }
 
+        window.scrollTo(0, 0);
         // sessionStorage.setItem('page', pagination.pageNumber);
 
-        $('#load_sign').hide();
-        $('#progress_holder').hide();
-        $('#movie-list').show();
+        // $('#load_sign').hide();
+        // $('#progress_holder').hide();
+        // $('#movie-list').show();
+        hideLoading();
     })
 }
 
@@ -160,19 +162,11 @@ function setPage(){
 }
 
 $(function () {
-    sessionStorage.setItem('size', '20');
-    // $( window ).unload(function() {
-    //     return "Handler for .unload() called.";
-    // });
-
-    $('#movie-list').hide();
-    $('.progress-bar').animate({
-        width: '95%'
-    },
-        300);
+    if (sessionStorage.getItem('size') === null) {
+        sessionStorage.setItem('size', '20');
+    }
 
 
-    // var page_num;
     let from = getParameterByName('from');
     if (from === 'a_search') {
         title = getParameterByName('title');

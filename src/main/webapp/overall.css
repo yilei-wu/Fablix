@@ -99,6 +99,19 @@ footer {
     background-color: black;
 }
 
+/*.loading_box {*/
+    /*width: 70%;*/
+    /*height: 30%;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*position: fixed;*/
+    /*margin: 0;*/
+    /*!*-ms-transform: translate(-50%, -70%);*!*/
+    /*!*transform: translate(-50%, -70%);*!*/
+    /*z-index: 15;*/
+    /*background-color: black;*/
+/*}*/
+
 .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
