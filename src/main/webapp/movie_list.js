@@ -5,6 +5,7 @@ let sort_up = $('<i class="fas fa-sort-up"></i>');
 let sort_down = $('<i class="fas fa-sort-down"></i>');
 
 function getTableRow(data, row_num) {
+    let rate = data[row_num]['rating'] === 0? 'no rating' : data[row_num]['rating'];
     var stars = getStars(data, row_num);
     var row = $('<tr></tr>');
     row.append($('<td>' + (row_num + 1) + '</td>'))
@@ -13,7 +14,7 @@ function getTableRow(data, row_num) {
         .append($('<td>' + data[row_num]['director'] + '</td>'))
         .append($('<td>' + data[row_num]['genre_list'] + '</td>'))
         .append($('<td></td>').append(stars))
-        .append($('<td>' + data[row_num]['rating'] + '</td>'))
+        .append($('<td>' + rate + '</td>'))
         .append($('<td><button class="btn btn-primary"><i class="fas fa-cart-plus"></i></button></td>'));
     row.find('button').attr('onclick', 'addMovieToCart("m_' + data[row_num ]['movie_id'] + '");alert("succeed")');
     return row;

@@ -14,6 +14,7 @@ function handleMovieListResult(resultData){
         $('#year').html(resultData['year']);
         $('#director').html('<sup style="font-size: 15px">Directed by </sup>' + resultData['director']);
         // $('#rating').html(resultData['rating'] === -1? 'No Rating' : resultData['rating']);
+        let rate = resultData['rating'] === -1? 'No Rating' : resultData['rating'];
         $('#movie_id').html(resultData['id']);
         $('#genre').html(resultData['genre_list']);
         $('#stars').html(getStars(resultData));
@@ -34,28 +35,21 @@ function handleMovieListResult(resultData){
                 // margin: 'auto'
             },
             text: {
-                value: resultData['rating']
+                value: rate
             }
         });
 
-        bar.animate(resultData['rating'] / 10);  // Number from 0.0 to 1.0
+        if (rate === 'No Rating') {
+            $('#rating').html('<div style="font-size: 30px; margin-top: 30px" class="comic">' + rate + '</div>')
+        } else {
+            bar.animate(resultData['rating'] / 10);  // Number from 0.0 to 1.0
+        }
     })
 }
 
 
 
 $(function () {
-    // $('#movie-list').hide();
-    // $('.progress-bar').animate({
-    //         width: '95%'
-    //     },
-    //     300);
-    // var title = $('#movie_title');
-    // console.log(title);
-    // title.html('hello');
-
-
-
     let movie_id = getParameterByName('id');
 
     $.ajax({
