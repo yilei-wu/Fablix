@@ -9,5 +9,5 @@
               type="javax.sql.DataSource"
               username="javamaster"
               password="12345678"
-              url="jdbc:mysql://18.225.9.224/122B"/>
+              url="jdbc:mysql://3.17.195.187/122B"/>
 </Context>
