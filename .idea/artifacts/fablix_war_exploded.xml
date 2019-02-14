@@ -22,6 +22,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/fablix/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="fablix/web/Web" />
+      <element id="file-copy" path="$USER_HOME$/tomcat/keystore" />
     </root>
   </artifact>
 </component>
