@@ -42,10 +42,10 @@ public class SearchServlet extends HttpServlet {
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname\n";
             String from_query = "FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies\n";
             String where_join = "WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id\n";
-            String title_condition = title == "" ? "" : "and movies.title like '%" + title + "%' ";
-            String year_condition = year == "" ? "" : "and movies.year = " + year + " ";
-            String directory_condition = director == "" ? "" : "and movies.director like '%" + director + "%' ";
-            String star_condition = star ==  "" ? "" : "and stars.name like '%" + star + "%' ";
+            String title_condition =  "and movies.title like ? \n";
+            String year_condition =  "and movies.year = ? \n";
+            String directory_condition =  "and movies.director like ? \n";
+            String star_condition =   "and stars.name like ? \n";
 
             String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
@@ -61,6 +61,15 @@ public class SearchServlet extends HttpServlet {
 
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
+            statement.setString(1,"%" + title + "%" );
+            statement1.setString(1, "%" + title + "%");
+            statement.setString(2,year);
+            statement1.setString(2,year);
+            statement.setString(3,"%" + director + "%");
+            statement1.setString(3,"%" + director + "%");
+            statement.setString(4,"%" + star + "%");
+            statement1.setString(4, "%" + star + "%");
+
             ResultSet w = statement1.executeQuery();
             ResultSet resultSet = statement.executeQuery();
             JsonArray movie_list = new JsonArray();
