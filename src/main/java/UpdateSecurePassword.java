@@ -22,7 +22,7 @@ public class UpdateSecurePassword {
      */
     public static void main(String[] args) throws Exception {
 
-        String loginUser = "javamester";
+        String loginUser = "javamaster";
         String loginPasswd = "12345678";
         String loginUrl = "jdbc:mysql://3.17.195.187/122B";
 
