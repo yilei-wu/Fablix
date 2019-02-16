@@ -40,6 +40,10 @@
     transform: translate(-50%);
 }
 
+#dashboard_area {
+    padding-top: 30px;
+}
+
 /*#g_container {*/
     /*overflow-x: auto;*/
 /*}*/

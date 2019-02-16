@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+    <link rel="stylesheet" href="overall.css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Lato|Pacifico" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
+    <script src="generator.js"></script>
+    <script src="_dashboard.js"></script>
+
+</head>
+<body class="bg-black gray">
+
+<div align="center" style="margin: 20px; font-size: 60px" class="fablix blue" id="fablix_title">Fablix</div>
+
+<div id="dashboard_area">
+    <!--Tabs-->
+    <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#insert_star" role="tab"
+               aria-controls="pills-home" aria-selected="true">Insert Star</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#add_info" role="tab"
+               aria-controls="pills-profile" aria-selected="false">Add Information</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#meta_data" role="tab"
+               aria-controls="pills-contact" aria-selected="false">Meta Data</a>
+        </li>
+    </ul>
+
+    <!--Contents-->
+    <div class="tab-content" id="pills-tabContent">
+
+        <!--Insert Star Tab-->
+        <div class="container tab-pane fade show active" id="insert_star" role="tabpanel"
+             aria-labelledby="pills-home-tab">
+            <form id="insert_star_form">
+
+                <!--Star name-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="director-addon1">Star Name</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="name(required)" aria-label="Username"
+                                   aria-describedby="director-addon1" name="director">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Star year-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="star-addon1">Star Birth Year</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="birth year" aria-label="Username"
+                                   aria-describedby="star-addon1" name="star">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Submit Button-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--Add Info Tab-->
+        <div class="container tab-pane fade show" id="add_info" role="tabpanel"
+             aria-labelledby="pills-home-tab">
+            <form id="add_info_form">
+
+                <!--Movie name-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="movie-addon1">Movie Title</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="title" aria-label="Username"
+                                   aria-describedby="movie-addon1" name="director">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Star name-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="movie-addon2">Star Name</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="star" aria-label="Username"
+                                   aria-describedby="movie-addon2" name="star">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Director name-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="movie-addon3">Director Name</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="director" aria-label="Username"
+                                   aria-describedby="movie-addon3" name="star">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Star name-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="movie-addon4">Genre</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="genre" aria-label="Username"
+                                   aria-describedby="movie-addon4" name="star">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Submit Button-->
+                <div class="row justify-content-center" style="margin-top: 30px">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!--Meta Data Tab-->
+        <div class="container tab-pane fade" id="meta_data" role="tabpanel"
+             aria-labelledby="pills-contact-tab">
+            <div class="row justify-content-center" style="margin-top: 30px">
+                <div class="col-sm-4 overflow-auto">
+                    under developing
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
