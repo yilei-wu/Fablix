@@ -54,36 +54,13 @@ public class LoginServlet extends HttpServlet {
         out.close();
     }
 
-    boolean is_user(String username, String password)//return ture if the username/password pair is valid
-    {
-        try {
-            Connection dbcon = datasource.getConnection();
-            //System.out.println(username + " " + password);
-            String query = "SELECT password FROM customers WHERE email = ?";
-            PreparedStatement statement = dbcon.prepareStatement(query);
-            statement.setString(1,username);
-            ResultSet r = statement.executeQuery();
-            while (r.next()){
-            String rr = r.getString("password");
-            dbcon.close();
-            //System.out.println(rr.equals(password));
-            return rr.equals(password);}
-        }
-
-        catch (Exception e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-
-        return false;
-    }
 
     String getUserId(String username)
     {
         try
         {
             Connection con = datasource.getConnection();
-            String query = "Select id from customers where email = ?";
+            String query = "Select id from customers where email = ? ";
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
@@ -110,10 +87,10 @@ public class LoginServlet extends HttpServlet {
             Connection connection = datasource.getConnection();
 
 
-            String query = "SELECT * from customers where email= ? ";
-            Statement statement = connection.prepareStatement(query);
-            ((PreparedStatement) statement).setString(1, email);
-            ResultSet rs = statement.executeQuery(query);
+            String query = " SELECT password from customers where email = ? ";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
 
             boolean success = false;
             if (rs.next()) {
@@ -121,6 +98,7 @@ public class LoginServlet extends HttpServlet {
                 String encryptedPassword = rs.getString("password");
 
                 // use the same encryptor to compare the user input password with encrypted password stored in DB
+                System.out.println(encryptedPassword+ " "+ password);
                 success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
             }
 

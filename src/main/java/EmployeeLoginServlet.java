@@ -13,7 +13,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
+@WebServlet(name = "EmployeeLoginServlet", urlPatterns = "/api/employee_login")
 public class EmployeeLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Resource(name = "moviedb")
