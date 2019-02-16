@@ -60,6 +60,21 @@ footer {
     background-image: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
 }
 
+.table_name {
+    font-size: 40px;
+    text-align: center;
+}
+
+.attr_name {
+    font-size: 20px;
+    text-align: center;
+}
+
+.attr_type {
+    font-size: 20px;
+    text-align: center;
+}
+
 .comic {
     font-family: 'Trebuchet MS', serif
 }

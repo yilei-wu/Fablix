@@ -7,10 +7,15 @@ function handleLoginResult(resultDataString, isEmployee) {
     var resultDataJson = JSON.parse(resultDataString);
 
     console.log(resultDataJson);
-    console.log('employee? ' + isEmployee);
+    // console.log('employee? ' + isEmployee);
 
     if (resultDataJson["status"] === "success") {
-        window.location.replace("index.html");
+        //TODO Check recaptcha result
+        if (isEmployee) {
+            window.location.replace("_dashboard.html");
+        } else {
+            window.location.replace("index.html");
+        }
     } else {
         $('#submit_button').removeClass('disabled')
             .text('Submit');
@@ -39,6 +44,7 @@ function submitLoginForm(formSubmitEvent) {
     if($("#employeeCheck").is(':checked')) {
         console.log('employee login');
         $.post(
+            //TODO employee login servlet
             "api/login",
             // Serialize the login form to the data sent by POST request
             $("#login_form").serialize(),
@@ -47,7 +53,6 @@ function submitLoginForm(formSubmitEvent) {
     } else {
         console.log('customer login');
         $.post(
-            //TODO
             "api/login",
             $("#login_form").serialize(),
             (resultDataString) => handleLoginResult(resultDataString, false)
