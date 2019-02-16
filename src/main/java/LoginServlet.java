@@ -1,4 +1,5 @@
 import com.google.gson.JsonObject;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.annotation.Resource;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         String password = ((HttpServletRequest)request).getParameter("password");
         PrintWriter out = response.getWriter();
 
-        if (is_user(username, password)) {
+        if (verifyCredentials(username, password)) {
             String sessionId = (request).getSession().getId();
             Long lastAccessTime = (request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
@@ -103,5 +102,40 @@ public class LoginServlet extends HttpServlet {
             return "";
         }
         return "";
+    }
+
+    boolean verifyCredentials(String email, String password){
+
+        try {
+            Connection connection = datasource.getConnection();
+
+
+            String query = "SELECT * from customers where email= ? ";
+            Statement statement = connection.prepareStatement(query);
+            ((PreparedStatement) statement).setString(1, email);
+            ResultSet rs = statement.executeQuery(query);
+
+            boolean success = false;
+            if (rs.next()) {
+                // get the encrypted password from the database
+                String encryptedPassword = rs.getString("password");
+
+                // use the same encryptor to compare the user input password with encrypted password stored in DB
+                success = new StrongPasswordEncryptor().checkPassword(password, encryptedPassword);
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+            System.out.println("verify " + email + " - " + password);
+
+            return success;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

@@ -102,3 +102,12 @@ CREATE TABLE ratings
 
   FOREIGN KEY (movieId) REFERENCES movies(id)
 );
+
+drop table if exists employees;
+CREATE TABLE employees
+(
+  email varchar(50),
+  password varchar(20) not null,
+  fullname varchar(100),
+  PRIMARY KEY (email)
+);
