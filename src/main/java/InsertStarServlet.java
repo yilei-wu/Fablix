@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
-@WebServlet(name = "InsertStarServlet", urlPatterns = "api/insert_star")
+@WebServlet(name = "InsertStarServlet", urlPatterns = "/api/insert_star")
 public class InsertStarServlet extends HttpServlet {
     @Resource(name = "moviedb")
     private DataSource dataSource;

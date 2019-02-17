@@ -14,7 +14,7 @@ function handleLoginResult(resultDataString, isEmployee) {
         if (isEmployee) {
             window.location.replace("_dashboard.html");
         } else {
-            // window.location.replace("index.html");
+            window.location.replace("index.html");
         }
     } else {
         $('#submit_button').removeClass('disabled')

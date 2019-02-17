@@ -39,8 +39,42 @@ function updateMeta(metas) {
     }
 }
 
+function handleInsertResult(operation, result) {
+
+}
+
+function insertStar(formSubmitEvent) {
+    formSubmitEvent.preventDefault();
+    console.log('submit insert star form');
+    // console.log("api/insert_star?" + $('#insert_star_form').serialize());
+
+    $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "api/insert_star?" + $('#insert_star_form').serialize(),
+        success: (resultDataString) => handleInsertResult('Insert Star', resultDataString),
+        error: printError
+    });
+}
+
+function addInfo(formSubmitEvent) {
+    formSubmitEvent.preventDefault();
+    console.log('submit add info form');
+
+    $.ajax({
+        dataType: "json",
+        method: "GET",
+        url: "api/insert_movie?" + $('#add_info_form').serialize(),
+        success: (resultDataString) => handleInsertResult('Add Info', resultDataString),
+        error: printError
+    });
+}
+
 
 $(function () {
+    $('#insert_star_form').submit(insertStar);
+    $('#add_info_form').submit(addInfo);
+
     $.ajax({
         dataType: "json",
         method: "GET",
