@@ -9,7 +9,7 @@ import java.io.IOException;
  * Servlet Filter implementation class: LoginFilter.
  * All URL patterns will go through the LoginFilter
  */
-@WebFilter(filterName = "DashBoardFilter", urlPatterns = "/_dashboard.*")
+@WebFilter(filterName = "DashBoardFilter", urlPatterns = "/_dashboard.html")
 public class DashBoardFilter implements Filter {
 
     /**
@@ -29,7 +29,7 @@ public class DashBoardFilter implements Filter {
         }
 
         // Redirect to login page if the "user" attribute doesn't exist in session
-        if (!httpRequest.getSession().getAttribute("type").equals("employee")) {
+        if (httpRequest.getSession().getAttribute("type") != null && !httpRequest.getSession().getAttribute("type").equals("employee")) {
             httpResponse.sendRedirect("login.html");
         } else {
             // If the user exists in current session, redirects the user to the corresponding URL
