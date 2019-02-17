@@ -14,7 +14,7 @@ function handleLoginResult(resultDataString, isEmployee) {
         if (isEmployee) {
             window.location.replace("_dashboard.html");
         } else {
-            window.location.replace("index.html");
+            // window.location.replace("index.html");
         }
     } else {
         $('#submit_button').removeClass('disabled')
@@ -44,8 +44,7 @@ function submitLoginForm(formSubmitEvent) {
     if($("#employeeCheck").is(':checked')) {
         console.log('employee login');
         $.post(
-            //TODO employee login servlet
-            "api/login",
+            "api/employee_login",
             // Serialize the login form to the data sent by POST request
             $("#login_form").serialize(),
             (resultDataString) => handleLoginResult(resultDataString, true)
