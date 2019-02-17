@@ -29,11 +29,13 @@ public class LoginServlet extends HttpServlet {
             Long lastAccessTime = (request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
             request.getSession().setAttribute("userid", getUserId(username));
+            request.getSession().setAttribute("type", "user");
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "success");
             responseJsonObject.addProperty("message", "success");
             responseJsonObject.addProperty("session_id", sessionId);
             responseJsonObject.addProperty("lastaccesstime", lastAccessTime);
+
             try
             {
                 RecaptchaVerifyUtils.verify(request.getParameter("g-recaptcha-response"));

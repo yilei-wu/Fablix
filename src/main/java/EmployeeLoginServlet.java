@@ -29,6 +29,7 @@ public class EmployeeLoginServlet extends HttpServlet {
             Long lastAccessTime = (request).getSession().getLastAccessedTime();
             request.getSession().setAttribute("user", new User(username));
             request.getSession().setAttribute("userid", getUserId(username));
+            request.getSession().setAttribute("type","employee");
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "success");
             responseJsonObject.addProperty("message", "success");
