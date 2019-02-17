@@ -34,7 +34,19 @@ public class LoginServlet extends HttpServlet {
             responseJsonObject.addProperty("message", "success");
             responseJsonObject.addProperty("session_id", sessionId);
             responseJsonObject.addProperty("lastaccesstime", lastAccessTime);
-
+            try
+            {
+                RecaptchaVerifyUtils.verify(request.getParameter("g-recaptcha-response"));
+            }
+            catch (Exception e)
+            {
+                JsonObject r = new JsonObject();
+                r.addProperty("status", "fail");
+                r.addProperty("message", "recaptcha is not satisfied");
+                out.write(r.toString());
+                out.close();
+                return;
+            }
             out.write(responseJsonObject.toString());
         }
         else

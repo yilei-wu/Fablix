@@ -34,17 +34,26 @@ public class EmployeeLoginServlet extends HttpServlet {
             responseJsonObject.addProperty("message", "success");
             responseJsonObject.addProperty("session_id", sessionId);
             responseJsonObject.addProperty("lastaccesstime", lastAccessTime);
+            try
+            {
+                RecaptchaVerifyUtils.verify(request.getParameter("g-recaptcha-response"));
+            }
+            catch (Exception e)
+            {
+                JsonObject r = new JsonObject();
+                r.addProperty("status", "fail");
+                r.addProperty("message", "recaptcha is not satisfied");
+                out.write(r.toString());
+                out.close();
+                return;
+            }
 
             out.write(responseJsonObject.toString());
         } else {
             // Login fails
             JsonObject responseJsonObject = new JsonObject();
             responseJsonObject.addProperty("status", "fail");
-//            if (!username.equals("anteater")) {
-//                responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
-//            } else {
-//                responseJsonObject.addProperty("message", "incorrect password");
-//            }
+
             responseJsonObject.addProperty("message", "user doesn't exist or incorrect password");
             out.write(responseJsonObject.toString());
         }

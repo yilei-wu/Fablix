@@ -30,7 +30,7 @@ public class DashboardServlet extends HttpServlet {
             table.add("attributes", getTableMetadata(each));
             result.add(table);
         }
-        out.write(request.toString());
+        out.write(result.toString());
         out.close();
     }
 
@@ -66,7 +66,7 @@ public class DashboardServlet extends HttpServlet {
         {
             Connection connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(null,null,table_name,null);
+            ResultSet resultSet = metaData.getColumns(null,null,table_name,null);
             while (resultSet.next())
             {
                 JsonObject each = new JsonObject();
