@@ -13,18 +13,49 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
-@WebServlet(name = "InsertStarServlet")
+@WebServlet(name = "InsertStarServlet", urlPatterns = "api/insert_star")
 public class InsertStarServlet extends HttpServlet {
+    @Resource(name = "moviedb")
+    private DataSource dataSource;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    public void createInserMoiveProcedure() throws SQLException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
 
+        String name = request.getParameter("name");
+        String byear = request.getParameter("year");
+
+        try
+        {
+            Connection dbcon = dataSource.getConnection();
+            String script = "{CALL INSERT_STAR(?,?)}";
+            PreparedStatement statement = dbcon.prepareStatement(script);
+            statement.setString(1,name);
+            statement.setString(2,byear);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next())
+            {
+                String res = resultSet.getString("res");
+                out.write(res);
+                response.setStatus(200);
+                resultSet.close();
+                dbcon.close();
+                return;
+            }
+        }
+        catch (Exception e)
+        {
+            System.err.println(e);
+            JsonObject r = new JsonObject();
+            r.addProperty("error_message", e.getMessage());
+            out.write(r.toString());
+            response.setStatus(500);
+        }
     }
+
 }
