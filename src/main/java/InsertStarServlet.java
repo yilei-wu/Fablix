@@ -40,8 +40,10 @@ public class InsertStarServlet extends HttpServlet {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
+                JsonObject r = new JsonObject();
                 String res = resultSet.getString("res");
-                out.write(res);
+                r.addProperty("status", res);
+                out.write(r.toString());
                 response.setStatus(200);
                 resultSet.close();
                 dbcon.close();

@@ -27,7 +27,7 @@ public class InsertMovieServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        //response.setContentType("application/json");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
         String title = request.getParameter("title");
@@ -50,8 +50,10 @@ public class InsertMovieServlet extends HttpServlet {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
+                JsonObject r = new JsonObject();
                 String res = request.getParameter("res");
-                out.write(res);
+                r.addProperty("status", res);
+                out.write(r.toString());
                 response.setStatus(200);
                 resultSet.close();
                 dbcon.close();
