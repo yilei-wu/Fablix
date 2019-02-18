@@ -98,6 +98,3 @@ BEGIN
     SELECT 'SUCCESS INSERT STAR' as res;
   end if ;
 end ;
-
-
-
