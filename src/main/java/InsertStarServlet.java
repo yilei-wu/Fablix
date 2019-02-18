@@ -28,6 +28,7 @@ public class InsertStarServlet extends HttpServlet {
 
         String name = request.getParameter("name");
         String byear = request.getParameter("year");
+        if (byear.isEmpty()) byear = "";
 
         try
         {

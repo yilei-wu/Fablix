@@ -51,7 +51,7 @@ public class InsertMovieServlet extends HttpServlet {
             while (resultSet.next())
             {
                 JsonObject r = new JsonObject();
-                String res = request.getParameter("res");
+                String res = resultSet.getString("res");
                 r.addProperty("status", res);
                 out.write(r.toString());
                 response.setStatus(200);

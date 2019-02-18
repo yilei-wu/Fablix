@@ -53,13 +53,13 @@ CREATE PROCEDURE INSERT_MOVIE
 BEGIN
   DECLARE mid INT;
   IF SAME_MOVIE(MTITLE,MYEAR,MDIRECTOR) THEN
-    SELECT 'DUPLICATE MOVIE' as res;
+    SELECT 'duplicate' as res;
   ELSE
     SELECT (COUNT(id)+1) into mid FROM movies;
     INSERT INTO movies VALUES (mid,MTITLE, MYEAR, MDIRECTOR);
     INSERT INTO stars_in_movies VALUES (GET_STAR_ID(MSTAR),mid);
     INSERT INTO genres_in_movies VALUES (GET_GENRE_ID(MGENRE),mid);
-    SELECT 'SUCCESS INSERT MOVIE' as res;
+    SELECT 'succeed insert movie' as res;
   end if ;
   end ;
 
@@ -95,6 +95,6 @@ BEGIN
 #     SELECT 'DUPLICATE STAR' as res;
 #   ELSE
     INSERT INTO stars VALUES (STAR_ID(),SNAME,SBIRTH);
-    SELECT 'succeed' as res;
+    SELECT 'succeed insert star' as res;
 #   end if ;
 end ;
