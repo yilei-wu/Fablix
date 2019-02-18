@@ -40,6 +40,11 @@ function updateMeta(metas) {
 }
 
 function handleInsertResult(operation, result) {
+    if (result['status'] === 'succeed') {
+        alert(operation + '\n' + result['status'])
+    } else {
+        alert(operation + '\n' + result['status'] + '\n' + result['error_message'])
+    }
 
 }
 
