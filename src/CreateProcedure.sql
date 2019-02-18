@@ -95,6 +95,6 @@ BEGIN
     SELECT 'DUPLICATE STAR' as res;
   ELSE
     INSERT INTO stars VALUES (STAR_ID(),SNAME,SBIRTH);
-    SELECT 'SUCCESS INSERT STAR' as res;
+    SELECT 'succeed' as res;
   end if ;
 end ;
