@@ -50,7 +50,7 @@ public class SearchServlet extends HttpServlet {
             String group_clause = "GROUP BY title ";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
-
+            if (year.isEmpty()){year = "%"; year_condition = "and movies.year like ? ";}
             String query = select_query + from_query + where_join + title_condition + year_condition
                     + directory_condition + star_condition + group_clause + order_clause + offset_clause;
 

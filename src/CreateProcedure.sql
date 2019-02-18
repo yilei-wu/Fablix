@@ -24,7 +24,7 @@ BEGIN
   DECLARE res int;
   SELECT id INTO res FROM genres WHERE name=GNAME;
   IF (res is NULL) THEN
-    SELECT (MAX(ID)+1) INTO res FROM genres;
+    SELECT (COUNT(ID)+1) INTO res FROM genres;
     INSERT INTO genres VALUES (res, GNAME);
   end if ;
   RETURN res;
@@ -39,7 +39,7 @@ RETURNS INT
     DECLARE res int;
     SELECT id INTO res FROM stars WHERE name=SNAME;
     IF (res is NULL) THEN
-      SELECT (MAX(ID)+1) INTO res FROM stars;
+      SELECT (COUNT(ID)+1) INTO res FROM stars;
       INSERT INTO stars VALUES(res, SNAME, null);
     end if ;
     RETURN res;
