@@ -25,7 +25,7 @@ public class CastParser {
         Document dom;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        try (PrintWriter writer = new PrintWriter(new File("cast.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("cast.csv"), "ISO-8859-1")) {
             DocumentBuilder db = dbf.newDocumentBuilder();
             dom = db.parse("src/stanford-movies/casts124.xml");
 
@@ -54,7 +54,10 @@ public class CastParser {
                             String id = getTextValue(each_movie, "f");
                             String movie = getTextValue(each_movie, "t");
                             String star = getTextValue(each_movie,"a");
-                            writer.write(id + "," + movie + "," + star + "\n");
+                            id = id.replace("\""," ").replace("\\", " ");
+                            movie = movie.replace("\""," ").replace("\\", " ");
+                            star = star.replace("\""," ").replace("\\", " ");
+                            writer.write("\"" + id + "\",\"" + movie + "\",\"" + star + "\"\n");
                         }
                     }
 

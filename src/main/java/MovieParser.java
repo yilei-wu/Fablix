@@ -86,9 +86,15 @@ public class MovieParser {
                                             allgenres.append(gg + "\\");
                                         }
                                     }
-                                    writer.write(did + ',' + dname + ',' + mid + ',' + title + ',' + year + ',');
+                                    did = did.replace("\""," ").replace("\\", " ");
+                                    dname = dname.replace("\""," ").replace("\\", " ");
+                                    mid = mid.replace("\""," ").replace("\\", " ");
+                                    title = title.replace("\""," ").replace("\\", " ");
+                                    year = year.replace("\""," ").replace("\\", " ");
+                                    writer.write("\"" + did + "\",\"" + dname + "\",\"" + mid + "\",\"" + title + "\",\"" + year + "\",");
                                     allgenres.append('\n');
-                                    writer.write(allgenres.toString());
+                                    String genress = allgenres.toString().replace("\""," ").replace("\\", " ");
+                                    writer.write("\"" + genress + "\"");
                                 }
                             }
 

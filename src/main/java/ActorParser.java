@@ -46,9 +46,10 @@ public class ActorParser {
                     Element each = (Element) nl.item(i);
                     String name = getTextValue(each,"stagename");
                     String year = getTextValue(each,"dob");
-
+                    name = name.replace("\""," ").replace("\\", " ");
+                    year = year.replace("\""," ").replace("\\", " ");
                     //if (year.isEmpty()){year = " ";}
-                    writer.write(name + "," + year + "\n");
+                    writer.write("\"" + name + "\",\"" + year + "\"\n");
                 }
             }
             //writer.flush();
