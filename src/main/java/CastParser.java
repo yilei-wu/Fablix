@@ -37,7 +37,7 @@ public class CastParser {
             sb.append("star_id");
             sb.append('\n');
 
-            ssb.append("star_id").append(',').append("star_name");
+            ssb.append("star_id").append(',').append("star_name").append('\n');
 
             writer.write(ssb.toString());
             star_in_movie.write(sb.toString());
@@ -61,7 +61,7 @@ public class CastParser {
                             //id = id.replace("\""," ").replace("\\", " ");
                             //movie = movie.replace("\""," ").replace("\\", " ");
                             //star = star.replace("\""," ").replace("\\", " ");
-                            writer.write("\"" + star + "\",\"" + star_id + "\"\n");
+                            writer.write("\"" + star_id + "\",\"" + star + "\"\n");
                             star_in_movie.write("\"" + id + "\",\"" + star_id + "\"\n");
                         }
                     }

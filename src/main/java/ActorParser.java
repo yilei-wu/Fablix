@@ -50,7 +50,7 @@ public class ActorParser {
                     //name = name.replace("\""," ").replace("\\", " ");
                     //year = year.replace("\""," ").replace("\\", " ");
                     //if (year.isEmpty()){year = " ";}
-                    writer.write("\""+ star_id + "\",\"" + name + "\",\"" + year + "\"\n");
+                    writer.write("\""+ star_id + "\",\"" + name + "\"," + year + "\n");
                 }
             }
             //writer.flush();
@@ -75,7 +75,7 @@ public class ActorParser {
             textVal = el.getFirstChild().getNodeValue();}
             catch (NullPointerException n)
             {
-                textVal = "no birthyear";
+                textVal = "null";
             }
 
         }
