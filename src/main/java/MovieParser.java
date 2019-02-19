@@ -94,6 +94,13 @@ public class MovieParser {
                                     if(genres.equals("null")){genress = "no genre";}
                                     genre_writer.write("\"" + genress + "\",\"" + genre_id + "\"\n");
                                     genre_in_movie_writer.write("\"" + genre_id + "\",\"" + mid + "\"\n");
+
+                                    if(genress=="null"){System.out.println("mains243.xml : genre is missing");}
+                                    if(dname=="null"){System.out.println("main243.xml : director name is missing");}
+                                    if(mid=="null"){System.out.println("main243.xml : movie id is missing");}
+                                    if(title=="null"){System.out.println("main243.xml : movie title is missing");}
+                                    if(year=="null"){System.out.println("main243.xml : movie year is missing");}
+
                                 }
                             }
 
@@ -125,7 +132,7 @@ public class MovieParser {
                 textVal = el.getFirstChild().getNodeValue();}
             catch (NullPointerException n)
             {
-                textVal = "";
+                textVal = "null";
             }
 
         }

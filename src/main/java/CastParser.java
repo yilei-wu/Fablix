@@ -63,6 +63,11 @@ public class CastParser {
                             //star = star.replace("\""," ").replace("\\", " ");
                             writer.write("\"" + star_id + "\",\"" + star + "\"\n");
                             star_in_movie.write("\"" + id + "\",\"" + star_id + "\"\n");
+
+                            if(id=="null"){System.out.println("casts124.xml : movie_id is missing");}
+                            if(movie=="null"){System.out.println("casts124.xml : movie_title is missing");}
+                            if(star=="null"){System.out.println("casts124.xml : star_name is missing");}
+                            if(star_id=="null"){System.out.println("casts124.xml : movie_id is missing");}
                         }
                     }
 
@@ -94,7 +99,7 @@ public class CastParser {
                 textVal = el.getFirstChild().getNodeValue();}
             catch (NullPointerException n)
             {
-                textVal = "";
+                textVal = "null";
             }
 
         }

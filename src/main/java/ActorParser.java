@@ -51,6 +51,9 @@ public class ActorParser {
                     //year = year.replace("\""," ").replace("\\", " ");
                     //if (year.isEmpty()){year = " ";}
                     writer.write("\""+ star_id + "\",\"" + name + "\"," + year + "\n");
+
+                    if(name=="null"){System.out.println("actors63.xml : star name is missing");}
+                    if(year=="null"){System.out.println("actors63.xml : star birth year is missing");}
                 }
             }
             //writer.flush();
