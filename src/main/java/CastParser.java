@@ -73,6 +73,7 @@ public class CastParser {
             }
             //writer.flush();
             writer.close();
+            star_in_movie.close();
             System.out.println("done!");
 
         } catch (ParserConfigurationException pce) {

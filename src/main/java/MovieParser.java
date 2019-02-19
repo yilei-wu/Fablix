@@ -103,6 +103,8 @@ public class MovieParser {
             }
             //writer.flush();
             writer.close();
+            genre_writer.close();
+            genre_in_movie_writer.close();
             System.out.println("done!");
 
         } catch (ParserConfigurationException pce) {
