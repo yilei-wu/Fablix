@@ -11,7 +11,17 @@ public class Generator {
         return UUID.randomUUID().toString().substring(0, length);
     }
 
+    public static String GetIntID(int length) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < length ; ++i) {
+            Random r = new Random();
+            result.append(Character.toChars(r.nextInt(10) + 48));
+        }
+        return result.toString();
+//        return UUID.randomUUID().toString().substring(0, length);
+    }
+
     public static void main(String[] args){
-        System.out.println(GetID(10));
+        System.out.println(GetIntID(10));
     }
 }
