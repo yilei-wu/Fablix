@@ -54,9 +54,9 @@ public class CastParser {
                             String id = getTextValue(each_movie, "f");
                             String movie = getTextValue(each_movie, "t");
                             String star = getTextValue(each_movie,"a");
-                            id = id.replace("\""," ").replace("\\", " ");
-                            movie = movie.replace("\""," ").replace("\\", " ");
-                            star = star.replace("\""," ").replace("\\", " ");
+                            //id = id.replace("\""," ").replace("\\", " ");
+                            //movie = movie.replace("\""," ").replace("\\", " ");
+                            //star = star.replace("\""," ").replace("\\", " ");
                             writer.write("\"" + id + "\",\"" + movie + "\",\"" + star + "\"\n");
                         }
                     }

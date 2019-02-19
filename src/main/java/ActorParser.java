@@ -46,8 +46,8 @@ public class ActorParser {
                     Element each = (Element) nl.item(i);
                     String name = getTextValue(each,"stagename");
                     String year = getTextValue(each,"dob");
-                    name = name.replace("\""," ").replace("\\", " ");
-                    year = year.replace("\""," ").replace("\\", " ");
+                    //name = name.replace("\""," ").replace("\\", " ");
+                    //year = year.replace("\""," ").replace("\\", " ");
                     //if (year.isEmpty()){year = " ";}
                     writer.write("\"" + name + "\",\"" + year + "\"\n");
                 }
@@ -74,7 +74,7 @@ public class ActorParser {
             textVal = el.getFirstChild().getNodeValue();}
             catch (NullPointerException n)
             {
-                textVal = "";
+                textVal = "no birthyear";
             }
 
         }

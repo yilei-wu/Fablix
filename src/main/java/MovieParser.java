@@ -33,9 +33,9 @@ public class MovieParser {
             sb.append(',');
             sb.append("directors");
             sb.append(',');
-            sb.append("title");
-            sb.append(',');
             sb.append("mid");
+            sb.append(',');
+            sb.append("title");
             sb.append(',');
             sb.append("year");
             sb.append(',');
@@ -76,7 +76,7 @@ public class MovieParser {
                                     String year = getTextValue(movie,"year");
                                     StringBuilder allgenres = new StringBuilder();
                                     NodeList genres = movie.getElementsByTagName("cats");
-                                    {System.out.println(genres.getLength());}
+                                    //{System.out.println(genres.getLength());}
                                     if(genres != null && genres.getLength() > 0)
                                     {
                                         for(int k = 0; k < genres.getLength(); k++)
@@ -86,15 +86,16 @@ public class MovieParser {
                                             allgenres.append(gg + "\\");
                                         }
                                     }
-                                    did = did.replace("\""," ").replace("\\", " ");
-                                    dname = dname.replace("\""," ").replace("\\", " ");
-                                    mid = mid.replace("\""," ").replace("\\", " ");
-                                    title = title.replace("\""," ").replace("\\", " ");
-                                    year = year.replace("\""," ").replace("\\", " ");
+                                    //did = did.replace("\""," ").replace("\\", " ");
+                                    //dname = dname.replace("\""," ").replace("\\", " ");
+                                    //mid = mid.replace("\""," ").replace("\\", " ");
+                                    //title = title.replace("\""," ").replace("\\", " ");
+                                    //year = year.replace("\""," ").replace("\\", " ");
                                     writer.write("\"" + did + "\",\"" + dname + "\",\"" + mid + "\",\"" + title + "\",\"" + year + "\",");
-                                    allgenres.append('\n');
-                                    String genress = allgenres.toString().replace("\""," ").replace("\\", " ");
-                                    writer.write("\"" + genress + "\"");
+                                    //allgenres.append('\n');
+                                    String genress = allgenres.toString();
+                                    if(genres.equals("null\\")){genress = "no genre";}
+                                    writer.write("\"" + genress + "\"" + '\n');
                                 }
                             }
 
