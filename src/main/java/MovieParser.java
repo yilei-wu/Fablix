@@ -80,7 +80,7 @@ public class MovieParser {
                                         {
                                             Element g = (Element) genres.item(k);
                                             String gg = getTextValue(g,"cat");
-                                            allgenres.append(gg + "|");
+                                            allgenres.append(gg);
                                         }
                                     }
                                     //did = did.replace("\""," ").replace("\\", " ");
@@ -88,10 +88,10 @@ public class MovieParser {
                                     //mid = mid.replace("\""," ").replace("\\", " ");
                                     //title = title.replace("\""," ").replace("\\", " ");
                                     //year = year.replace("\""," ").replace("\\", " ");
-                                    writer.write("\"" + dname + "\",\"" + mid + "\",\"" + title + "\",\"" + year + "\"\n");
+                                    writer.write("\"" + dname + "\",\"" + mid + "\",\"" + title + "\"," + year + "\n");
                                     String genress = allgenres.toString();
                                     String genre_id = Generator.GetHashID(genress,11);
-                                    if(genres.equals("null|")){genress = "no genre";}
+                                    if(genres.equals("null")){genress = "no genre";}
                                     genre_writer.write("\"" + genress + "\",\"" + genre_id + "\"\n");
                                     genre_in_movie_writer.write("\"" + genre_id + "\",\"" + mid + "\"\n");
                                 }

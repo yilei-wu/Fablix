@@ -25,19 +25,22 @@ public class CastParser {
         Document dom;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        try (PrintWriter writer = new PrintWriter(new File("cast.csv"), "ISO-8859-1")) {
+        try (PrintWriter writer = new PrintWriter(new File("star.csv"));
+        PrintWriter star_in_movie = new PrintWriter(new File("star_in_movie.csv"))) {
             DocumentBuilder db = dbf.newDocumentBuilder();
             dom = db.parse("src/stanford-movies/casts124.xml");
 
             StringBuilder sb = new StringBuilder();
-            sb.append("id");
+            StringBuilder ssb = new StringBuilder();
+            sb.append("movie_id");
             sb.append(',');
-            sb.append("movie");
-            sb.append(",");
-            sb.append("star");
+            sb.append("star_id");
             sb.append('\n');
 
-            writer.write(sb.toString());
+            ssb.append("star_id").append(',').append("star_name");
+
+            writer.write(ssb.toString());
+            star_in_movie.write(sb.toString());
 
             Element docEle = dom.getDocumentElement();
 
@@ -54,10 +57,12 @@ public class CastParser {
                             String id = getTextValue(each_movie, "f");
                             String movie = getTextValue(each_movie, "t");
                             String star = getTextValue(each_movie,"a");
+                            String star_id = Generator.GetHashID(star, 10);
                             //id = id.replace("\""," ").replace("\\", " ");
                             //movie = movie.replace("\""," ").replace("\\", " ");
                             //star = star.replace("\""," ").replace("\\", " ");
-                            writer.write("\"" + id + "\",\"" + movie + "\",\"" + star + "\"\n");
+                            writer.write("\"" + star + "\",\"" + star_id + "\"\n");
+                            star_in_movie.write("\"" + id + "\",\"" + star_id + "\"\n");
                         }
                     }
 

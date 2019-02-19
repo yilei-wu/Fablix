@@ -46,10 +46,11 @@ public class ActorParser {
                     Element each = (Element) nl.item(i);
                     String name = getTextValue(each,"stagename");
                     String year = getTextValue(each,"dob");
+                    String star_id = Generator.GetHashID(name,10);
                     //name = name.replace("\""," ").replace("\\", " ");
                     //year = year.replace("\""," ").replace("\\", " ");
                     //if (year.isEmpty()){year = " ";}
-                    writer.write("\"" + name + "\",\"" + year + "\"\n");
+                    writer.write("\""+ star_id + "\",\"" + name + "\",\"" + year + "\"\n");
                 }
             }
             //writer.flush();
