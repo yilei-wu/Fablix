@@ -1,0 +1,6 @@
+Optimization Methods
+1. We first parse the xml files to csv files and store them
+   in the project temporarily, then use LOAD FILE command in
+   SQL to load them into database.
+2. We used unique index on movies and genres to prevent duplicate
+   entries, so that no sql queries is needed to be executed.
