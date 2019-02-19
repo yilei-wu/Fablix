@@ -24,25 +24,22 @@ public class MovieParser {
         Document dom;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        try (PrintWriter writer = new PrintWriter(new File("movies.csv"))) {
+        try (PrintWriter writer = new PrintWriter(new File("movies.csv"));
+        PrintWriter genre_writer = new PrintWriter(new File("genre.csv"));
+        PrintWriter genre_in_movie_writer = new PrintWriter(new File("genre_in_movie.csv"))) {
             DocumentBuilder db = dbf.newDocumentBuilder();
             dom = db.parse("src/stanford-movies/mains243.xml");
 
             StringBuilder sb = new StringBuilder();
-            sb.append("did");
-            sb.append(',');
-            sb.append("directors");
-            sb.append(',');
-            sb.append("mid");
-            sb.append(',');
-            sb.append("title");
-            sb.append(',');
-            sb.append("year");
-            sb.append(',');
-            sb.append("genres");
-            sb.append('\n');
+            StringBuilder ssb = new StringBuilder();
+            StringBuilder sssb = new StringBuilder();
+            sb.append("directors").append(',').append("mid").append(',').append("title").append(',').append("year").append(',').append('\n');
+            ssb.append("genre_id").append(',').append("movie_id").append('\n');
+            sssb.append("genre").append(',').append("genre_id").append('\n');
 
             writer.write(sb.toString());
+            genre_in_movie_writer.write(ssb.toString());
+            genre_writer.write(sssb.toString());
 
             Element docEle = dom.getDocumentElement();
 
@@ -91,11 +88,12 @@ public class MovieParser {
                                     //mid = mid.replace("\""," ").replace("\\", " ");
                                     //title = title.replace("\""," ").replace("\\", " ");
                                     //year = year.replace("\""," ").replace("\\", " ");
-                                    writer.write("\"" + did + "\",\"" + dname + "\",\"" + mid + "\",\"" + title + "\",\"" + year + "\",");
-                                    //allgenres.append('\n');
+                                    writer.write("\"" + dname + "\",\"" + mid + "\",\"" + title + "\",\"" + year + "\"\n");
+                                    String genre_id = Generator.GetIntID(10);
                                     String genress = allgenres.toString();
                                     if(genres.equals("null\\")){genress = "no genre";}
-                                    writer.write("\"" + genress + "\"" + '\n');
+                                    genre_writer.write("\"" + genress + "\",\"" + genre_id + "\"\n");
+                                    genre_in_movie_writer.write("\"" + genre_id + "\",\"" + mid + "\"\n");
                                 }
                             }
 
