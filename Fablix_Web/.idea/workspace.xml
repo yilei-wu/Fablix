@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="fablix:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3c7e260b-93ea-4279-b601-10dc725bd280" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/fablix_war.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/fablix_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_46.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jasypt_jasypt_1_9_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fablix.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../optimization_report.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/CreateProcedure.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/ReadCSV.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/createtable.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/ActorParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/CastParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DashBoardFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/DashboardServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/EmployeeLoginServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/Generator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/GenreServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/GnereBrowsingServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/InsertMovieServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/InsertStarServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/KeywordSearchServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/LoginFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/LoginServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/MovieListServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/MovieParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/PurchaseServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/RecaptchaConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/RecaptchaVerifyUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/SearchServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/SingleMovieServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/SingleStarServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/TitleBrowsingServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/UpdateSecurePassword.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/java/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/Footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/META-INF/context.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/META-INF/pattern_explain.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/_dashboard.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/_dashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/bg_video.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/cart.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/cart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/generator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/header.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/movie_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/movie_list.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/overall.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/pagination.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/progressbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/single_movie.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/single_movie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/single_star.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main/webapp/single_star.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/movie-data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/actor6.dtd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/actors63.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/cast93.dtd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/casts124.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/main32.dtd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/stanford-movies/mains243.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/test.csv" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="713" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Fablix_Web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Fablix_Web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="stanford-movies" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551229867180" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 8.5.37" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.37" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER_URL" value="https://localhost:8443/fablix_war_exploded/" />
+      <option name="UPDATING_POLICY" value="update-resources" />
+      <deployment>
+        <artifact name="fablix:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/fablix_war_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_Fablix_Web" />
+        <option name="HTTPS_PORT" value="8443" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="56202" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="fablix:war exploded" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3c7e260b-93ea-4279-b601-10dc725bd280" name="Default Changelist" comment="" />
+      <created>1551210355048</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551210355048</updated>
+      <workItem from="1551210356457" duration="315000" />
+      <workItem from="1551222999178" duration="874000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1189000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1280" height="713" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2536349" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32850242" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32850242" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="11" />
+      <window_info anchor="bottom" id="Java Enterprise" order="12" />
+      <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="14" visible="true" weight="0.32850242" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/fablix.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/header.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stanford-movies/actor6.dtd">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/UpdateSecurePassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="44" column="26" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/movie_list.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>fablix:war exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>@types/jquery</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>fablix</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>lib</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

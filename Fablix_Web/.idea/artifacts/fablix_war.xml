@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fablix:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>fablix</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="fablix.war">
+      <element id="artifact" artifact-name="fablix:war exploded" />
+    </root>
+  </artifact>
+</component>
