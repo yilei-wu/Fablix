@@ -42,7 +42,8 @@ public class UpdateSecurePassword {
 
         // we use the StrongPasswordEncryptor from jasypt library (Java Simplified Encryption)
         //  it internally use SHA-256 algorithm and 10,000 iterations to calculate the encrypted password
-        PasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        PasswordEncryptor
+                passwordEncryptor = new StrongPasswordEncryptor();
 
         ArrayList<String> updateQueryList = new ArrayList<>();
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="122B" uuid="9c3a2ec2-6ca9-4462-905d-b2d71071e93d">
+    <data-source source="LOCAL" name="AWS" uuid="9c3a2ec2-6ca9-4462-905d-b2d71071e93d">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <remarks>122B</remarks>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://3.17.195.187:3306/122B</jdbc-url>
+      <jdbc-url>jdbc:mysql://3.17.195.187:3306/</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

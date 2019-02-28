@@ -116,7 +116,7 @@ CREATE TABLE employees
 drop table if exists titlefts;
 CREATE TABLE titlefts
 (
-  entreeid INT AUTO_INCREMENT,
+  entreeid VARCHAR(10),
   entree text,
   PRIMARY KEY(entreeid),
   FULLTEXT(entree)
