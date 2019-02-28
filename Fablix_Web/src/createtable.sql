@@ -1,5 +1,5 @@
-# DROP DATABASE if exists 122B;
-# CREATE DATABASE 122B;
+DROP DATABASE if exists 122B;
+CREATE DATABASE 122B;
 USE 122B;
 
 drop table if exists movies;
