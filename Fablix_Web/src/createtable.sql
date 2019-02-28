@@ -10,7 +10,8 @@ CREATE TABLE movies
   year int,
   director varchar(100),
 
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FULLTEXT (title)
 );
 
 drop table if exists stars;
