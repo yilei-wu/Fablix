@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import static java.awt.Event.ESCAPE;
 
 @WebServlet(name = "KeywordSearchServlet", urlPatterns = "/api/keyword_search")
-public class KeywordSearchServlet extends HttpServlet
+public class  KeywordSearchServlet extends HttpServlet
 {
     @Resource(name = "moviedb")
     DataSource dataSource;
@@ -35,23 +35,32 @@ public class KeywordSearchServlet extends HttpServlet
         try
         {
             Connection dbcon = dataSource.getConnection();
+
+//            ArrayList<String> match_title = new ArrayList<>();
+//            String fts_query = "SELECT entree FROM titlefts WHERE MATCH(entree) AGAINST(? IN BOOLEAN MODE)";
+//            PreparedStatement fts_statement = dbcon.prepareStatement(fts_query);
+//            fts_statement.setString(1, keyword);
+//            ResultSet rfts = fts_statement.executeQuery();
+//            while(rfts.next())
+//            {
+//                match_title.add(rfts.getString("entree"));
+//            }
+
+
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String title_condition = " AND movies.title like ?  " ;
+            String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE)  " ;
             String group_clause = " GROUP BY title";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
 
             String query = select_query + from_query + where_join + title_condition + group_clause + order_clause + offset_clause;
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
-//            System.out.println(queryt);
-//            System.out.println(query);
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
-            statement.setString(1,"%" + keyword + "%");
-            statement1.setString(1 , "%" + keyword + "%" );
-            System.out.println(statement);
+            statement.setString(1, keyword );
+            statement1.setString(1 , keyword );
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 
@@ -141,10 +150,10 @@ public class KeywordSearchServlet extends HttpServlet
         }
     }
 
-    private int get_total_page(int total_records, int record)
-    {
-        return total_records/record + 1;
-    }
+//    private int get_total_page(int total_records, int record)
+//    {
+//        return total_records/record + 1;
+//    }
 
 
     private String get_offset_clause(String page, String records)

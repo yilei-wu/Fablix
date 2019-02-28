@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS 122B;
-CREATE DATABASE 122B;
+# DROP DATABASE if exists 122B;
+# CREATE DATABASE 122B;
 USE 122B;
 
 drop table if exists movies;
@@ -111,3 +111,15 @@ CREATE TABLE employees
   fullname varchar(100),
   PRIMARY KEY (email)
 );
+
+drop table if exists titlefts;
+CREATE TABLE titlefts
+(
+  entreeid INT AUTO_INCREMENT,
+  entree text,
+  PRIMARY KEY(entreeid),
+  FULLTEXT(entree)
+);
+
+ALTER TABLE movies ADD FULLTEXT (title);
+
