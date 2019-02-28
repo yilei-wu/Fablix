@@ -169,7 +169,3 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/java,maven,eclipse,java-web,intellij
 Fablix_Web/.idea/workspace.xml
-
-
-# all .idea files
-*/.idea/
