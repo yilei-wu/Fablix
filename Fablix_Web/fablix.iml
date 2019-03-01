@@ -30,5 +30,10 @@
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery-3.3.1" level="application" />
     <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="library" name="api" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jquery-3.1.0" level="application" />
+    <orderEntry type="library" name="pagination" level="application" />
+    <orderEntry type="library" name="jquery.autocomplete" level="application" />
   </component>
 </module>
