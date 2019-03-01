@@ -14,10 +14,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet(name = "AutoCompleteServlet", urlPatterns = "api/auto_complete")
+@WebServlet(name = "AutoCompleteServlet", urlPatterns = "/api/auto_complete")
 public class AutoCompleteServlet extends HttpServlet {
     @Resource(name = "moviedb")
     private DataSource dataSource;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setContentType("application/json");
