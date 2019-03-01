@@ -59,8 +59,14 @@ public class  KeywordSearchServlet extends HttpServlet
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
-            statement.setString(1, keyword );
-            statement1.setString(1 , keyword );
+            String[] con = keyword.split("\\s+");
+            String f = "";
+            for(String each: con)
+            {
+                f += ("+" + each + " ");
+            }
+            statement.setString(1, f );
+            statement1.setString(1 , f );
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 

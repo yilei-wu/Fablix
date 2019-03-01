@@ -122,5 +122,5 @@ CREATE TABLE titlefts
   FULLTEXT(entree)
 );
 
-ALTER TABLE movies ADD FULLTEXT (title);
+
 

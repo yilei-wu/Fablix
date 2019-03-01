@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="2da5ff2a-6ecc-4fde-b992-e2db99911209" name="aws" url="http://3.17.195.187">
-        <fileTransfer host="3.17.195.187" port="22" privateKey="$USER_HOME$/key1.pem" accessType="SFTP" keyPair="true">
+        <fileTransfer host="3.17.195.187" port="22" privateKey="C:\Users\pc_win_Elay\Desktop\cs122B\file\key1.pem" accessType="SFTP" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
