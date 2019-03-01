@@ -63,7 +63,7 @@ public class  KeywordSearchServlet extends HttpServlet
             String f = "";
             for(String each: con)
             {
-                f += ("+" + each + " ");
+                f += ("+" + each + "* ");
             }
             statement.setString(1, f );
             statement1.setString(1 , f );
