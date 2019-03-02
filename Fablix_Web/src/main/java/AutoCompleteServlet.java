@@ -26,6 +26,8 @@ public class AutoCompleteServlet extends HttpServlet {
         String keyword = request.getParameter("query");
         try
         {
+            JsonObject r = new JsonObject();
+            r.addProperty("query", keyword);
             JsonArray res  = new JsonArray();
             Connection con = dataSource.getConnection();
             //String keyword = request.getParameter("query");
@@ -45,11 +47,12 @@ public class AutoCompleteServlet extends HttpServlet {
                 JsonObject movie = new JsonObject();
                 String id = resultSet.getString("id");
                 String movie_title = resultSet.getString("title");
-                movie.addProperty("id", id);
-                movie.addProperty("title", movie_title);
+                movie.addProperty("value", movie_title);
+                movie.addProperty("data", id);
                 res.add(movie);
             }
-            out.write(res.toString());
+            r.add("Suggestions", res);
+            out.write(r.toString());
             response.setStatus(200);
             con.close();
             resultSet.close();
