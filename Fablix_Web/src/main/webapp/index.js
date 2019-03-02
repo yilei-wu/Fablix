@@ -47,6 +47,14 @@ $(function () {
     $('#keyword_form').submit(submitKeywordSearch);
     $('#accurate_form').submit(submitAccurateSearch);
 
+    $('#search_box').autocomplete({
+        serviceUrl: 'api/auto_complete',
+        lookupLimit: 10,
+        minChars: 3,
+        onSelect: function (suggestion) {
+            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+    });
 
     $.ajax({
         dataType: "json",
