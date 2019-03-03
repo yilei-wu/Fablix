@@ -51,7 +51,7 @@ public class AutoCompleteServlet extends HttpServlet {
                 movie.addProperty("data", id);
                 res.add(movie);
             }
-            r.add("Suggestions", res);
+            r.add("suggestions", res);
             out.write(r.toString());
             response.setStatus(200);
             con.close();

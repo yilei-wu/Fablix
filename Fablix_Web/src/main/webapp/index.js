@@ -51,8 +51,14 @@ $(function () {
         serviceUrl: 'api/auto_complete',
         lookupLimit: 10,
         minChars: 3,
+        deferRequestBy: 300,
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: 'No Suggestion',
+        autoSelectFirst: false,
+        triggerSelectOnValidInput: false,
         onSelect: function (suggestion) {
-            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            location.href = 'single_movie.html?from=index&id=' + suggestion['data']
+            // alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
     });
 
