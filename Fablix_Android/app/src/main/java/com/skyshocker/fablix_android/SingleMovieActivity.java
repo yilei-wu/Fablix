@@ -2,6 +2,7 @@ package com.skyshocker.fablix_android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ public class SingleMovieActivity extends AppCompatActivity {
     private EditText stars;
     private EditText genres;
     private Button back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,12 @@ public class SingleMovieActivity extends AppCompatActivity {
         stars = findViewById(R.id.Stars);
         genres = findViewById(R.id.Genres);
 
-        back = findViewById(R.id. ba)
+        back = findViewById(R.id.bback);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
