@@ -197,6 +197,21 @@ $(function () {
         sessionStorage.setItem('size', '20');
     }
 
+    $('#search_box').autocomplete({
+        serviceUrl: 'api/auto_complete',
+        lookupLimit: 10,
+        minChars: 3,
+        deferRequestBy: 300,
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: 'No Suggestion',
+        autoSelectFirst: false,
+        triggerSelectOnValidInput: false,
+        onSelect: function (suggestion) {
+            location.href = 'single_movie.html?id=' + suggestion['data']
+            // alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        }
+    });
+
 
     let from = getParameterByName('from');
     if (from === 'a_search') {

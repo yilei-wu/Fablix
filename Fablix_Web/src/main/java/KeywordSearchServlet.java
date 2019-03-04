@@ -51,7 +51,7 @@ public class  KeywordSearchServlet extends HttpServlet
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
             String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE)  " ;
-            String group_clause = " GROUP BY title";
+            String group_clause = " GROUP BY id";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
 
@@ -67,10 +67,11 @@ public class  KeywordSearchServlet extends HttpServlet
             }
             statement.setString(1, f );
             statement1.setString(1 , f );
+
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 
-            System.out.println(queryt);
+            System.out.println(query);
 
             JsonArray movie_list = new JsonArray();
             ArrayList<String> x = new ArrayList<>();

@@ -52,6 +52,12 @@ function handleMovieListResult(resultData){
 $(function () {
     let movie_id = getParameterByName('id');
 
+    if (getParameterByName('from') === 'index') {
+        $('#back_button').prop('href', 'index.html')
+    } else {
+        $('#back_button').prop('href', 'movie_list.html?from=back')
+    }
+
     $.ajax({
         dataType: "json",
         method: "GET",

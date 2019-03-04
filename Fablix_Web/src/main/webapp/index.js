@@ -49,10 +49,29 @@ $(function () {
 
     $('#search_box').autocomplete({
         serviceUrl: 'api/auto_complete',
+        ajaxSettings:{
+            beforeSend: function () {
+                console.log('Sending Ajax Request')
+            }
+        },
         lookupLimit: 10,
         minChars: 3,
+        deferRequestBy: 300,
+        showNoSuggestionNotice: true,
+        noSuggestionNotice: 'No Suggestion',
+        autoSelectFirst: false,
+        triggerSelectOnValidInput: false,
+        onSearchComplete: function (query, suggestions) {
+            console.log('Auto Complete initiated');
+            var movies = '';
+            suggestions.forEach(function (element) {
+                movies += element['value'] + '    '
+            });
+            console.log('Suggestions: ' + movies)
+        },
         onSelect: function (suggestion) {
-            alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+            location.href = 'single_movie.html?from=index&id=' + suggestion['data']
+            // alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
         }
     });
 
