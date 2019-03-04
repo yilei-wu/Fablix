@@ -53,9 +53,9 @@ public class LoginServlet extends HttpServlet {
                     out.close();
                     return;
                 }
-                out.write(responseJsonObject.toString());
+                //out.write(responseJsonObject.toString());
             }
-
+            out.write(responseJsonObject.toString());
         }
         else
             {
