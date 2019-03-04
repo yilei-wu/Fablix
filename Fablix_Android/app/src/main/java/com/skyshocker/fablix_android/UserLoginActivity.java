@@ -1,5 +1,6 @@
 package com.skyshocker.fablix_android;
 
+import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
@@ -10,14 +11,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A login screen that offers login via email/password.
@@ -69,13 +74,28 @@ public class UserLoginActivity extends AppCompatActivity {
                         System.out.println(response);
 
                         Log.d("username.reponse", response);
-//                        ((TextView) findViewById(R.id.http_response)).setText(response);
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            if(result.get("status").equals("fail")){
+                                Toast.makeText(UserLoginActivity.this, R.string.login_fail, Toast.LENGTH_SHORT).show();
+                            } else if (result.get("status").equals("success")){
+                                System.out.println("succeed");
+                                Intent intent = new Intent(UserLoginActivity.this, MovieListActivity.class);
+                                startActivity(intent);
+                            } else {
+                                System.err.println("response: " + response);
+                            }
+                        } catch (JSONException e) {
+                            System.out.println(e);
+                            System.out.println(response);
+                            // Oops
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error);
+//                        System.out.println(error);
                         // error
                         Log.d("username.error", error.toString());
                     }
@@ -85,9 +105,9 @@ public class UserLoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 // Post request form data
                 final Map<String, String> params = new HashMap<String, String>();
-                params.put("username", "a@emial.com");
-                params.put("password", "a2");
-
+                params.put("username", ((EditText)findViewById(R.id.email)).getText().toString());
+                params.put("password", ((EditText)findViewById(R.id.password)).getText().toString());
+                System.out.println(params);
                 return params;
             }
         };
