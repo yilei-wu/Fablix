@@ -106,5 +106,7 @@ public class SingleMovieActivity extends AppCompatActivity {
                 Log.d("single_movei.error", error.toString());
             }
         });
+
+        queue.add(stringRequest);
     }
 }

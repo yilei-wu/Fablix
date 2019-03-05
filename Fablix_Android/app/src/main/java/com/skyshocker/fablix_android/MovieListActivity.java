@@ -70,6 +70,7 @@ public class MovieListActivity extends AppCompatActivity {
 
     private void updateMovieList(JSONObject response){
         ArrayList<String> serializedMovies = new ArrayList<>();
+        final ArrayList<String> ids = new ArrayList<>();
 
         try{
             mTotalPage = response.getInt("total_number") / ITEM_PER_PAGE;
@@ -83,7 +84,7 @@ public class MovieListActivity extends AppCompatActivity {
                 String serializedMovie = "";
                 JSONObject movie = movies.getJSONObject(i);
 
-                movieId = movie.getString("movie_id");
+                ids.add(movie.getString("movie_id"));
 
 //                title;year;director;genres;stars
 //                serializedMovie += movie.getString("movie_id") + ";";
@@ -117,7 +118,7 @@ public class MovieListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3) {
                 Intent intent = new Intent(MovieListActivity.this, SingleMovieActivity.class);
-                intent.putExtra(MOVIE_ID, movieId);
+                intent.putExtra(MOVIE_ID, ids.get(position));
                 startActivity(intent);
             }
         });
