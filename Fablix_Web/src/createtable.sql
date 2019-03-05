@@ -123,4 +123,6 @@ CREATE TABLE titlefts
 );
 
 
-
+CREATE FUNCTION ed
+  RETURNS INTEGER
+  SONAME 'libed.so';
