@@ -24,12 +24,13 @@ public class AutoCompleteServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         String keyword = request.getParameter("query");
+        Connection con = null;
         try
         {
             JsonObject r = new JsonObject();
             r.addProperty("query", keyword);
             JsonArray res  = new JsonArray();
-            Connection con = dataSource.getConnection();
+            con = dataSource.getConnection();
             //String keyword = request.getParameter("query");
             String query = "SELECT id, title from movies where match(title) AGAINST ( ? in BOOLEAN MODE) LIMIT 10";
             String[] kk = keyword.split("\\s+");
@@ -65,6 +66,13 @@ public class AutoCompleteServlet extends HttpServlet {
             response.setStatus(500);
             out.write(res.toString());
             out.close();
+        }
+        finally {
+            try
+            {con.close();
+            }catch (Exception e)
+            {
+            }
         }
     }
 }

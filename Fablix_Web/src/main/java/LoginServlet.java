@@ -77,9 +77,10 @@ public class LoginServlet extends HttpServlet {
 
     String getUserId(String username)
     {
+        Connection con = null;
         try
         {
-            Connection con = datasource.getConnection();
+            con = datasource.getConnection();
             String query = "Select id from customers where email = ? ";
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, username);
@@ -98,13 +99,19 @@ public class LoginServlet extends HttpServlet {
             System.out.println(e.getMessage());
             return "";
         }
+        finally {
+            try {
+                con.close();
+            }catch (Exception e)
+            {}
+        }
         return "";
     }
 
     boolean verifyCredentials(String email, String password){
-
+        Connection connection = null;
         try {
-            Connection connection = datasource.getConnection();
+            connection = datasource.getConnection();
 
 
             String query = " SELECT password from customers where email = ? ";
@@ -133,6 +140,12 @@ public class LoginServlet extends HttpServlet {
         catch (Exception e)
         {
             System.out.println(e.getMessage());
+        }
+        finally {
+            try{
+                connection.close();
+            }catch (Exception e)
+            {}
         }
         return false;
     }
