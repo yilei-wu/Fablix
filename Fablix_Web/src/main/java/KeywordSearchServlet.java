@@ -50,13 +50,15 @@ public class  KeywordSearchServlet extends HttpServlet
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE)  " ;
+            String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE) AND ed(?,movies.title) <= 5" ;
             String group_clause = " GROUP BY id";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
 
             String query = select_query + from_query + where_join + title_condition + group_clause + order_clause + offset_clause;
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
+//            String fuzzy_query = "SELECT * FROM [" + query + "] WHERE ed(title,?) <= 3";
+//            String fuzzy_count = "SELECT COUNT(*) AS a FROM " + fuzzy_query;
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
             String[] con = keyword.split("\\s+");
@@ -66,7 +68,9 @@ public class  KeywordSearchServlet extends HttpServlet
                 f += ("+" + each + "* ");
             }
             statement.setString(1, f );
+            statement.setString(2, keyword);
             statement1.setString(1 , f );
+            statement1.setString(2, keyword);
 
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
