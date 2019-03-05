@@ -65,6 +65,7 @@ public class UserLoginActivity extends AppCompatActivity {
         System.out.println("login in");
 
         final RequestQueue queue = NetworkManager.sharedManager(this).queue;
+        System.out.println(queue);
 
         // 10.0.2.2 is the host machine when running the android emulator
         final StringRequest loginRequest = new StringRequest(Request.Method.POST, "https://3.17.195.187:8443/fablix/api/login",
@@ -82,6 +83,7 @@ public class UserLoginActivity extends AppCompatActivity {
                                 System.out.println("succeed");
                                 Intent intent = new Intent(UserLoginActivity.this, MovieListActivity.class);
                                 startActivity(intent);
+//                                finish();
                             } else {
                                 System.err.println("response: " + response);
                             }
