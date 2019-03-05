@@ -32,7 +32,7 @@ public class AutoCompleteServlet extends HttpServlet {
             JsonArray res  = new JsonArray();
             con = dataSource.getConnection();
             //String keyword = request.getParameter("query");
-            String query = "SELECT id, title from movies where ed(title, ?) < 5 and  match(title) AGAINST ( ? in BOOLEAN MODE) LIMIT 10";
+            String query = "SELECT id, title from movies where ed(title, ?) <= 2 OR match(title) AGAINST ( ? in BOOLEAN MODE) LIMIT 10";
             String[] kk = keyword.split("\\s+");
             StringBuilder kkk = new StringBuilder();
             for(String each : kk)
@@ -40,8 +40,8 @@ public class AutoCompleteServlet extends HttpServlet {
                 kkk.append("+" + each + "*");
             }
             PreparedStatement statement = con.prepareStatement(query);
-            statement.setString(1,kkk.toString());
-
+            statement.setString(2,kkk.toString());
+            statement.setString(1,keyword);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next())
             {
