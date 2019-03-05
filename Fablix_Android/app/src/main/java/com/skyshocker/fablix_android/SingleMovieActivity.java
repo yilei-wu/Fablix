@@ -35,11 +35,11 @@ import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 public class SingleMovieActivity extends AppCompatActivity {
 
     //ui reference
-    private EditText title;
-    private EditText year;
-    private EditText director;
-    private EditText stars;
-    private EditText genres;
+    private TextView title;
+    private TextView year;
+    private TextView director;
+    private TextView stars;
+    private TextView genres;
     private Button back;
 
     @Override
@@ -47,7 +47,8 @@ public class SingleMovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_movie);
 
-        String movie_id = new String();//
+
+        String movie_id = getIntent().getStringExtra(MovieListActivity.MOVIE_ID);
         title = findViewById(R.id.Title);
         year = findViewById(R.id.Year);
         director = findViewById(R.id.Director);

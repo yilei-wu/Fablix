@@ -12,43 +12,40 @@
               tools:context=".UserLoginActivity">
 
 
-    <EditText
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/Title" android:hint="title"/>
-    <EditText
+            android:id="@+id/Title"/>
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/Year" android:hint="year"/>
-    <EditText
+            android:id="@+id/Year"/>
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/Director" android:hint="director"/>
-    <EditText
+            android:id="@+id/Director"/>
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/Stars" android:hint="stars"/>
-    <EditText
+            android:id="@+id/Stars"/>
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/Genres" android:hint="genres"/>
+            android:id="@+id/Genres"/>
+
     <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/bback"/>
+        android:id="@+id/bback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
 </LinearLayout>

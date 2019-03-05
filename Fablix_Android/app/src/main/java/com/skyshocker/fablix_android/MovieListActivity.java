@@ -27,12 +27,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MovieListActivity extends AppCompatActivity {
+    public static final String MOVIE_ID = "SKYSHOCKER.MOVIE_ID";
     public static final int ITEM_PER_PAGE = 20;
 
     private EditText mSearchText;
     private ListView mMovieList;
 
+    private String movieId = "";
+
     private int mCurrentPage = 1;
+    private int mTotalPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +68,73 @@ public class MovieListActivity extends AppCompatActivity {
         });
     }
 
-    private void updateMovieList(JSONArray movies){
+    private void updateMovieList(JSONObject response){
+        ArrayList<String> serializedMovies = new ArrayList<>();
 
+        try{
+            mTotalPage = response.getInt("total_number") / ITEM_PER_PAGE;
+            if(response.getInt("total_number") % ITEM_PER_PAGE != 0){
+                mTotalPage ++;
+            }
+
+            JSONArray movies = response.getJSONArray("movielist");
+
+            for (int i = 0; i < movies.length(); i++){
+                String serializedMovie = "";
+                JSONObject movie = movies.getJSONObject(i);
+
+                movieId = movie.getString("movie_id");
+
+//                title;year;director;genres;stars
+//                serializedMovie += movie.getString("movie_id") + ";";
+                serializedMovie += movie.getString("movie_title") + ";";
+                serializedMovie += movie.getString("year") + ";";
+                serializedMovie += movie.getString("director") + ";";
+                serializedMovie += movie.getString("genre_list") + ";";
+
+                JSONArray stars = movie.getJSONArray("star_list");
+                String serializedStar = "";
+                for (int j = 0; j < stars.length(); j++){
+                    JSONObject starObj = stars.getJSONObject(j);
+                    serializedStar += starObj.getString("star_name") + ", ";
+                }
+                serializedStar = serializedStar.substring(0, serializedStar.length() - 2);
+
+                serializedMovie += serializedStar;
+                serializedMovies.add(serializedMovie);
+            }
+
+        } catch (JSONException e) {
+            System.out.println(e);
+            System.out.println(response);
+        }
+
+        ArrayAdapter adapter = new MovieListAdapter(this, R.layout.movie_list_item, serializedMovies);
+        mMovieList.setAdapter(adapter);
+
+        mMovieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3) {
+                Intent intent = new Intent(MovieListActivity.this, SingleMovieActivity.class);
+                intent.putExtra(MOVIE_ID, movieId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void nextPage(){
-
+        if(mCurrentPage < mTotalPage){
+            mCurrentPage +=1;
+            search();
+        }
     }
 
     private void lastPage(){
-
+        if(mCurrentPage > 1){
+            mCurrentPage -=1;
+            search();
+        }
     }
 
     private void search(){
@@ -88,8 +149,9 @@ public class MovieListActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         Log.d("search_movie.response", response.toString());
+
+                        updateMovieList(response);
 
                     }
                 },
@@ -118,14 +180,20 @@ public class MovieListActivity extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
             View incidentView = inflater.inflate(R.layout.movie_list_item, parent, false);
-            TextView dateText = incidentView.findViewById(R.id.date);
-            TextView titleText = incidentView.findViewById(R.id.title);
 
-            dateText.setText(values.get(position).split(";")[1]);
+            TextView titleText = incidentView.findViewById(R.id.title);
+            TextView yearText = incidentView.findViewById(R.id.year);
+            TextView directorText = incidentView.findViewById(R.id.director);
+            TextView genresText = incidentView.findViewById(R.id.genres);
+            TextView starsText = incidentView.findViewById(R.id.stars);
+
             titleText.setText(values.get(position).split(";")[0]);
+            yearText.setText(values.get(position).split(";")[1]);
+            directorText.setText(values.get(position).split(";")[2]);
+            genresText.setText(values.get(position).split(";")[3]);
+            starsText.setText(values.get(position).split(";")[4]);
 
             return incidentView;
         }
