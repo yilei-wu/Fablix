@@ -9,7 +9,7 @@
         <servlet-class>MovieListServlet</servlet-class>
     </servlet>
 
-    <!--register the dataa source for the web-->
+    <!--register the data source for the web-->
     <resource-ref>
         <description>MySQL DataSource</description>
         <res-ref-name>moviedb</res-ref-name>
