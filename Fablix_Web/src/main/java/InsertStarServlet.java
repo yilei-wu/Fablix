@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "InsertStarServlet", urlPatterns = "/api/insert_star")
 public class InsertStarServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "masterdb")
     private DataSource dataSource;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "TitleBrowsingServlet", urlPatterns = "/api/title_browse")
 public class TitleBrowsingServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     private DataSource dataSource;
 
 

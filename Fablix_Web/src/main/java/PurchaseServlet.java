@@ -23,7 +23,7 @@ import java.util.Enumeration;
 
 @WebServlet(name = "PurchaseServlet", urlPatterns = "/api/purchase")
 public class PurchaseServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "masterdb")
     private DataSource dataSource;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException

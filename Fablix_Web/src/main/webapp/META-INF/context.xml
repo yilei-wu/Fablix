@@ -11,4 +11,20 @@
               password="12345678"
               url="jdbc:mysql://3.17.195.187/122B?autoReconnect=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
 
+    <Resource name="masterdb"
+            auth="Container"
+            driverClassName="com.mysql.jdbc.Driver"
+            type="javax.sql.DataSource"
+            username="javamaster"
+            password="12345678"
+            url="jdbc:mysql://3.18.105.159/122B?autoReconnect=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
+
+    <Resource name="slavedb"
+            auth="Container"
+            driverClassName="com.mysql.jdbc.Driver"
+            type="javax.sql.DataSource"
+            username="javamaster"
+            password="12345678"
+            url="jdbc:mysql://52.15.235.94/122B?autoReconnect=true&amp;useSSL=false&amp;cachePrepStmts=true"/>
+
 </Context>

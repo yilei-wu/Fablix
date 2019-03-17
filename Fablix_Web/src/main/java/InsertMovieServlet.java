@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @WebServlet(name = "InsertMovieServlet", urlPatterns = "/api/insert_movie")
 
 public class InsertMovieServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "masterdb")
     private DataSource dataSource;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

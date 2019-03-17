@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MovieListServlet extends HttpServlet {
 
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     private DataSource dataSource;
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException
     {

@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "AutoCompleteServlet", urlPatterns = "/api/auto_complete")
 public class AutoCompleteServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     private DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

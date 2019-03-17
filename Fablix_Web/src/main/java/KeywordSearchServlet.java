@@ -20,7 +20,7 @@ import static java.awt.Event.ESCAPE;
 @WebServlet(name = "KeywordSearchServlet", urlPatterns = "/api/keyword_search")
 public class  KeywordSearchServlet extends HttpServlet
 {
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

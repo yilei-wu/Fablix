@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "SearchServlet", urlPatterns = "/api/search_movie")
 public class SearchServlet extends HttpServlet {
-    @Resource (name = "moviedb")
+    @Resource (name = "slavedb")
     private DataSource dataSource;
 
 
