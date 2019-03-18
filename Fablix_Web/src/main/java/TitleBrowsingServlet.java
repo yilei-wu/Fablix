@@ -38,7 +38,7 @@ public class TitleBrowsingServlet extends HttpServlet {
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String title_condition = " AND movies.title like '" + fc + "%'";
+            String title_condition = " AND movies.title like  ? ";
             String group_clause = " GROUP BY title";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
@@ -47,6 +47,9 @@ public class TitleBrowsingServlet extends HttpServlet {
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + title_condition;
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
+            statement.setString(1,fc+"%");
+            statement1.setString(1,fc+"%");
+
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 
