@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +24,7 @@ public class  KeywordSearchServlet extends HttpServlet
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        long ts_start = System.nanoTime();
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         String keyword = request.getParameter("keyword");
@@ -34,6 +34,7 @@ public class  KeywordSearchServlet extends HttpServlet
 
         try
         {
+
             Connection dbcon = dataSource.getConnection();
 
 //            ArrayList<String> match_title = new ArrayList<>();
@@ -71,7 +72,7 @@ public class  KeywordSearchServlet extends HttpServlet
             statement.setString(2, keyword);
             statement1.setString(1 , f );
             statement1.setString(2, keyword);
-
+            long tj_start = System.nanoTime();
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 
@@ -88,7 +89,7 @@ public class  KeywordSearchServlet extends HttpServlet
                 //System.out.println(total);
                 x.add(total);
             }
-
+            long tj_end = 0;
             while(resultSet.next())
             {
                 String sid = resultSet.getString("id");
@@ -106,6 +107,7 @@ public class  KeywordSearchServlet extends HttpServlet
                 PreparedStatement s = dbcon.prepareStatement(star_query);
                 s.setString(1, sid);
                 ResultSet r = s.executeQuery();
+                tj_end = System.nanoTime();
                 while (r.next())
                 {
                     JsonObject sstar = new JsonObject();
@@ -131,6 +133,31 @@ public class  KeywordSearchServlet extends HttpServlet
             final_result.addProperty("total_number" , Integer.parseInt(x.get(0)));
             out.write(final_result.toString());
             response.setStatus(200);
+
+            long ts_end = System.nanoTime();
+            long tj = tj_end - tj_start;
+            long ts = ts_end - ts_start;
+
+            String context_path = getServletContext().getRealPath("/");
+            String log_path = context_path + "log.txt";
+            System.out.println(log_path);
+            File log = new File(log_path);
+            log.createNewFile();
+            try(FileOutputStream fileOutputStream = new FileOutputStream(log,true))
+            {
+                String str = "\nts: " + String.format("%10d", ts) + " tj: " + String.format("%10d", tj);
+                fileOutputStream.write(str.getBytes());
+            }
+
+//            if(!log.exists())
+//            {
+//
+//            }
+//            else
+//            {
+//                FileWriter writer = new FileWriter(log);
+//                writer.write("ts: " + ts + "tj: " + tj);
+//            }
 
             dbcon.close();
             resultSet.close();
