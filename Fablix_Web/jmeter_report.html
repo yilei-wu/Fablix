@@ -28,7 +28,7 @@ td {
     <td>173 ms</td>
     <td>3218742 ns</td>
     <td>2499770 ns</td>
-    <td>--</td>
+    <td>1 thread single db</td>
   </tr>
   <tr>
     <td>Case 2: HTTP/10 threads</td>
@@ -36,7 +36,7 @@ td {
     <td>180 ms</td>
     <td>4381410 ns</td>
     <td>3606441 ns</td>
-    <td>--</td>
+    <td>10 threads, takes longer than 1 thread</td>
   </tr>
   <tr>
     <td>Case 3: HTTPS/10 threads</td>
@@ -44,7 +44,7 @@ td {
     <td>364 ms</td>
     <td>3963462 ns</td>
     <td>3062031 ns</td>
-    <td>--</td>
+    <td>takes longer time in query because of the encryption</td>
   </tr>
   <tr>
     <td>Case 4: HTTP/10 threads/No prepared statements</td>
@@ -52,7 +52,7 @@ td {
     <td>174 ms</td>
     <td>4071001 ns</td>
     <td>452358 ns</td>
-    <td>--</td>
+    <td>takes much longer to finish each servlet</td>
   </tr>
   <tr>
     <td>Case 5: HTTP/10 threads/No connection pooling</td>
@@ -60,7 +60,7 @@ td {
     <td>181 ms</td>
     <td>9840100 ns</td>
     <td>4237807 ns</td>
-    <td>--</td>
+    <td>takes similar time for jdbc, but longer in servlet because the connection resource is not pre-defined</td>
   </tr>
 
 </table> 
@@ -81,7 +81,7 @@ td {
     <td>251 ms</td>
     <td>3043170 ns</td>
     <td>2290643 ns</td>
-    <td>--</td>
+    <td>quicker than using single db</td>
   </tr>
   <tr>
     <td>Case 2: HTTP/10 threads</td>
@@ -89,15 +89,15 @@ td {
     <td>245 ms</td>
     <td>3366564 ns</td>
     <td>2721934 ns</td>
-    <td>--</td>
+    <td>query execution time is faster than 1 thread</td>
   </tr>
   <tr>
     <td>Case 3: HTTP/10 threads/No prepared statements</td>
     <td><img src="images/scaled3.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
     <td>263 ms</td>
-    <td>4096663</td>
-    <td>691</td>
-    <td>--</td>
+    <td>4096663 ns</td>
+    <td>691 ns</td>
+    <td>jdbc connection time has greatly reduced</td>
   </tr>
   <tr>
     <td>Case 4: HTTP/10 threads/No connection pooling</td>
