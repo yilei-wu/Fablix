@@ -52,7 +52,7 @@ public class  KeywordSearchServlet extends HttpServlet
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE) AND ed(?,movies.title) <= 10 " ;
+            String title_condition = " AND MATCH(movies.title) AGAINST(? IN BOOLEAN MODE) " ;
             String group_clause = " GROUP BY id";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
@@ -70,9 +70,9 @@ public class  KeywordSearchServlet extends HttpServlet
                 f += ("+" + each + "* ");
             }
             statement.setString(1, f );
-            statement.setString(2, keyword);
+            //statement.setString(2, keyword);
             statement1.setString(1 , f );
-            statement1.setString(2, keyword);
+            //statement1.setString(2, keyword);
             long tj_start = System.nanoTime();
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
@@ -151,7 +151,7 @@ public class  KeywordSearchServlet extends HttpServlet
             log.createNewFile();
             try(FileOutputStream fileOutputStream = new FileOutputStream(log,true))
             {
-                String str = "\nts: " + ts + " tj: " + tj;
+                String str = "\nts:_" + ts + "_tj:_" + tj + "_";
                 fileOutputStream.write(str.getBytes());
             }
 

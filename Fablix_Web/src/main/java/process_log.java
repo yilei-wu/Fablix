@@ -17,15 +17,16 @@ public class process_log {
 //            Pattern pattern = Pattern.compile("ts:*\\p{Alpha}");
 //            Pattern pattern1 = Pattern.compile("tj:*");
             String st;
-            while ((st = br.readLine()) != null )
-                if (st.length() >=1)
-                {
-                    ts += Long.valueOf(st.substring(4,14));
-                    tj += Long.valueOf(st.substring(19,29));
+            String[] l = null;
+            while ((st = br.readLine()) != null) {
+                if(st.length() >= 1){
+                    l = st.split("_");
+                    System.out.println(l[1] + "::::" + l[3]);
                 }
-                //System.out.println(st.substring(4,14) + " " + st.substring(19,29));
-//                System.out.println(st.substring(19,29));
 
+//                System.out.println(st.substring(4,14) + " " + st.substring(19,29));
+//                System.out.println(st.substring(19,29));
+            }
         }
         catch (Exception e)
         {
