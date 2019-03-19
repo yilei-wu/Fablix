@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.awt.Event.ESCAPE;
 
@@ -42,8 +43,19 @@ public class  KeywordSearchServlet extends HttpServlet
         {
             String loginUser = "javamaster";
             String loginPasswd = "12345678";
-            String loginUrl = "jdbc:mysql://3.17.195.187/122B";
-
+            String masterloginUrl = "jdbc:mysql://52.15.235.94/122B";
+            String slave = "jdbc:mysql://3.18.105.159/122B";
+            Random random = new Random();
+            boolean a = random.nextBoolean();
+            String loginUrl;
+            if(a)
+            {
+                loginUrl = masterloginUrl;
+            }
+            else
+            {
+                loginUrl = slave;
+            }
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
             //Connection dbcon = dataSource.getConnection();
