@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.*;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,11 +20,15 @@ import static java.awt.Event.ESCAPE;
 @WebServlet(name = "KeywordSearchServlet", urlPatterns = "/api/keyword_search")
 public class  KeywordSearchServlet extends HttpServlet
 {
-    @Resource(name = "moviedb")
-    DataSource dataSource;
+    //@Resource(name = "moviedb")
+
+
+    //DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+
+
         long ts_start = System.nanoTime();
         long tj = 0;
         response.setContentType("application/json");
@@ -35,8 +40,13 @@ public class  KeywordSearchServlet extends HttpServlet
 
         try
         {
+            String loginUser = "javamaster";
+            String loginPasswd = "12345678";
+            String loginUrl = "jdbc:mysql://3.17.195.187/122B";
 
-            Connection dbcon = dataSource.getConnection();
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+            //Connection dbcon = dataSource.getConnection();
 
 //            ArrayList<String> match_title = new ArrayList<>();
 //            String fts_query = "SELECT entree FROM titlefts WHERE MATCH(entree) AGAINST(? IN BOOLEAN MODE)";
