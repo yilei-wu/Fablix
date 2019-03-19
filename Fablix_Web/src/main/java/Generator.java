@@ -30,6 +30,20 @@ public class Generator {
 //        return UUID.randomUUID().toString().substring(0, length);
     }
 
+    public static String get_source_name()
+    {
+        Random random = new Random();
+        boolean a = random.nextBoolean();
+        if(a)
+        {
+            return "masterdb";
+        }
+        else
+        {
+            return "slavedb";
+        }
+    }
+
     public static void main(String[] args){
         System.out.println(GetHashID("music", 11));
     }
