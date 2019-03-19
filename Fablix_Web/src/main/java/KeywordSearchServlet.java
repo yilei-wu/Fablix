@@ -2,6 +2,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,9 @@ import static java.awt.Event.ESCAPE;
 @WebServlet(name = "KeywordSearchServlet", urlPatterns = "/api/keyword_search")
 public class  KeywordSearchServlet extends HttpServlet
 {
-    //@Resource(name = "moviedb")
+
+    //    public static final String source_name = "Generator.get_source_name()";
+//    @Resource(name = sample)
 
 
     //DataSource dataSource;
@@ -41,23 +45,33 @@ public class  KeywordSearchServlet extends HttpServlet
 
         try
         {
-            String loginUser = "javamaster";
-            String loginPasswd = "12345678";
-            String masterloginUrl = "jdbc:mysql://52.15.235.94/122B";
-            String slave = "jdbc:mysql://3.18.105.159/122B";
-            Random random = new Random();
-            boolean a = random.nextBoolean();
-            String loginUrl;
-            if(a)
-            {
-                loginUrl = masterloginUrl;
-            }
-            else
-            {
-                loginUrl = slave;
-            }
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+//            String loginUser = "javamaster";
+//            String loginPasswd = "12345678";
+//            String masterloginUrl = "jdbc:mysql://52.15.235.94/122B";
+//            String slave = "jdbc:mysql://3.18.105.159/122B";
+//            Random random = new Random();
+//            boolean a = random.nextBoolean();
+//            String loginUrl;
+//            if(a)
+//            {
+//                loginUrl = masterloginUrl;
+//            }
+//            else
+//            {
+//                loginUrl = slave;
+//            }
+//            Class.forName("com.mysql.jdbc.Driver").newInstance();
+//            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
+            Connection dbcon = dataSource.getConnection();
             //Connection dbcon = dataSource.getConnection();
 
 //            ArrayList<String> match_title = new ArrayList<>();
