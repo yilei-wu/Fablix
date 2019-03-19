@@ -24,7 +24,7 @@ public class UpdateSecurePassword {
 
         String loginUser = "javamaster";
         String loginPasswd = "12345678";
-        String loginUrl = "jdbc:mysql://3.17.195.187/122B";
+        String loginUrl = "jdbc:mysql://52.15.235.94/122B";
 
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         Connection connection = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);

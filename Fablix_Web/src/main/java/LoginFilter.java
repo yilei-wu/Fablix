@@ -41,12 +41,12 @@ public class LoginFilter implements Filter {
     // Always allow your own login related requests (html, js, servlet, etc..)
     // You might also want to allow some CSS files, etc..
     private boolean isUrlAllowedWithoutLogin(String requestURI) {
-        requestURI = requestURI.toLowerCase();
-
-        return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
-                || requestURI.endsWith("api/login") || requestURI.endsWith("overall.css")
-                || requestURI.endsWith("generator.js") || requestURI.endsWith("api/employee_login");
-
+//        requestURI = requestURI.toLowerCase();
+//
+//        return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
+//                || requestURI.endsWith("api/login") || requestURI.endsWith("overall.css")
+//                || requestURI.endsWith("generator.js") || requestURI.endsWith("api/employee_login");
+        return true;
     }
 
     /**
