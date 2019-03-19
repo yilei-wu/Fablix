@@ -3,6 +3,8 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,8 +19,8 @@ import java.sql.Statement;
 
 @WebServlet(name = "SingleStarServlet", urlPatterns = "/api/single_star")
 public class SingleStarServlet extends HttpServlet {
-    @Resource(name = "slavedb")
-    private DataSource dataSource;
+//    @Resource(name = "slavedb")
+//    private DataSource dataSource;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setContentType("application/json");
@@ -27,7 +29,16 @@ public class SingleStarServlet extends HttpServlet {
 
         try
         {
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
             Connection dbcon = dataSource.getConnection();
+//            Connection dbcon = dataSource.getConnection();
 
             String query = "SELECT stars.id, stars.birthYear, stars.name, stars.birthYear, GROUP_CONCAT(distinct movies.title SEPARATOR ', ') as movie_list\n" +
                     "FROM stars_in_movies INNER JOIN movies ON stars_in_movies.movieId = movies.id\n" +

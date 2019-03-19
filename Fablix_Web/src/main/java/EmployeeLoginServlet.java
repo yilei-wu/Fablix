@@ -2,6 +2,8 @@ import com.google.gson.JsonObject;
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,8 @@ import java.util.Map;
 @WebServlet(name = "EmployeeLoginServlet", urlPatterns = "/api/employee_login")
 public class EmployeeLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    @Resource(name = "slavedb")
-    private DataSource datasource;
+//    @Resource(name = "slavedb")
+//    private DataSource datasource;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = ((HttpServletRequest) request).getParameter("username");
@@ -65,7 +67,16 @@ public class EmployeeLoginServlet extends HttpServlet {
     boolean is_user(String username, String password)//return ture if the username/password pair is valid
     {
         try {
-            Connection dbcon = datasource.getConnection();
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
+            Connection dbcon = dataSource.getConnection();
+//            Connection dbcon = datasource.getConnection();
             //System.out.println(username + " " + password);
             String query = "SELECT password FROM employees WHERE email = ?";
             PreparedStatement statement = dbcon.prepareStatement(query);
@@ -89,7 +100,16 @@ public class EmployeeLoginServlet extends HttpServlet {
     {
         try
         {
-            Connection con = datasource.getConnection();
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
+//            Connection dbcon = dataSource.getConnection();
+            Connection con = dataSource.getConnection();
             String query = "Select id from employees where email = ?";
             PreparedStatement statement = con.prepareStatement(query);
             statement.setString(1, username);

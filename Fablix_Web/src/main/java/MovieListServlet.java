@@ -3,6 +3,8 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 
 public class MovieListServlet extends HttpServlet {
 
-    @Resource(name = "slavedb")
-    private DataSource dataSource;
+//    @Resource(name = "slavedb")
+//    private DataSource dataSource;
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException
     {
         response.setContentType("application/json");
@@ -30,7 +32,16 @@ public class MovieListServlet extends HttpServlet {
 
         try
         {
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
             Connection dbcon = dataSource.getConnection();
+//            Connection dbcon = dataSource.getConnection();
 
             String query =
                      "SELECT movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ', ') as sname\n" +
