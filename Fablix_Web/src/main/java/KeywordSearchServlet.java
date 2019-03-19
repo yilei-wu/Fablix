@@ -25,6 +25,7 @@ public class  KeywordSearchServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         long ts_start = System.nanoTime();
+        long tj = 0;
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         String keyword = request.getParameter("keyword");
@@ -75,8 +76,9 @@ public class  KeywordSearchServlet extends HttpServlet
             long tj_start = System.nanoTime();
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
-
-            System.out.println(query);
+            long tj1 = System.nanoTime();
+            tj += (tj1-tj_start);
+            //System.out.println(query);
 
             JsonArray movie_list = new JsonArray();
             ArrayList<String> x = new ArrayList<>();
@@ -90,6 +92,7 @@ public class  KeywordSearchServlet extends HttpServlet
                 x.add(total);
             }
             long tj_end = 0;
+            long tj2 = 0;
             while(resultSet.next())
             {
                 String sid = resultSet.getString("id");
@@ -106,8 +109,10 @@ public class  KeywordSearchServlet extends HttpServlet
                         "WHERE movies.id = ? and movies.id = stars_in_movies.movieId and stars_in_movies.starId = stars.id;";
                 PreparedStatement s = dbcon.prepareStatement(star_query);
                 s.setString(1, sid);
+                tj2 = System.nanoTime();
                 ResultSet r = s.executeQuery();
                 tj_end = System.nanoTime();
+                tj+=(tj_end-tj2);
                 while (r.next())
                 {
                     JsonObject sstar = new JsonObject();
@@ -135,7 +140,7 @@ public class  KeywordSearchServlet extends HttpServlet
             response.setStatus(200);
 
             long ts_end = System.nanoTime();
-            long tj = tj_end - tj_start;
+            //long tj = tj_end - tj_start;
             long ts = ts_end - ts_start;
 
             String context_path = getServletContext().getRealPath("/");

@@ -19,7 +19,11 @@ public class process_log {
             String st;
             while ((st = br.readLine()) != null )
                 if (st.length() >=1)
-                System.out.println(st.substring(4,14) + " " + st.substring(19,29));
+                {
+                    ts += Long.valueOf(st.substring(4,14));
+                    tj += Long.valueOf(st.substring(19,29));
+                }
+                //System.out.println(st.substring(4,14) + " " + st.substring(19,29));
 //                System.out.println(st.substring(19,29));
 
         }
