@@ -77,7 +77,7 @@ public class  KeywordSearchServlet extends HttpServlet
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
             long tj1 = System.nanoTime();
-            tj += (tj1-tj_start);
+            tj += (tj1 - tj_start);
             //System.out.println(query);
 
             JsonArray movie_list = new JsonArray();
@@ -112,7 +112,7 @@ public class  KeywordSearchServlet extends HttpServlet
                 tj2 = System.nanoTime();
                 ResultSet r = s.executeQuery();
                 tj_end = System.nanoTime();
-                tj+=(tj_end-tj2);
+                tj += (tj_end- tj2);
                 while (r.next())
                 {
                     JsonObject sstar = new JsonObject();
@@ -143,6 +143,7 @@ public class  KeywordSearchServlet extends HttpServlet
             //long tj = tj_end - tj_start;
             long ts = ts_end - ts_start;
 
+
             String context_path = getServletContext().getRealPath("/");
             String log_path = context_path + "log.txt";
             System.out.println(log_path);
@@ -150,7 +151,7 @@ public class  KeywordSearchServlet extends HttpServlet
             log.createNewFile();
             try(FileOutputStream fileOutputStream = new FileOutputStream(log,true))
             {
-                String str = "\nts: " + String.format("%10d", ts) + " tj: " + String.format("%10d", tj);
+                String str = "\nts: " + ts + " tj: " + tj;
                 fileOutputStream.write(str.getBytes());
             }
 
