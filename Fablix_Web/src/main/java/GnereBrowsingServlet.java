@@ -3,6 +3,8 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +20,8 @@ import java.util.ArrayList;
 
 @WebServlet(name = "GnereBrowsingServlet", urlPatterns = "/api/genre_browse")
 public class GnereBrowsingServlet extends HttpServlet {
-    @Resource(name = "slavedb")
-    private DataSource dataSource;
+//    @Resource(name = "slavedb")
+//    private DataSource dataSource;
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +30,16 @@ public class GnereBrowsingServlet extends HttpServlet {
 
         try
         {
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
             Connection dbcon = dataSource.getConnection();
+//            Connection dbcon = dataSource.getConnection();
             String genre = request.getParameter("genre");
             String sort = request.getParameter("sort");
             String page = request.getParameter("page");

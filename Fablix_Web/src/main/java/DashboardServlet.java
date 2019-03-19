@@ -3,6 +3,8 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,13 +15,16 @@ import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static java.lang.System.out;
+
 @WebServlet(name = "DashboardServlet", urlPatterns = "/api/dashboard")
 public class DashboardServlet extends HttpServlet {
-    @Resource(name = "slavedb")
-    private DataSource dataSource;
+//    @Resource(name = "slavedb")
+//    private DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+
         JsonArray result = new JsonArray();
         ArrayList<String> tables = getTablesMetadata();
         PrintWriter out = response.getWriter();
@@ -40,7 +45,16 @@ public class DashboardServlet extends HttpServlet {
         ArrayList<String> tables = new ArrayList<>();
         try
         {
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
             Connection dbcon = dataSource.getConnection();
+//            Connection dbcon = dataSource.getConnection();
             DatabaseMetaData metaData = dbcon.getMetaData();
             ResultSet resultSet = metaData.getTables(null,null,null, table);
             while (resultSet.next())
@@ -54,7 +68,7 @@ public class DashboardServlet extends HttpServlet {
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            out.println(e.getMessage());
         }
         return tables;
     }
@@ -64,8 +78,17 @@ public class DashboardServlet extends HttpServlet {
         JsonArray info = new JsonArray();
         try
         {
-            Connection connection = dataSource.getConnection();
-            DatabaseMetaData metaData = connection.getMetaData();
+//            Connection connection = dataSource.getConnection();
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
+            Connection dbcon = dataSource.getConnection();
+            DatabaseMetaData metaData = dbcon.getMetaData();
             ResultSet resultSet = metaData.getColumns(null,null,table_name,null);
             while (resultSet.next())
             {
@@ -74,13 +97,13 @@ public class DashboardServlet extends HttpServlet {
                 each.addProperty("type", resultSet.getString("TYPE_NAME"));
                 info.add(each);
             }
-            connection.close();
+            dbcon.close();
             resultSet.close();
             return info;
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            out.println(e.getMessage());
         }
         return info;
     }

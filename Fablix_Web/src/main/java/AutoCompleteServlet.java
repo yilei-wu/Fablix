@@ -2,6 +2,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import javax.annotation.Resource;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +18,8 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "AutoCompleteServlet", urlPatterns = "/api/auto_complete")
 public class AutoCompleteServlet extends HttpServlet {
-    @Resource(name = "slavedb")
-    private DataSource dataSource;
+//    @Resource(name = "slavedb")
+//    private DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -27,10 +29,20 @@ public class AutoCompleteServlet extends HttpServlet {
         Connection con = null;
         try
         {
+            Context initCtx = new InitialContext();
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                out.println("envCtx is NULL");
+
+
+            DataSource dataSource = (DataSource) envCtx.lookup(Generator.get_source_name());
+            con = dataSource.getConnection();
+
             JsonObject r = new JsonObject();
             r.addProperty("query", keyword);
             JsonArray res  = new JsonArray();
-            con = dataSource.getConnection();
+//            con = dataSource.getConnection();
             //String keyword = request.getParameter("query");
             String query = "SELECT id, title from movies where ed(title, ?) <= 2 OR match(title) AGAINST ( ? in BOOLEAN MODE) LIMIT 10";
             String[] kk = keyword.split("\\s+");
