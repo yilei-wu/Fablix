@@ -16,7 +16,7 @@ import java.util.Map;
 @WebServlet(name = "LoginServlet", urlPatterns = "/api/login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    @Resource(name = "slavedb")
+    @Resource(name = "moviedb")
     private DataSource datasource;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
