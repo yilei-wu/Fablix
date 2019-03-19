@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 @WebServlet(name = "GenreServlet", urlPatterns = "/api/all_genres")
 public class GenreServlet extends HttpServlet {
 
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

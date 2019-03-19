@@ -19,7 +19,7 @@ import java.sql.Statement;
 
 public class SingleMovieServlet extends HttpServlet {
 
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     private DataSource dataSource;
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException
     {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "DashboardServlet", urlPatterns = "/api/dashboard")
 public class DashboardServlet extends HttpServlet {
-    @Resource(name = "moviedb")
+    @Resource(name = "slavedb")
     private DataSource dataSource;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
