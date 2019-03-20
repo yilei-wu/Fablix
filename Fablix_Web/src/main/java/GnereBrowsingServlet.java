@@ -49,7 +49,7 @@ public class GnereBrowsingServlet extends HttpServlet {
             String select_query  = "SELECT  movies.id, title, `year`, director, rating, GROUP_CONCAT(distinct genres.name SEPARATOR ', ') as gname, GROUP_CONCAT(distinct  stars.name SEPARATOR ',') as sname";
             String from_query = " FROM movies left join ratings r on movies.id = r.movieId, genres, genres_in_movies, stars, stars_in_movies";
             String where_join = " WHERE movies.id = genres_in_movies.movieId and genres_in_movies.genreId = genres.id and stars_in_movies.movieId = movies.id and stars_in_movies.starId = stars.id";
-            String genre_condition = " AND genres.name = '" + genre + "'";
+            String genre_condition = " AND genres.name = ? ";
             String group_clause = " GROUP BY title";
             String order_clause = get_sort_clause(sort);
             String offset_clause = get_offset_clause(page, records);
@@ -58,6 +58,8 @@ public class GnereBrowsingServlet extends HttpServlet {
             String queryt = "Select count(distinct movies.id) as a " + from_query + where_join + genre_condition;
             PreparedStatement statement = dbcon.prepareStatement(query);
             PreparedStatement statement1 = dbcon.prepareStatement(queryt);
+            statement.setString(1,genre);
+            statement1.setString(1,genre);
             ResultSet resultSet = statement.executeQuery();
             ResultSet w = statement1.executeQuery();
 
