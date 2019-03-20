@@ -1,114 +1,118 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-    background-color: linen;
-}
+    <style>
+        body {
+            background-color: linen;
+        }
 
-td {
-    border-top-style: solid;
-}
-</style>
+        td {
+            border-top-style: solid;
+        }
+    </style>
 </head>
 <body>
 
 <table style="width:100%">
-  <tr style="font-weight:bold; background-color: orange">
-    <td width="300px">Single-instance version cases</td>
-    <td>Graph Results Screenshot</td>
-    <td>Average Query Time(ms)</td>
-    <td>Average Search Servlet Time(ms)</td>
-    <td>Average JDBC Time(ms)</td>
-    <td>Analysis</td>
-  </tr>
-  <tr>
-    <td>Case 1: HTTP/1 thread</td>
-    <td><img src="images/single1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
-    <td>173 ms</td>
-    <td>3218742 ns</td>
-    <td>2499770 ns</td>
-    <td>1 thread single db</td>
-  </tr>
-  <tr>
-    <td>Case 2: HTTP/10 threads</td>
-    <td><img src="images/single2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
-    <td>180 ms</td>
-    <td>4381410 ns</td>
-    <td>3606441 ns</td>
-    <td>10 threads, takes longer than 1 thread</td>
-  </tr>
-  <tr>
-    <td>Case 3: HTTPS/10 threads</td>
-    <td><img src="images/single3.png" alt="Graph Results Screenshot Case 3" style="width:304px;height:228px;"></td>
-    <td>364 ms</td>
-    <td>3963462 ns</td>
-    <td>3062031 ns</td>
-    <td>takes longer time in query because of the encryption</td>
-  </tr>
-  <tr>
-    <td>Case 4: HTTP/10 threads/No prepared statements</td>
-    <td><img src="images/single4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
-    <td>174 ms</td>
-    <td>4071001 ns</td>
-    <td>452358 ns</td>
-    <td>takes much longer to finish each servlet</td>
-  </tr>
-  <tr>
-    <td>Case 5: HTTP/10 threads/No connection pooling</td>
-    <td><img src="images/single5.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
-    <td>181 ms</td>
-    <td>9840100 ns</td>
-    <td>4237807 ns</td>
-    <td>takes similar time for jdbc, but longer in servlet because the connection resource is not pre-defined</td>
-  </tr>
+    <tr style="font-weight:bold; background-color: orange">
+        <td width="300px">Single-instance version cases</td>
+        <td>Graph Results Screenshot</td>
+        <td>Average Query Time(ms)</td>
+        <td>Average Search Servlet Time(ms)</td>
+        <td>Average JDBC Time(ms)</td>
+        <td>Analysis</td>
+    </tr>
+    <tr>
+        <td>Case 1: HTTP/1 thread</td>
+        <td><img src="images/single1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+        <td>173 ms</td>
+        <td>3218742 ns</td>
+        <td>2499770 ns</td>
+        <td>1 thread single db(as expected)</td>
+    </tr>
+    <tr>
+        <td>Case 2: HTTP/10 threads</td>
+        <td><img src="images/single2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+        <td>180 ms</td>
+        <td>4381410 ns</td>
+        <td>3606441 ns</td>
+        <td>10 threads, takes longer than 1 thread because the server has more workload(handle more requests at the same time)(as expected)</td>
+    </tr>
+    <tr>
+        <td>Case 3: HTTPS/10 threads</td>
+        <td><img src="images/single3.png" alt="Graph Results Screenshot Case 3" style="width:304px;height:228px;"></td>
+        <td>364 ms</td>
+        <td>3963462 ns</td>
+        <td>3062031 ns</td>
+        <td>Compared to case 2, the whole request takes longer time because of the encryption, the query(interaction with the db) is similar to the previous case(as expected)</td>
+    </tr>
+    <tr>
+        <td>Case 4: HTTP/10 threads/No prepared statements</td>
+        <td><img src="images/single4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+        <td>174 ms</td>
+        <td>4071001 ns</td>
+        <td>452358 ns</td>
+        <td>Compared to case 2, the jdbc connection time has greatly reduced&#13;&#10;
+        (not as expected). &#13;&#10;
+        Guess: mysql will cache previous statements in previous tests and choose the correspond prepared statement in its cache</td>
+    </tr>
+    <tr>
+        <td>Case 5: HTTP/10 threads/No connection pooling</td>
+        <td><img src="images/single5.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+        <td>181 ms</td>
+        <td>9840100 ns</td>
+        <td>4237807 ns</td>
+        <td>Compared to case 2, takes similar time for jdbc, but longer in servlet because the connection resource is not pre-defined(as expected)</td>
+    </tr>
 
-</table> 
+</table>
 
 
 <table style="width:100%">
-  <tr style="font-weight:bold; background-color: orange">
-    <td width="300px">Scaled version cases</td>
-    <td>Graph Results Screenshot</td>
-    <td>Average Query Time(ms)</td>
-    <td>Average Search Servlet Time(ms)</td>
-    <td>Average JDBC Time(ms)</td>
-    <td>Analysis</td>
-  </tr>
-  <tr>
-    <td>Case 1: HTTP/1 thread</td>
-    <td><img src="images/scaled1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
-    <td>251 ms</td>
-    <td>3043170 ns</td>
-    <td>2290643 ns</td>
-    <td>quicker than using single db</td>
-  </tr>
-  <tr>
-    <td>Case 2: HTTP/10 threads</td>
-    <td><img src="images/scaled2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
-    <td>245 ms</td>
-    <td>3366564 ns</td>
-    <td>2721934 ns</td>
-    <td>query execution time is faster than 1 thread</td>
-  </tr>
-  <tr>
-    <td>Case 3: HTTP/10 threads/No prepared statements</td>
-    <td><img src="images/scaled3.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
-    <td>263 ms</td>
-    <td>4096663 ns</td>
-    <td>691 ns</td>
-    <td>jdbc connection time has greatly reduced</td>
-  </tr>
-  <tr>
-    <td>Case 4: HTTP/10 threads/No connection pooling</td>
-    <td><img src="images/scaled4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
-    <td>208 ms</td>
-    <td>7419565 ns</td>
-    <td>2811616 ns</td>
-    <td>time increased because the connection resource is not pre-defined</td>
-  </tr>
+    <tr style="font-weight:bold; background-color: orange">
+        <td width="300px">Scaled version cases</td>
+        <td>Graph Results Screenshot</td>
+        <td>Average Query Time(ms)</td>
+        <td>Average Search Servlet Time(ms)</td>
+        <td>Average JDBC Time(ms)</td>
+        <td>Analysis</td>
+    </tr>
+    <tr>
+        <td>Case 1: HTTP/1 thread</td>
+        <td><img src="images/scaled1.png" alt="Graph Results Screenshot Case 1" style="width:304px;height:228px;"></td>
+        <td>251 ms</td>
+        <td>3043170 ns</td>
+        <td>2290643 ns</td>
+        <td>quicker than using single db because of the balancer divide the workload into master/slave(as expected)</td>
+    </tr>
+    <tr>
+        <td>Case 2: HTTP/10 threads</td>
+        <td><img src="images/scaled2.png" alt="Graph Results Screenshot Case 2" style="width:304px;height:228px;"></td>
+        <td>245 ms</td>
+        <td>3366564 ns</td>
+        <td>2721934 ns</td>
+        <td>Comapred to case 1,10 threads, takes longer in responding the request than 1 thread because the server has more workload(handle more requests at the same time)(as expected)</td>
+    </tr>
+    <tr>
+        <td>Case 3: HTTP/10 threads/No prepared statements</td>
+        <td><img src="images/scaled3.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+        <td>263 ms</td>
+        <td>4096663 ns</td>
+        <td>691 ns</td>
+        <td>Compared to case 2, the jdbc connection time has greatly reduced
+            (not as expected).
+            Guess: mysql will cache previous statements in previous tests and choose the correspond prepared statement in its cache</td>
+    </tr>
+    <tr>
+        <td>Case 4: HTTP/10 threads/No connection pooling</td>
+        <td><img src="images/scaled4.png" alt="Graph Results Screenshot Case 4" style="width:304px;height:228px;"></td>
+        <td>208 ms</td>
+        <td>7419565 ns</td>
+        <td>2811616 ns</td>
+        <td>Compared to case2, takes similar time for jdbc, but longer in servlet because the connection resource is not pre-defined(as expected)</td>
+    </tr>
 
-</table> 
+</table>
 
 </body>
 </html>
