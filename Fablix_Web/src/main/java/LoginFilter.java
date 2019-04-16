@@ -43,10 +43,10 @@ public class LoginFilter implements Filter {
     private boolean isUrlAllowedWithoutLogin(String requestURI) {
         requestURI = requestURI.toLowerCase();
 
-        return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
-                || requestURI.endsWith("api/login") || requestURI.endsWith("overall.css")
-                || requestURI.endsWith("generator.js") || requestURI.endsWith("api/employee_login");
-
+//        return requestURI.endsWith("login.html") || requestURI.endsWith("login.js")
+//                || requestURI.endsWith("api/login") || requestURI.endsWith("overall.css")
+//                || requestURI.endsWith("generator.js") || requestURI.endsWith("api/employee_login");
+        return true;
     }
 
     /**
